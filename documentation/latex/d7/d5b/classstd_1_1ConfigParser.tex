@@ -1,0 +1,423 @@
+\doxysection{std\+::Config\+Parser Class Reference}
+\hypertarget{classstd_1_1ConfigParser}{}\label{classstd_1_1ConfigParser}\index{std::ConfigParser@{std::ConfigParser}}
+
+
+class is built for parsing a standard INI, planned support for other file formats  
+
+
+
+
+{\ttfamily \#include $<$Config\+Parser.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classstd_1_1ConfigParser_aa407d8bc971ce7f010cdc994e7536b80}\label{classstd_1_1ConfigParser_aa407d8bc971ce7f010cdc994e7536b80} 
+enum {\bfseries FILETYPE} \{ {\bfseries INI}
+, {\bfseries JSON}
+, {\bfseries XML}
+, {\bfseries TEST}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classstd_1_1ConfigParser_a8ea540d96be9a5837d377a39dffb11b8}\label{classstd_1_1ConfigParser_a8ea540d96be9a5837d377a39dffb11b8} 
+{\bfseries Config\+Parser} ()
+\begin{DoxyCompactList}\small\item\em plain constructor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstd_1_1ConfigParser_af35682af0357a0088f4c2af33b4d4749}{Config\+Parser}} (int c, char \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em parses standard c/c++ arguements in the constructor constructors that allow override of default behavior takes argc \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstd_1_1ConfigParser_a233565f2477e68ef901bd61a4aecbafe}{Config\+Parser}} (bool \+\_\+allow\+\_\+restricted)
+\begin{DoxyCompactList}\small\item\em By default the regex allows a limited superset of alpha num Anything that has characters that fall outside of standard path and alphanum is placed in restricted and not accessible except by specifying that it is allowed in the constructor, this is so if the object is passed to other parts in the code it can\textquotesingle{}t access them except through the interface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstd_1_1ConfigParser_a40a8313a19fc9b242e28839b9897a5dc}{Config\+Parser}} (int c, char \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]}, bool \+\_\+allow\+\_\+restricted)
+\begin{DoxyCompactList}\small\item\em this allows processing of the command line and allowing access to the restricted/filtered ini or clp settings. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstd_1_1ConfigParser_aa0308aedb901eaf2d831f30b90da78f9}{Config\+Parser}} (int c, char \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]}, bool \+\_\+allow\+\_\+restricted, string string\+\_\+ops\+\_\+values, string string\+\_\+ops\+\_\+flags)
+\begin{DoxyCompactList}\small\item\em this allows processing of the command line and allowing access to the restricted/filtered ini or clp settings. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstd_1_1ConfigParser_a63b61e111c42a74ffe43f65c8f59798b}{Config\+Parser}} (string filename, FILETYPE type, int c, char \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em parses both settings and clp options have precidence over ini on identical identifiers takes filename type argc argv TODO(lou)\+: needs to be completed or removed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classstd_1_1ConfigParser_a497acdf097e32cf64e89fd8cb07aad7e}{load\+\_\+ini}} (string filename)
+\begin{DoxyCompactList}\small\item\em Parses a config file with basic INI structure lines starting with ; and \# are comments, category or sections are bracketed \mbox{[}section\mbox{]} when accessing them by the get\+\_\+string or get int function variables under section heads \mbox{[}title\mbox{]} are accessed by title.\+variablename See test cases for basic usage This function will throw an exception if the file doesn\textquotesingle{}t exist, or the file is writeable by the executor This enforced /etc/ security best practice. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{classstd_1_1ConfigParser_ac68f5c885366f266f9a654287f0eca90}{get\+\_\+flags\+\_\+count}} ()
+\begin{DoxyCompactList}\small\item\em returns the number of flags that have been parsed from the command line \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{classstd_1_1ConfigParser_adbc6746100dc98e4f873d3f8346e0297}{get\+\_\+parm\+\_\+count}} ()
+\begin{DoxyCompactList}\small\item\em returns the number of keys that have been parsed from the ini file and clp arguments \end{DoxyCompactList}\item 
+vector$<$ string $>$ \mbox{\hyperlink{classstd_1_1ConfigParser_a4721a43222439c4c592dca31a76a7937}{get\+\_\+keys}} ()
+\begin{DoxyCompactList}\small\item\em returns a vector of keys, if there is alot of variables parsed this might In most cases you aren\textquotesingle{}t going to be dynamically finding keys. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classstd_1_1ConfigParser_a31c329ffc1dcf4ff1143ddbe051a2974}{parse}} (int c, char \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em This parses main(c,arg) command line argument arrays. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classstd_1_1ConfigParser_a8d1059107358478e8cbba37464ac0115}{has\+\_\+key}} (string key)
+\begin{DoxyCompactList}\small\item\em Checks to see if the key exists before accessing it. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classstd_1_1ConfigParser_a3ae062f8ee5f7d62878f34f91c81b6f5}{has\+\_\+flag}} (string flag)
+\begin{DoxyCompactList}\small\item\em returns true if the flag exists \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classstd_1_1ConfigParser_a2b41a995addf118bd7c50dee30df0697}{get\+\_\+string}} (string key)
+\begin{DoxyCompactList}\small\item\em Returns the value of the key pair in string form. \end{DoxyCompactList}\item 
+vector$<$ string $>$ \mbox{\hyperlink{classstd_1_1ConfigParser_a957f45a800ada68ff28d2a051e35dd41}{get\+\_\+restricted\+\_\+keys}} ()
+\begin{DoxyCompactList}\small\item\em returns the keys of the restricted list this can be done with allow\+\_\+restrictions but accessing them requires the flag \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classstd_1_1ConfigParser_acd0399a23fabf8fa8560a1cc44ebe756}{get\+\_\+restricted\+\_\+string}} (string key)
+\begin{DoxyCompactList}\small\item\em Restricted options are set when during parsing the variable or variable name doesn\textquotesingle{}t meet the regex this returns a restricted variable only if allow restricted is enabled. \end{DoxyCompactList}\item 
+int64\+\_\+t \mbox{\hyperlink{classstd_1_1ConfigParser_ac54b4a3fe51ae3b75e49bd0151bbbc1d}{get\+\_\+longlong}} (string key)
+\begin{DoxyCompactList}\small\item\em Gets an option or variable by key but attempts to return it as an int type. \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{classstd_1_1ConfigParser_a05f8c9d5de06d52de1d0dea637e9220c}{get\+\_\+long}} (string key)
+\begin{DoxyCompactList}\small\item\em gets long option if NaN or key does not exist throws and exception \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{classstd_1_1ConfigParser_a4f0ead8f990cd0d754a32a8bf645f918}{get\+\_\+int}} (string key)
+\begin{DoxyCompactList}\small\item\em gets an int \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classstd_1_1ConfigParser_a7bba84c8398977934cf9ccebcf723574}{get\+\_\+double}} (string key)
+\begin{DoxyCompactList}\small\item\em gets double option if NaN or key does not exist throws and exception \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classstd_1_1ConfigParser_aeee965e8e6658ba38a9a4c5e4eb230ac}{get\+\_\+float}} (string key)
+\begin{DoxyCompactList}\small\item\em gets float option if NaN or key does not exist throws and exception \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+class is built for parsing a standard INI, planned support for other file formats 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classstd_1_1ConfigParser_af35682af0357a0088f4c2af33b4d4749}\label{classstd_1_1ConfigParser_af35682af0357a0088f4c2af33b4d4749} 
+\index{std::ConfigParser@{std::ConfigParser}!ConfigParser@{ConfigParser}}
+\index{ConfigParser@{ConfigParser}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{ConfigParser()}{ConfigParser()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily std\+::\+Config\+Parser\+::\+Config\+Parser (\begin{DoxyParamCaption}\item[{int}]{c,  }\item[{char \texorpdfstring{$\ast$}{*}}]{v\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+parses standard c/c++ arguements in the constructor constructors that allow override of default behavior takes argc \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & (int argc, \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]}} & \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1ConfigParser_a233565f2477e68ef901bd61a4aecbafe}\label{classstd_1_1ConfigParser_a233565f2477e68ef901bd61a4aecbafe} 
+\index{std::ConfigParser@{std::ConfigParser}!ConfigParser@{ConfigParser}}
+\index{ConfigParser@{ConfigParser}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{ConfigParser()}{ConfigParser()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily std\+::\+Config\+Parser\+::\+Config\+Parser (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+allow\+\_\+restricted }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+By default the regex allows a limited superset of alpha num Anything that has characters that fall outside of standard path and alphanum is placed in restricted and not accessible except by specifying that it is allowed in the constructor, this is so if the object is passed to other parts in the code it can\textquotesingle{}t access them except through the interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+allow\+\_\+restricted} & bool \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1ConfigParser_a40a8313a19fc9b242e28839b9897a5dc}\label{classstd_1_1ConfigParser_a40a8313a19fc9b242e28839b9897a5dc} 
+\index{std::ConfigParser@{std::ConfigParser}!ConfigParser@{ConfigParser}}
+\index{ConfigParser@{ConfigParser}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{ConfigParser()}{ConfigParser()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily std\+::\+Config\+Parser\+::\+Config\+Parser (\begin{DoxyParamCaption}\item[{int}]{c,  }\item[{char \texorpdfstring{$\ast$}{*}}]{v\mbox{[}$\,$\mbox{]},  }\item[{bool}]{\+\_\+allow\+\_\+restricted }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+this allows processing of the command line and allowing access to the restricted/filtered ini or clp settings. 
+
+takes argc and \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv 
+\begin{DoxyParams}{Parameters}
+{\em c} & int argc from main \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]}} & \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv from main \\
+\hline
+{\em \+\_\+allow\+\_\+restricted} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1ConfigParser_aa0308aedb901eaf2d831f30b90da78f9}\label{classstd_1_1ConfigParser_aa0308aedb901eaf2d831f30b90da78f9} 
+\index{std::ConfigParser@{std::ConfigParser}!ConfigParser@{ConfigParser}}
+\index{ConfigParser@{ConfigParser}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{ConfigParser()}{ConfigParser()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily std\+::\+Config\+Parser\+::\+Config\+Parser (\begin{DoxyParamCaption}\item[{int}]{c,  }\item[{char \texorpdfstring{$\ast$}{*}}]{v\mbox{[}$\,$\mbox{]},  }\item[{bool}]{\+\_\+allow\+\_\+restricted,  }\item[{string}]{string\+\_\+ops\+\_\+values,  }\item[{string}]{string\+\_\+ops\+\_\+flags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+this allows processing of the command line and allowing access to the restricted/filtered ini or clp settings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & int argc from main clp \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]}} & \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv from main clp \\
+\hline
+{\em \+\_\+allow\+\_\+restricted} & allows access to restricted vars \\
+\hline
+{\em string\+\_\+ops\+\_\+values} & the regex to determine valid string \\
+\hline
+{\em string\+\_\+ops\+\_\+flags} & regex to determin valid flags TODO \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1ConfigParser_a63b61e111c42a74ffe43f65c8f59798b}\label{classstd_1_1ConfigParser_a63b61e111c42a74ffe43f65c8f59798b} 
+\index{std::ConfigParser@{std::ConfigParser}!ConfigParser@{ConfigParser}}
+\index{ConfigParser@{ConfigParser}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{ConfigParser()}{ConfigParser()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily std\+::\+Config\+Parser\+::\+Config\+Parser (\begin{DoxyParamCaption}\item[{string}]{filename,  }\item[{FILETYPE}]{type,  }\item[{int}]{c,  }\item[{char \texorpdfstring{$\ast$}{*}}]{v\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+parses both settings and clp options have precidence over ini on identical identifiers takes filename type argc argv TODO(lou)\+: needs to be completed or removed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & that will be loaded \\
+\hline
+{\em type} & of file for switching parsers \\
+\hline
+{\em c} & int argc \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]}} & \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classstd_1_1ConfigParser_a7bba84c8398977934cf9ccebcf723574}\label{classstd_1_1ConfigParser_a7bba84c8398977934cf9ccebcf723574} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_double@{get\_double}}
+\index{get\_double@{get\_double}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_double()}{get\_double()}}
+{\footnotesize\ttfamily double std\+::\+Config\+Parser\+::get\+\_\+double (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets double option if NaN or key does not exist throws and exception 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double value 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_ac68f5c885366f266f9a654287f0eca90}\label{classstd_1_1ConfigParser_ac68f5c885366f266f9a654287f0eca90} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_flags\_count@{get\_flags\_count}}
+\index{get\_flags\_count@{get\_flags\_count}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_flags\_count()}{get\_flags\_count()}}
+{\footnotesize\ttfamily uint32\+\_\+t std\+::\+Config\+Parser\+::get\+\_\+flags\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+returns the number of flags that have been parsed from the command line 
+
+\begin{DoxyReturn}{Returns}
+uint32\+\_\+t 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_aeee965e8e6658ba38a9a4c5e4eb230ac}\label{classstd_1_1ConfigParser_aeee965e8e6658ba38a9a4c5e4eb230ac} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_float@{get\_float}}
+\index{get\_float@{get\_float}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_float()}{get\_float()}}
+{\footnotesize\ttfamily float std\+::\+Config\+Parser\+::get\+\_\+float (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets float option if NaN or key does not exist throws and exception 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float value 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_a4f0ead8f990cd0d754a32a8bf645f918}\label{classstd_1_1ConfigParser_a4f0ead8f990cd0d754a32a8bf645f918} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_int@{get\_int}}
+\index{get\_int@{get\_int}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_int()}{get\_int()}}
+{\footnotesize\ttfamily int32\+\_\+t std\+::\+Config\+Parser\+::get\+\_\+int (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets an int 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & string return int32\+\_\+t return value \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1ConfigParser_a4721a43222439c4c592dca31a76a7937}\label{classstd_1_1ConfigParser_a4721a43222439c4c592dca31a76a7937} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_keys@{get\_keys}}
+\index{get\_keys@{get\_keys}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_keys()}{get\_keys()}}
+{\footnotesize\ttfamily vector$<$ string $>$ std\+::\+Config\+Parser\+::get\+\_\+keys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+returns a vector of keys, if there is alot of variables parsed this might In most cases you aren\textquotesingle{}t going to be dynamically finding keys. 
+
+\begin{DoxyReturn}{Returns}
+vector$<$string$>$ list of keys 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_a05f8c9d5de06d52de1d0dea637e9220c}\label{classstd_1_1ConfigParser_a05f8c9d5de06d52de1d0dea637e9220c} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_long@{get\_long}}
+\index{get\_long@{get\_long}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_long()}{get\_long()}}
+{\footnotesize\ttfamily int32\+\_\+t std\+::\+Config\+Parser\+::get\+\_\+long (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gets long option if NaN or key does not exist throws and exception 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & of the int \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int32 resulting number 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_ac54b4a3fe51ae3b75e49bd0151bbbc1d}\label{classstd_1_1ConfigParser_ac54b4a3fe51ae3b75e49bd0151bbbc1d} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_longlong@{get\_longlong}}
+\index{get\_longlong@{get\_longlong}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_longlong()}{get\_longlong()}}
+{\footnotesize\ttfamily int64\+\_\+t std\+::\+Config\+Parser\+::get\+\_\+longlong (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets an option or variable by key but attempts to return it as an int type. 
+
+throws \doxylink{classkey__value__exception}{key\+\_\+value\+\_\+exception} if the key does not exist or invalid argument NaN 
+\begin{DoxyParams}{Parameters}
+{\em key} & key of the int \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int64\+\_\+t longlong 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_adbc6746100dc98e4f873d3f8346e0297}\label{classstd_1_1ConfigParser_adbc6746100dc98e4f873d3f8346e0297} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_parm\_count@{get\_parm\_count}}
+\index{get\_parm\_count@{get\_parm\_count}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_parm\_count()}{get\_parm\_count()}}
+{\footnotesize\ttfamily uint32\+\_\+t std\+::\+Config\+Parser\+::get\+\_\+parm\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+returns the number of keys that have been parsed from the ini file and clp arguments 
+
+\begin{DoxyReturn}{Returns}
+uint32\+\_\+t count 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_a957f45a800ada68ff28d2a051e35dd41}\label{classstd_1_1ConfigParser_a957f45a800ada68ff28d2a051e35dd41} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_restricted\_keys@{get\_restricted\_keys}}
+\index{get\_restricted\_keys@{get\_restricted\_keys}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_restricted\_keys()}{get\_restricted\_keys()}}
+{\footnotesize\ttfamily vector$<$ string $>$ std\+::\+Config\+Parser\+::get\+\_\+restricted\+\_\+keys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+returns the keys of the restricted list this can be done with allow\+\_\+restrictions but accessing them requires the flag 
+
+\begin{DoxyReturn}{Returns}
+vector$<$string$>$ list of restricted keys 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_acd0399a23fabf8fa8560a1cc44ebe756}\label{classstd_1_1ConfigParser_acd0399a23fabf8fa8560a1cc44ebe756} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_restricted\_string@{get\_restricted\_string}}
+\index{get\_restricted\_string@{get\_restricted\_string}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_restricted\_string()}{get\_restricted\_string()}}
+{\footnotesize\ttfamily string std\+::\+Config\+Parser\+::get\+\_\+restricted\+\_\+string (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restricted options are set when during parsing the variable or variable name doesn\textquotesingle{}t meet the regex this returns a restricted variable only if allow restricted is enabled. 
+
+considering allowing for some authorization check 
+\begin{DoxyParams}{Parameters}
+{\em key} & (string) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string of the restricted value 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_a2b41a995addf118bd7c50dee30df0697}\label{classstd_1_1ConfigParser_a2b41a995addf118bd7c50dee30df0697} 
+\index{std::ConfigParser@{std::ConfigParser}!get\_string@{get\_string}}
+\index{get\_string@{get\_string}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{get\_string()}{get\_string()}}
+{\footnotesize\ttfamily string std\+::\+Config\+Parser\+::get\+\_\+string (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the value of the key pair in string form. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & to return the value of \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string value of the key pair 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_a3ae062f8ee5f7d62878f34f91c81b6f5}\label{classstd_1_1ConfigParser_a3ae062f8ee5f7d62878f34f91c81b6f5} 
+\index{std::ConfigParser@{std::ConfigParser}!has\_flag@{has\_flag}}
+\index{has\_flag@{has\_flag}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{has\_flag()}{has\_flag()}}
+{\footnotesize\ttfamily bool std\+::\+Config\+Parser\+::has\+\_\+flag (\begin{DoxyParamCaption}\item[{string}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+returns true if the flag exists 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_a8d1059107358478e8cbba37464ac0115}\label{classstd_1_1ConfigParser_a8d1059107358478e8cbba37464ac0115} 
+\index{std::ConfigParser@{std::ConfigParser}!has\_key@{has\_key}}
+\index{has\_key@{has\_key}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{has\_key()}{has\_key()}}
+{\footnotesize\ttfamily bool std\+::\+Config\+Parser\+::has\+\_\+key (\begin{DoxyParamCaption}\item[{string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks to see if the key exists before accessing it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1ConfigParser_a497acdf097e32cf64e89fd8cb07aad7e}\label{classstd_1_1ConfigParser_a497acdf097e32cf64e89fd8cb07aad7e} 
+\index{std::ConfigParser@{std::ConfigParser}!load\_ini@{load\_ini}}
+\index{load\_ini@{load\_ini}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{load\_ini()}{load\_ini()}}
+{\footnotesize\ttfamily void std\+::\+Config\+Parser\+::load\+\_\+ini (\begin{DoxyParamCaption}\item[{string}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Parses a config file with basic INI structure lines starting with ; and \# are comments, category or sections are bracketed \mbox{[}section\mbox{]} when accessing them by the get\+\_\+string or get int function variables under section heads \mbox{[}title\mbox{]} are accessed by title.\+variablename See test cases for basic usage This function will throw an exception if the file doesn\textquotesingle{}t exist, or the file is writeable by the executor This enforced /etc/ security best practice. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & of file to be loaded for parameters \\
+\hline
+\end{DoxyParams}
+Don\textquotesingle{}t try and open the file, and throw an exception, if the file does not exist or is not a regular file.
+
+We don\textquotesingle{}t want the user executing the executable to be able to write to the ini by default
+
+if the file is not open abort\Hypertarget{classstd_1_1ConfigParser_a31c329ffc1dcf4ff1143ddbe051a2974}\label{classstd_1_1ConfigParser_a31c329ffc1dcf4ff1143ddbe051a2974} 
+\index{std::ConfigParser@{std::ConfigParser}!parse@{parse}}
+\index{parse@{parse}!std::ConfigParser@{std::ConfigParser}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily void std\+::\+Config\+Parser\+::parse (\begin{DoxyParamCaption}\item[{int}]{c,  }\item[{char \texorpdfstring{$\ast$}{*}}]{v\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This parses main(c,arg) command line argument arrays. 
+
+it will grab -\/f=as and put it in the options as f -\/f without an equals are treated as flags, same as -\/flag, these are easy to check for and have an O(log(n)) lookup. Where as getting specific keys will have the same lookup but are stored in a map Typically called explicitly but can be called after construction 
+\begin{DoxyParams}{Parameters}
+{\em c} & int argc \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}v\mbox{[}$\,$\mbox{]}} & \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Config\+Parser.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,375 @@
+\doxysection{Config\+Parser.\+hpp}
+\hypertarget{ConfigParser_8hpp_source}{}\label{ConfigParser_8hpp_source}\index{include/ConfigParser.hpp@{include/ConfigParser.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ *}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ This\ software\ has\ a\ Copyright\ 2024\ to\ Louis\ C\ Seifert\ III\ all\ rights\ reserved\ }}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ it\ is\ freely\ distributable\ under\ the\ MIT\ license.\ If\ you\ use\ this\ api:\ }}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy\ of\ this\ software\ and\ associated\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ documentation\ files\ (the\ “Software”),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ }}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ }}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ “AS\ IS”,\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ }}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ }}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ push}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wmaybe-\/uninitialized"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <regex>}\ \textcolor{comment}{//NOLINT}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <cctype>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <ParserExceptions.hpp>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ NOKEY\ "{}The\ key\ does\ not\ exist."{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ STROPVARS\ "{}\string^[A-\/Z=a-\/z0-\/9\(\backslash\)"{}\(\backslash\)\(\backslash\)-\/\_.\string~]*\$"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ STROPFLAGS\ "{}\string^[A-\/Za-\/z0-\/9-\/\_.]*"{}}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ NAN\ "{}NaN:\ Not\ a\ number"{}}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }std\{}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classstd_1_1string__ops}{string\_ops}}\ \{}
+\DoxyCodeLine{00044\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00045\ \ \ regex\ re;}
+\DoxyCodeLine{00046\ \ \ regex\ flag;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classstd_1_1string__ops_a390f03ce33e05051f2b1a45e9a611f9e}{set\_default\_regex}}()\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ regex\ re(STROPVARS);}
+\DoxyCodeLine{00056\ \ \ \ \ regex\ flag(STROPFLAGS);}
+\DoxyCodeLine{00057\ \ \ \ \ this-\/>re\ =\ re;}
+\DoxyCodeLine{00058\ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{classstd_1_1string__ops_adf0838333d815594612b2e39fdcef749}{string\_ops}}()\ :\ re(STROPVARS),\ flag(STROPFLAGS)\ \{\}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a3a13f15f20576735c1ce7853481efff7}{string\_ops}}(\textcolor{keywordtype}{string}\ option\_pattern,\ \textcolor{keywordtype}{string}\ flag\_pattern)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ :\ re(option\_pattern),\ flag(flag\_pattern)\ \{\}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classstd_1_1string__ops_aa1b922639fffd587777b059ea06ed681}{strip\_check}}(\textcolor{keywordtype}{string}\ *s)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a2f35ca8015eeaeb892c333401d2dbad9}{string\_ops::trim}}(s);}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a5d6ebe845c3114a5071eae8bd6990882}{string\_ops::strip\_qoutes}}(s);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classstd_1_1string__ops_a3c25e43ce09f54445a4cfd78e6fcb773}{default\_match}}(*s);}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classstd_1_1string__ops_a3c25e43ce09f54445a4cfd78e6fcb773}{default\_match}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&s)\ \{\ \textcolor{keywordflow}{return}\ regex\_match(s,\ re);\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classstd_1_1string__ops_a70122ac1df7bbd11a1bffb31fc59eb81}{rtrim}}(\textcolor{keywordtype}{string}\ *s)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{while}\ (isspace(s-\/>at(s-\/>size()\ -\/\ 1)))\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ s-\/>pop\_back();}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classstd_1_1string__ops_a353e49bf11957bffe4ed2e433cb1a9e3}{rtrim}}(\textcolor{keywordtype}{string}\ s)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a70122ac1df7bbd11a1bffb31fc59eb81}{rtrim}}(\&s);}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{00115\ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classstd_1_1string__ops_a5566ef2719d4ededb38110882862365b}{ltrim}}(\textcolor{keywordtype}{string}\ *s)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ uint32\_t\ pos\ =\ 0;}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{while}\ (isspace(s-\/>at(pos))\ \&\&\ pos\ !=\ s-\/>npos)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ pos++;}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ s-\/>erase(0,\ pos);}
+\DoxyCodeLine{00127\ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classstd_1_1string__ops_a8bffe0f8e5b430ec2f27e2c4d1463dc9}{ltrime}}(\textcolor{keywordtype}{string}\ s)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a5566ef2719d4ededb38110882862365b}{ltrim}}(\&s);}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{00139\ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classstd_1_1string__ops_a2f35ca8015eeaeb892c333401d2dbad9}{trim}}(\textcolor{keywordtype}{string}\ *s)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a70122ac1df7bbd11a1bffb31fc59eb81}{rtrim}}(s);}
+\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a5566ef2719d4ededb38110882862365b}{ltrim}}(s);}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classstd_1_1string__ops_aed37243831d6148e65b6d9c7d92203f8}{trim}}(\textcolor{keywordtype}{string}\ s)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a2f35ca8015eeaeb892c333401d2dbad9}{trim}}(\&s);}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{00160\ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classstd_1_1string__ops_a5d6ebe845c3114a5071eae8bd6990882}{strip\_qoutes}}(\textcolor{keywordtype}{string}\ *s)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{if}\ ((s-\/>at(0)\ ==\ \textcolor{charliteral}{'"{}'}\ \&\&\ s-\/>at(s-\/>length()\ -\/\ 1)\ ==\ \textcolor{charliteral}{'"{}'})\ ||}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ (s-\/>at(0)\ ==\ \textcolor{charliteral}{'\(\backslash\)''}\ \&\&\ s-\/>at(s-\/>length()\ -\/\ 1)\ ==\ \textcolor{charliteral}{'\(\backslash\)''}))\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ s-\/>erase(0,\ 1);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ s-\/>pop\_back();}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classstd_1_1string__ops_aee06ed3cfbfc74bcad4022d1c665e221}{strip\_qoutes}}(\textcolor{keywordtype}{string}\ s)\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a5d6ebe845c3114a5071eae8bd6990882}{strip\_qoutes}}(\&s);}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{00182\ \ \ \}}
+\DoxyCodeLine{00183\ \};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00192\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classstd_1_1ConfigParser}{ConfigParser}}\ \{}
+\DoxyCodeLine{00193\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00195\ \ \ map<std::string,\ std::string>\ options;}
+\DoxyCodeLine{00197\ \ \ set<string>\ flags;}
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordtype}{string}\ configFile\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00201\ \ \ map<std::string,\ std::string>\ restricted;}
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{bool}\ allow\_override\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{bool}\ allow\_writeable\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordtype}{bool}\ allow\_restricted\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{bool}\ ini\_loaded\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00211\ \ \ \mbox{\hyperlink{classstd_1_1string__ops}{string\_ops}}\ stringops;}
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{int}\ clp\_parm\_count\ =\ 0;}
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{int}\ ini\_parm\_count\ =\ 0;}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{int}\ restricted\_count\ =\ 0;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{enum}\ FILETYPE\ \{\ INI,\ JSON,\ XML,\ TEST\ \};}
+\DoxyCodeLine{00224\ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_a8ea540d96be9a5837d377a39dffb11b8}{ConfigParser}}()\ \{\}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00233\ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_af35682af0357a0088f4c2af33b4d4749}{ConfigParser}}(\textcolor{keywordtype}{int}\ c,\ \textcolor{keywordtype}{char}\ *v[])\ \{\ \mbox{\hyperlink{classstd_1_1ConfigParser_a31c329ffc1dcf4ff1143ddbe051a2974}{parse}}(c,\ v);\ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classstd_1_1ConfigParser_a233565f2477e68ef901bd61a4aecbafe}{ConfigParser}}(\textcolor{keywordtype}{bool}\ \_allow\_restricted)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ this-\/>allow\_restricted\ =\ \_allow\_restricted;}
+\DoxyCodeLine{00246\ \ \ \}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00255\ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_a40a8313a19fc9b242e28839b9897a5dc}{ConfigParser}}(\textcolor{keywordtype}{int}\ c,\ \textcolor{keywordtype}{char}\ *v[],\ \textcolor{keywordtype}{bool}\ \_allow\_restricted)\{}
+\DoxyCodeLine{00256\ \ \ \ \ this-\/>allow\_restricted=\_allow\_restricted;}
+\DoxyCodeLine{00257\ \ \ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_a31c329ffc1dcf4ff1143ddbe051a2974}{parse}}(c,v);}
+\DoxyCodeLine{00258\ \ \ \}}
+\DoxyCodeLine{00268\ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_aa0308aedb901eaf2d831f30b90da78f9}{ConfigParser}}(\textcolor{keywordtype}{int}\ c,\ \textcolor{keywordtype}{char}\ *v[],\ \textcolor{keywordtype}{bool}\ \_allow\_restricted,}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ string\_ops\_values,\ \textcolor{keywordtype}{string}\ string\_ops\_flags)}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ :\ stringops(string\_ops\_values,\ string\_ops\_flags)\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_a31c329ffc1dcf4ff1143ddbe051a2974}{parse}}(c,\ v);}
+\DoxyCodeLine{00272\ \ \ \ \ this-\/>allow\_restricted\ =\ \_allow\_restricted;}
+\DoxyCodeLine{00273\ \ \ \}}
+\DoxyCodeLine{00283\ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_a63b61e111c42a74ffe43f65c8f59798b}{ConfigParser}}(\textcolor{keywordtype}{string}\ filename,\ FILETYPE\ type,\ \textcolor{keywordtype}{int}\ c,\ \textcolor{keywordtype}{char}\ *v[])\ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_a31c329ffc1dcf4ff1143ddbe051a2974}{parse}}(c,\ v);}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{comment}{//\ TODO(lou):\ FINISH\ IMPLEMENTATION\ OF\ TYPES}}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ ConfigParser::FILETYPE::INI)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \mbox{\hyperlink{classstd_1_1ConfigParser_a497acdf097e32cf64e89fd8cb07aad7e}{load\_ini}}(filename);}
+\DoxyCodeLine{00288\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ ConfigParser::FILETYPE::TEST)\ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Parser\ FILETYPE\ is\ TEST\ TYPE\ that\ prints\ this\ line"{}}\ <<\ endl;}
+\DoxyCodeLine{00290\ \ \ \ \ \}}
+\DoxyCodeLine{00291\ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00304\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classstd_1_1ConfigParser_a497acdf097e32cf64e89fd8cb07aad7e}{load\_ini}}(\textcolor{keywordtype}{string}\ filename)\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordflow}{if}\ (ini\_loaded)\ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classsecurity__exception}{security\_exception}}(\textcolor{stringliteral}{"{}you\ can\ only\ load\ an\ ini\ file\ once"{}});}
+\DoxyCodeLine{00307\ \ \ \ \ \}}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordflow}{if}\ (!std::filesystem::exists(filename)\ ||}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ !std::filesystem::is\_regular\_file(filename))\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classfile__access__exception}{file\_access\_exception}}(}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{string})\ \textcolor{stringliteral}{"{}file\ either\ does\ not\ exist\ or\ is\ not\ a\ regular\ file"{}});}
+\DoxyCodeLine{00316\ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00322\ \ \ \ \ std::ofstream\ ofile(filename,\ std::ios::out);}
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordflow}{if}\ (!allow\_writeable\ \&\&\ ofile.is\_open())\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ ofile.close();}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classsecurity__exception}{security\_exception}}((}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string})\ \textcolor{stringliteral}{"{}Config\ files\ should\ not\ be\ writeable\ by\ the\ executor"{}});}
+\DoxyCodeLine{00327\ \ \ \ \ \}}
+\DoxyCodeLine{00328\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00333\ \ \ \ \ std::ifstream\ file(filename,\ std::ios::in);}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classfile__access__exception}{file\_access\_exception}}(}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}File\ System\ Error:\ cannot\ open,\ potentially\ permission"{}});}
+\DoxyCodeLine{00337\ \ \ \ \ \}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordtype}{string}\ section\_head\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line.empty())\ \{}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (line[0]\ ==\ \textcolor{charliteral}{'\ '}\ ||\ line[0]\ ==\ \textcolor{charliteral}{'\(\backslash\)t'})\ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ line.erase(0,\ 1);}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line.size()\ ==\ 0\ ||\ line[0]\ ==\ \textcolor{charliteral}{'\#'})\ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line[0]\ ==\ \textcolor{charliteral}{';'}\ ||}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ (line.length()\ >\ 2\ \&\&\ line[0]\ ==\ \textcolor{charliteral}{'/'}\ \&\&\ line[1]\ ==\ \textcolor{charliteral}{'/'}))\ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \textcolor{comment}{/*TODO\ add\ regex\ check\ here*/}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line[0]\ ==\ \textcolor{charliteral}{'['})\ \{}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ section\_head\ =\ line.substr(1,\ line.find\_first\_of(\textcolor{charliteral}{']'})\ -\/\ 1)\ +\ \textcolor{stringliteral}{"{}."{}};}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ s\ =\ line.find\_first\_of(\textcolor{stringliteral}{"{}="{}},\ 0);}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s\ ==\ line.npos)\ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ flags.insert(line);}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ key\ =\ line.substr(0,\ s);}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ value\ =\ line.substr(s\ +\ 1,\ line.length());}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a5d6ebe845c3114a5071eae8bd6990882}{string\_ops::strip\_qoutes}}(\&key);}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \mbox{\hyperlink{classstd_1_1string__ops_a5d6ebe845c3114a5071eae8bd6990882}{string\_ops::strip\_qoutes}}(\&value);}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ key\ =\ section\_head\ +\ key;}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!stringops.\mbox{\hyperlink{classstd_1_1string__ops_aa1b922639fffd587777b059ea06ed681}{strip\_check}}(\&key)\ ||\ !stringops.\mbox{\hyperlink{classstd_1_1string__ops_aa1b922639fffd587777b059ea06ed681}{strip\_check}}(\&value))\ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ restricted.emplace(key,\ value);}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ restricted\_count++;}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (options.contains(key))\ \{}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ options[key]\ =\ value;}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ options.emplace(key,\ value);}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ ini\_parm\_count++;}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00383\ \ \ \ \ \}}
+\DoxyCodeLine{00384\ \ \ \ \ ini\_loaded\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00385\ \ \ \}}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00391\ \ \ uint32\_t\ \mbox{\hyperlink{classstd_1_1ConfigParser_ac68f5c885366f266f9a654287f0eca90}{get\_flags\_count}}()\ \{\ \textcolor{keywordflow}{return}\ flags.size();\ \}}
+\DoxyCodeLine{00392\ \ \ }
+\DoxyCodeLine{00398\ \ \ uint32\_t\ \mbox{\hyperlink{classstd_1_1ConfigParser_adbc6746100dc98e4f873d3f8346e0297}{get\_parm\_count}}()\ \{\ \textcolor{keywordflow}{return}\ ini\_parm\_count\ +\ clp\_parm\_count;\ \}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00405\ \ \ vector<string>\ \mbox{\hyperlink{classstd_1_1ConfigParser_a4721a43222439c4c592dca31a76a7937}{get\_keys}}()\ \{}
+\DoxyCodeLine{00406\ \ \ \ \ vector<string>\ r;}
+\DoxyCodeLine{00407\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&[key,\ value]\ :\ options)\ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ r.push\_back(key);}
+\DoxyCodeLine{00409\ \ \ \ \ \}}
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00411\ \ \ \}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00422\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classstd_1_1ConfigParser_a31c329ffc1dcf4ff1143ddbe051a2974}{parse}}(\textcolor{keywordtype}{int}\ c,\ \textcolor{keywordtype}{char}\ *v[])\ \{}
+\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordtype}{string}\ prev\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00424\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ c;\ i++)\ \{}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ str(v[i]);}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ key;}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ value;}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ flag\ =\ str.find\_first\_of(\textcolor{charliteral}{'-\/'},\ 0);}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ assigner\ =\ str.find\_first\_of(\textcolor{charliteral}{'='},\ 0);}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ (flag\ ==\ assigner)\ \{}}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ continue;}}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (flag\ ==\ 0\ \&\&\ assigner\ >=\ str.npos)\ \{}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (str[0]\ ==\ \textcolor{charliteral}{'-\/'})\ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ str.erase(0,\ 1);}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ prev\ =\ str;}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ flags.insert(str);}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (flag\ ==\ 0\ \&\&\ assigner\ !=\ string::npos)\ \{}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Case\ where\ input\ is\ a\ -\/something=something}}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ key\ =\ str.substr(1,\ assigner\ -\/\ 1);}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ value\ =\ str.substr(assigner\ +\ 1,\ str.length()\ -\/\ assigner\ -\/\ 1);}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!options.contains(key))\ \{}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ options.emplace(key,\ value);}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00451\ \ \ \ \ \}}
+\DoxyCodeLine{00452\ \ \ \}}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00459\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classstd_1_1ConfigParser_a8d1059107358478e8cbba37464ac0115}{has\_key}}(\textcolor{keywordtype}{string}\ key)\ \{\ \textcolor{keywordflow}{return}\ options.contains(key);\ \}}
+\DoxyCodeLine{00465\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classstd_1_1ConfigParser_a3ae062f8ee5f7d62878f34f91c81b6f5}{has\_flag}}(\textcolor{keywordtype}{string}\ flag)\ \{\ \textcolor{keywordflow}{return}\ flags.find(flag)\ !=\ flags.end();\ \}}
+\DoxyCodeLine{00471\ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classstd_1_1ConfigParser_a2b41a995addf118bd7c50dee30df0697}{get\_string}}(\textcolor{keywordtype}{string}\ key)\ \{}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keywordflow}{if}\ (options.contains(key))\ \{}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>options[key];}
+\DoxyCodeLine{00474\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}((\textcolor{keyword}{const}\ \textcolor{keywordtype}{string})NOKEY);}
+\DoxyCodeLine{00476\ \ \ \ \ \}}
+\DoxyCodeLine{00477\ \ \ \}}
+\DoxyCodeLine{00484\ \ \ vector<string>\ \mbox{\hyperlink{classstd_1_1ConfigParser_a957f45a800ada68ff28d2a051e35dd41}{get\_restricted\_keys}}()\ \{}
+\DoxyCodeLine{00485\ \ \ \ \ vector<string>\ r;}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&[key,\ value]\ :\ restricted)\ \{}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ r.push\_back(key);}
+\DoxyCodeLine{00488\ \ \ \ \ \}}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00490\ \ \ \}}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00500\ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classstd_1_1ConfigParser_acd0399a23fabf8fa8560a1cc44ebe756}{get\_restricted\_string}}(\textcolor{keywordtype}{string}\ key)\ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordflow}{if}\ (allow\_restricted)\ \{}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (restricted.contains(key))\ \{}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>restricted[key];}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00505\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classsecurity__exception}{security\_exception}}(\textcolor{stringliteral}{"{}Allow\_restricted\ is\ set\ to\ false\ by\ default,\ "{}}}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}enable\ it\ to\ use\ restricted"{}});}
+\DoxyCodeLine{00508\ \ \ \ \ \}}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}(NOKEY);}
+\DoxyCodeLine{00510\ \ \ \}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00519\ \ \ int64\_t\ \mbox{\hyperlink{classstd_1_1ConfigParser_ac54b4a3fe51ae3b75e49bd0151bbbc1d}{get\_longlong}}(\textcolor{keywordtype}{string}\ key)\ \{}
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordflow}{if}\ (options.contains(key))\ \{}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ int64\_t\ r\ =\ stoll(options[key]);}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (exception\ \&e)\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}(NAN);}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00527\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}((\textcolor{keyword}{const}\ \textcolor{keywordtype}{string})NOKEY);}
+\DoxyCodeLine{00529\ \ \ \ \ \}}
+\DoxyCodeLine{00530\ \ \ \}}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00537\ \ \ int32\_t\ \mbox{\hyperlink{classstd_1_1ConfigParser_a05f8c9d5de06d52de1d0dea637e9220c}{get\_long}}(\textcolor{keywordtype}{string}\ key)\ \{}
+\DoxyCodeLine{00538\ \ \ \ \ \textcolor{keywordflow}{if}\ (options.contains(key))\ \{}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ int32\_t\ r\ =\ stol(options[key]);}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (exception\ \&e)\ \{}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}(NAN);}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00545\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}((\textcolor{keyword}{const}\ \textcolor{keywordtype}{string})NOKEY);}
+\DoxyCodeLine{00547\ \ \ \ \ \}}
+\DoxyCodeLine{00548\ \ \ \}}
+\DoxyCodeLine{00554\ \ \ int32\_t\ \mbox{\hyperlink{classstd_1_1ConfigParser_a4f0ead8f990cd0d754a32a8bf645f918}{get\_int}}(\textcolor{keywordtype}{string}\ key)\ \{}
+\DoxyCodeLine{00555\ \ \ \ \ \textcolor{keywordflow}{if}\ (options.contains(key))\ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ r\ =\ stoi(options[key]);}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (exception\ \&e)\ \{}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}(NAN);}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00563\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}((\textcolor{keyword}{const}\ \textcolor{keywordtype}{string})NOKEY);}
+\DoxyCodeLine{00565\ \ \ \ \ \}}
+\DoxyCodeLine{00566\ \ \ \}}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00573\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classstd_1_1ConfigParser_a7bba84c8398977934cf9ccebcf723574}{get\_double}}(\textcolor{keywordtype}{string}\ key)\ \{}
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{keywordflow}{if}\ (options.contains(key))\ \{}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ r\ =\ stod(options[key]);}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (exception\ \&e)\ \{}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}(NAN);}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00581\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}((\textcolor{keyword}{const}\ \textcolor{keywordtype}{string})NOKEY);}
+\DoxyCodeLine{00583\ \ \ \ \ \}}
+\DoxyCodeLine{00584\ \ \ \}}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00591\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classstd_1_1ConfigParser_aeee965e8e6658ba38a9a4c5e4eb230ac}{get\_float}}(\textcolor{keywordtype}{string}\ key)\ \{}
+\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keywordflow}{if}\ (options.contains(key))\ \{}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ r\ =\ stof(options[key]);}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (exception\ \&e)\ \{}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}(NAN);}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00599\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}((\textcolor{keyword}{const}\ \textcolor{keywordtype}{string})NOKEY);}
+\DoxyCodeLine{00601\ \ \ \ \ \}}
+\DoxyCodeLine{00602\ \ \ \}}
+\DoxyCodeLine{00603\ \};}
+\DoxyCodeLine{00604\ \}\ \ \textcolor{comment}{//end\ standard\ namespace}}
+\DoxyCodeLine{00605\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ pop}}
+
+\end{DoxyCode}

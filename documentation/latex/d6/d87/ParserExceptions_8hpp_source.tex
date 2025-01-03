@@ -1,0 +1,61 @@
+\doxysection{Parser\+Exceptions.\+hpp}
+\hypertarget{ParserExceptions_8hpp_source}{}\label{ParserExceptions_8hpp_source}\index{include/ParserExceptions.hpp@{include/ParserExceptions.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ *}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ This\ software\ has\ a\ Copyright\ 2024\ to\ Louis\ C\ Seifert\ III\ all\ rights\ reserved\ }}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ it\ is\ freely\ distributable\ under\ the\ MIT\ license.\ If\ you\ use\ this\ api:\ }}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy\ of\ this\ software\ and\ associated\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ documentation\ files\ (the\ “Software”),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ }}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ }}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ “AS\ IS”,\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ }}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ }}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ \_PARSEREXCEPTIONS\_HPP\_INCLUDED\ }\textcolor{comment}{//NOLINT}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ \_PARSEREXCEPTIONS\_HPP\_INCLUDED\ }\textcolor{comment}{//NOLINT}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfile__access__exception}{file\_access\_exception}}\ :\ \textcolor{keyword}{public}\ std::exception\ \{}
+\DoxyCodeLine{00037\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classfile__access__exception_afe38bea11e64889c0c5df2ad554e2f94}{file\_access\_exception}}(\textcolor{keyword}{const}\ std::string\ \&message)}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ :\ \_message(message)\ \{\}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{classfile__access__exception_afe95de5bf8acbc3920ee9e52713ab362}{what}}()\ const\ noexcept\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ \_message.c\_str();}
+\DoxyCodeLine{00050\ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ std::string\ \_message;}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsecurity__exception}{security\_exception}}\ :\ \textcolor{keyword}{public}\ std::exception\ \{}
+\DoxyCodeLine{00062\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classsecurity__exception_a51d72569e9611a70835011cc9d63f869}{security\_exception}}(\textcolor{keyword}{const}\ std::string\ \&message)\ :\ \_message(message)\ \{\}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{classsecurity__exception_ad86675612028f71bd27f0b5be7db29fb}{what}}()\ const\ noexcepti\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ \_message.c\_str();}
+\DoxyCodeLine{00073\ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ std::string\ \_message;}
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classkey__value__exception}{key\_value\_exception}}\ :\ \textcolor{keyword}{public}\ std::exception\ \{}
+\DoxyCodeLine{00084\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classkey__value__exception_af8d414f4ea608118742ce887686d927a}{key\_value\_exception}}(\textcolor{keyword}{const}\ std::string\ \&message)}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ :\ \_message(message)\ \{\}}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{classkey__value__exception_aad1f3105879584c3a04bb298eaba80b8}{what}}()\ const\ noexcept\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ \_message.c\_str();}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00100\ \ \ std::string\ \_message;}
+\DoxyCodeLine{00101\ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ \_PARSEREXCEPTIONS\_HPP\_INCLUDED\ //NOLINT}}
+
+\end{DoxyCode}

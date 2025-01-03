@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1735325730 source:/home/noone/code/cpp/ConfigParser/include/ConfigParser.hpp
+	<map>
+	<iostream>
+	<vector>
+	<iostream>
+	<fstream>
+	<exception>
+	<filesystem>
+	<regex>
+	<cctype>
+
+1735412294 source:/home/noone/code/cpp/ConfigParser/include/ParserExceptions.hpp
+	<exception>
+	<string>
+

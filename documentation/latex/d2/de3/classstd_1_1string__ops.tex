@@ -1,0 +1,253 @@
+\doxysection{std\+::string\+\_\+ops Class Reference}
+\hypertarget{classstd_1_1string__ops}{}\label{classstd_1_1string__ops}\index{std::string\_ops@{std::string\_ops}}
+
+
+string operations String Helper and processing class, \doxylink{classstd_1_1string__ops}{string\+\_\+ops} contains functions that are in plenty of other libraries specifically written for use with this library.  
+
+
+
+
+{\ttfamily \#include $<$Config\+Parser.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classstd_1_1string__ops_a390f03ce33e05051f2b1a45e9a611f9e}{set\+\_\+default\+\_\+regex}} ()
+\begin{DoxyCompactList}\small\item\em sets the default regex for the class this will supercede regex it is created with. \end{DoxyCompactList}\item 
+\Hypertarget{classstd_1_1string__ops_adf0838333d815594612b2e39fdcef749}\label{classstd_1_1string__ops_adf0838333d815594612b2e39fdcef749} 
+{\bfseries string\+\_\+ops} ()
+\begin{DoxyCompactList}\small\item\em Default constructor that sets the default pattern to match against. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstd_1_1string__ops_a3a13f15f20576735c1ce7853481efff7}{string\+\_\+ops}} (string option\+\_\+pattern, string flag\+\_\+pattern)
+\begin{DoxyCompactList}\small\item\em Constructor that accepts a string pattern to match against. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classstd_1_1string__ops_aa1b922639fffd587777b059ea06ed681}{strip\+\_\+check}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Regex match function accepts a string pointer and a regex pattern and returns true if the pattern matches standard alphanumeric or what ever is specified when the \doxylink{classstd_1_1string__ops}{string\+\_\+ops} object is created. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classstd_1_1string__ops_a3c25e43ce09f54445a4cfd78e6fcb773}{default\+\_\+match}} (const string \&s)
+\begin{DoxyCompactList}\small\item\em Regex match function accepts a string and a regex pattern and returns true if the pattern matches the string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classstd_1_1string__ops_a70122ac1df7bbd11a1bffb31fc59eb81}{rtrim}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Right Trim Function accepts a pointer to a string;. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classstd_1_1string__ops_a353e49bf11957bffe4ed2e433cb1a9e3}{rtrim}} (string s)
+\begin{DoxyCompactList}\small\item\em Right trim function accepts a string and returns a trimmed string consider using the pointer version for performance reasons. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classstd_1_1string__ops_a5566ef2719d4ededb38110882862365b}{ltrim}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Left trim function accepts a string pointer operated on the string in place. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classstd_1_1string__ops_a8bffe0f8e5b430ec2f27e2c4d1463dc9}{ltrime}} (string s)
+\begin{DoxyCompactList}\small\item\em Left trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classstd_1_1string__ops_a2f35ca8015eeaeb892c333401d2dbad9}{trim}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Trim function accepts a string pointer and trims the string in place. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classstd_1_1string__ops_aed37243831d6148e65b6d9c7d92203f8}{trim}} (string s)
+\begin{DoxyCompactList}\small\item\em Trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classstd_1_1string__ops_a5d6ebe845c3114a5071eae8bd6990882}{strip\+\_\+qoutes}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Strips one set of qoutes on both ends of the variable. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classstd_1_1string__ops_aee06ed3cfbfc74bcad4022d1c665e221}{strip\+\_\+qoutes}} (string s)
+\begin{DoxyCompactList}\small\item\em Strips one set of qoutes on both ends of the string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+string operations String Helper and processing class, \doxylink{classstd_1_1string__ops}{string\+\_\+ops} contains functions that are in plenty of other libraries specifically written for use with this library. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classstd_1_1string__ops_a3a13f15f20576735c1ce7853481efff7}\label{classstd_1_1string__ops_a3a13f15f20576735c1ce7853481efff7} 
+\index{std::string\_ops@{std::string\_ops}!string\_ops@{string\_ops}}
+\index{string\_ops@{string\_ops}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{string\_ops()}{string\_ops()}}
+{\footnotesize\ttfamily std\+::string\+\_\+ops\+::string\+\_\+ops (\begin{DoxyParamCaption}\item[{string}]{option\+\_\+pattern,  }\item[{string}]{flag\+\_\+pattern }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor that accepts a string pattern to match against. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em option\+\_\+pattern} & regex string for options \\
+\hline
+{\em flag\+\_\+pattern} & regex string for flags \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classstd_1_1string__ops_a3c25e43ce09f54445a4cfd78e6fcb773}\label{classstd_1_1string__ops_a3c25e43ce09f54445a4cfd78e6fcb773} 
+\index{std::string\_ops@{std::string\_ops}!default\_match@{default\_match}}
+\index{default\_match@{default\_match}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{default\_match()}{default\_match()}}
+{\footnotesize\ttfamily bool std\+::string\+\_\+ops\+::default\+\_\+match (\begin{DoxyParamCaption}\item[{const string \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Regex match function accepts a string and a regex pattern and returns true if the pattern matches the string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1string__ops_a5566ef2719d4ededb38110882862365b}\label{classstd_1_1string__ops_a5566ef2719d4ededb38110882862365b} 
+\index{std::string\_ops@{std::string\_ops}!ltrim@{ltrim}}
+\index{ltrim@{ltrim}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{ltrim()}{ltrim()}}
+{\footnotesize\ttfamily static void std\+::string\+\_\+ops\+::ltrim (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Left trim function accepts a string pointer operated on the string in place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & pointer to a string \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1string__ops_a8bffe0f8e5b430ec2f27e2c4d1463dc9}\label{classstd_1_1string__ops_a8bffe0f8e5b430ec2f27e2c4d1463dc9} 
+\index{std::string\_ops@{std::string\_ops}!ltrime@{ltrime}}
+\index{ltrime@{ltrime}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{ltrime()}{ltrime()}}
+{\footnotesize\ttfamily static string std\+::string\+\_\+ops\+::ltrime (\begin{DoxyParamCaption}\item[{string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Left trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1string__ops_a70122ac1df7bbd11a1bffb31fc59eb81}\label{classstd_1_1string__ops_a70122ac1df7bbd11a1bffb31fc59eb81} 
+\index{std::string\_ops@{std::string\_ops}!rtrim@{rtrim}}
+\index{rtrim@{rtrim}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{rtrim()}{rtrim()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static void std\+::string\+\_\+ops\+::rtrim (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Right Trim Function accepts a pointer to a string;. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & pointer to a string \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1string__ops_a353e49bf11957bffe4ed2e433cb1a9e3}\label{classstd_1_1string__ops_a353e49bf11957bffe4ed2e433cb1a9e3} 
+\index{std::string\_ops@{std::string\_ops}!rtrim@{rtrim}}
+\index{rtrim@{rtrim}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{rtrim()}{rtrim()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static string std\+::string\+\_\+ops\+::rtrim (\begin{DoxyParamCaption}\item[{string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Right trim function accepts a string and returns a trimmed string consider using the pointer version for performance reasons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1string__ops_a390f03ce33e05051f2b1a45e9a611f9e}\label{classstd_1_1string__ops_a390f03ce33e05051f2b1a45e9a611f9e} 
+\index{std::string\_ops@{std::string\_ops}!set\_default\_regex@{set\_default\_regex}}
+\index{set\_default\_regex@{set\_default\_regex}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{set\_default\_regex()}{set\_default\_regex()}}
+{\footnotesize\ttfamily void std\+::string\+\_\+ops\+::set\+\_\+default\+\_\+regex (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+sets the default regex for the class this will supercede regex it is created with. 
+
+TODO(lou)\+:remove this? \Hypertarget{classstd_1_1string__ops_aa1b922639fffd587777b059ea06ed681}\label{classstd_1_1string__ops_aa1b922639fffd587777b059ea06ed681} 
+\index{std::string\_ops@{std::string\_ops}!strip\_check@{strip\_check}}
+\index{strip\_check@{strip\_check}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{strip\_check()}{strip\_check()}}
+{\footnotesize\ttfamily bool std\+::string\+\_\+ops\+::strip\+\_\+check (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Regex match function accepts a string pointer and a regex pattern and returns true if the pattern matches standard alphanumeric or what ever is specified when the \doxylink{classstd_1_1string__ops}{string\+\_\+ops} object is created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & pointer to a string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1string__ops_a5d6ebe845c3114a5071eae8bd6990882}\label{classstd_1_1string__ops_a5d6ebe845c3114a5071eae8bd6990882} 
+\index{std::string\_ops@{std::string\_ops}!strip\_qoutes@{strip\_qoutes}}
+\index{strip\_qoutes@{strip\_qoutes}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{strip\_qoutes()}{strip\_qoutes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static void std\+::string\+\_\+ops\+::strip\+\_\+qoutes (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Strips one set of qoutes on both ends of the variable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & pointer to a string \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1string__ops_aee06ed3cfbfc74bcad4022d1c665e221}\label{classstd_1_1string__ops_aee06ed3cfbfc74bcad4022d1c665e221} 
+\index{std::string\_ops@{std::string\_ops}!strip\_qoutes@{strip\_qoutes}}
+\index{strip\_qoutes@{strip\_qoutes}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{strip\_qoutes()}{strip\_qoutes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static string std\+::string\+\_\+ops\+::strip\+\_\+qoutes (\begin{DoxyParamCaption}\item[{string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Strips one set of qoutes on both ends of the string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\Hypertarget{classstd_1_1string__ops_a2f35ca8015eeaeb892c333401d2dbad9}\label{classstd_1_1string__ops_a2f35ca8015eeaeb892c333401d2dbad9} 
+\index{std::string\_ops@{std::string\_ops}!trim@{trim}}
+\index{trim@{trim}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{trim()}{trim()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static void std\+::string\+\_\+ops\+::trim (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Trim function accepts a string pointer and trims the string in place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & pointer to a string \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstd_1_1string__ops_aed37243831d6148e65b6d9c7d92203f8}\label{classstd_1_1string__ops_aed37243831d6148e65b6d9c7d92203f8} 
+\index{std::string\_ops@{std::string\_ops}!trim@{trim}}
+\index{trim@{trim}!std::string\_ops@{std::string\_ops}}
+\doxysubsubsection{\texorpdfstring{trim()}{trim()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static string std\+::string\+\_\+ops\+::trim (\begin{DoxyParamCaption}\item[{string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Config\+Parser.\+hpp\end{DoxyCompactItemize}

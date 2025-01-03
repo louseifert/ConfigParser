@@ -1,0 +1,244 @@
+\doxysection{string\+\_\+ops Class Reference}
+\hypertarget{classstring__ops}{}\label{classstring__ops}\index{string\_ops@{string\_ops}}
+
+
+string operations String Helper and processing class, \doxylink{classstring__ops}{string\+\_\+ops} contains functions that are in plenty of other libraries specifically written for use with this library.  
+
+
+
+
+{\ttfamily \#include $<$Config\+Parser.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classstring__ops_ac01a94d00115fe259912f49e49dc974a}\label{classstring__ops_ac01a94d00115fe259912f49e49dc974a} 
+void {\bfseries set\+\_\+default\+\_\+regex} ()
+\item 
+\Hypertarget{classstring__ops_ab8fd19224c283dfa96572b59cdbe091f}\label{classstring__ops_ab8fd19224c283dfa96572b59cdbe091f} 
+{\bfseries string\+\_\+ops} ()
+\begin{DoxyCompactList}\small\item\em Default constructor that sets the default pattern to match against. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstring__ops_aa7c2e21088909cf3fb41605fe81e5fc0}{string\+\_\+ops}} (string option\+\_\+pattern, string flag\+\_\+pattern)
+\begin{DoxyCompactList}\small\item\em Constructor that accepts a string pattern to match against. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classstring__ops_a792e5b99f2bbd1010d0be4bf2542f370}{strip\+\_\+check}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Regex match function accepts a string pointer and a regex pattern and returns true if the pattern matches standard alphanumeric or what ever is specified when the \doxylink{classstring__ops}{string\+\_\+ops} object is created. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classstring__ops_a9188618822e2d5927e199caa7a23801e}{default\+\_\+match}} (const string \&s)
+\begin{DoxyCompactList}\small\item\em Regex match function accepts a string and a regex pattern and returns true if the pattern matches the string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classstring__ops_af8af88cea1804fc116f5969b065074c0}{rtrim}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Right Trim Function accepts a pointer to a string;. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classstring__ops_a3bc3b821e09ebfc2eff457b1f8bd57f0}{rtrim}} (string s)
+\begin{DoxyCompactList}\small\item\em Right trim function accepts a string and returns a trimmed string consider using the pointer version for performance reasons. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classstring__ops_a00b83ba76854338455fae874bfc18e6d}{ltrim}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Left trim function accepts a string pointer operated on the string in place. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classstring__ops_a621bd77a316fc383ae20231e61d2a83c}{ltrime}} (string s)
+\begin{DoxyCompactList}\small\item\em Left trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classstring__ops_a9e93c207348536241de85e76a64df271}{trim}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Trim function accepts a string pointer and trims the string in place. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classstring__ops_a90b0e1d70a3d0672956e4debfea579de}{trim}} (string s)
+\begin{DoxyCompactList}\small\item\em Trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classstring__ops_a015a9751092a4b0f21ab45b5a7fc0253}{strip\+\_\+qoutes}} (string \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Strips one set of qoutes on both ends of the variable. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classstring__ops_af299fc19c10564c5ac0a12ec1fb4be81}{strip\+\_\+qoutes}} (string s)
+\begin{DoxyCompactList}\small\item\em Strips one set of qoutes on both ends of the string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+string operations String Helper and processing class, \doxylink{classstring__ops}{string\+\_\+ops} contains functions that are in plenty of other libraries specifically written for use with this library. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classstring__ops_aa7c2e21088909cf3fb41605fe81e5fc0}\label{classstring__ops_aa7c2e21088909cf3fb41605fe81e5fc0} 
+\index{string\_ops@{string\_ops}!string\_ops@{string\_ops}}
+\index{string\_ops@{string\_ops}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{string\_ops()}{string\_ops()}}
+{\footnotesize\ttfamily string\+\_\+ops\+::string\+\_\+ops (\begin{DoxyParamCaption}\item[{string}]{option\+\_\+pattern,  }\item[{string}]{flag\+\_\+pattern }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor that accepts a string pattern to match against. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em option\+\_\+pattern} & \\
+\hline
+{\em flag\+\_\+pattern} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classstring__ops_a9188618822e2d5927e199caa7a23801e}\label{classstring__ops_a9188618822e2d5927e199caa7a23801e} 
+\index{string\_ops@{string\_ops}!default\_match@{default\_match}}
+\index{default\_match@{default\_match}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{default\_match()}{default\_match()}}
+{\footnotesize\ttfamily bool string\+\_\+ops\+::default\+\_\+match (\begin{DoxyParamCaption}\item[{const string \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Regex match function accepts a string and a regex pattern and returns true if the pattern matches the string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classstring__ops_a00b83ba76854338455fae874bfc18e6d}\label{classstring__ops_a00b83ba76854338455fae874bfc18e6d} 
+\index{string\_ops@{string\_ops}!ltrim@{ltrim}}
+\index{ltrim@{ltrim}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{ltrim()}{ltrim()}}
+{\footnotesize\ttfamily static void string\+\_\+ops\+::ltrim (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Left trim function accepts a string pointer operated on the string in place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\Hypertarget{classstring__ops_a621bd77a316fc383ae20231e61d2a83c}\label{classstring__ops_a621bd77a316fc383ae20231e61d2a83c} 
+\index{string\_ops@{string\_ops}!ltrime@{ltrime}}
+\index{ltrime@{ltrime}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{ltrime()}{ltrime()}}
+{\footnotesize\ttfamily static string string\+\_\+ops\+::ltrime (\begin{DoxyParamCaption}\item[{string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Left trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\Hypertarget{classstring__ops_af8af88cea1804fc116f5969b065074c0}\label{classstring__ops_af8af88cea1804fc116f5969b065074c0} 
+\index{string\_ops@{string\_ops}!rtrim@{rtrim}}
+\index{rtrim@{rtrim}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{rtrim()}{rtrim()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static void string\+\_\+ops\+::rtrim (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Right Trim Function accepts a pointer to a string;. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstring__ops_a3bc3b821e09ebfc2eff457b1f8bd57f0}\label{classstring__ops_a3bc3b821e09ebfc2eff457b1f8bd57f0} 
+\index{string\_ops@{string\_ops}!rtrim@{rtrim}}
+\index{rtrim@{rtrim}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{rtrim()}{rtrim()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static string string\+\_\+ops\+::rtrim (\begin{DoxyParamCaption}\item[{string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Right trim function accepts a string and returns a trimmed string consider using the pointer version for performance reasons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\Hypertarget{classstring__ops_a792e5b99f2bbd1010d0be4bf2542f370}\label{classstring__ops_a792e5b99f2bbd1010d0be4bf2542f370} 
+\index{string\_ops@{string\_ops}!strip\_check@{strip\_check}}
+\index{strip\_check@{strip\_check}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{strip\_check()}{strip\_check()}}
+{\footnotesize\ttfamily bool string\+\_\+ops\+::strip\+\_\+check (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Regex match function accepts a string pointer and a regex pattern and returns true if the pattern matches standard alphanumeric or what ever is specified when the \doxylink{classstring__ops}{string\+\_\+ops} object is created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classstring__ops_a015a9751092a4b0f21ab45b5a7fc0253}\label{classstring__ops_a015a9751092a4b0f21ab45b5a7fc0253} 
+\index{string\_ops@{string\_ops}!strip\_qoutes@{strip\_qoutes}}
+\index{strip\_qoutes@{strip\_qoutes}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{strip\_qoutes()}{strip\_qoutes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static void string\+\_\+ops\+::strip\+\_\+qoutes (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Strips one set of qoutes on both ends of the variable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstring__ops_af299fc19c10564c5ac0a12ec1fb4be81}\label{classstring__ops_af299fc19c10564c5ac0a12ec1fb4be81} 
+\index{string\_ops@{string\_ops}!strip\_qoutes@{strip\_qoutes}}
+\index{strip\_qoutes@{strip\_qoutes}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{strip\_qoutes()}{strip\_qoutes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static string string\+\_\+ops\+::strip\+\_\+qoutes (\begin{DoxyParamCaption}\item[{string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Strips one set of qoutes on both ends of the string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\Hypertarget{classstring__ops_a9e93c207348536241de85e76a64df271}\label{classstring__ops_a9e93c207348536241de85e76a64df271} 
+\index{string\_ops@{string\_ops}!trim@{trim}}
+\index{trim@{trim}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{trim()}{trim()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static void string\+\_\+ops\+::trim (\begin{DoxyParamCaption}\item[{string \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Trim function accepts a string pointer and trims the string in place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}s} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classstring__ops_a90b0e1d70a3d0672956e4debfea579de}\label{classstring__ops_a90b0e1d70a3d0672956e4debfea579de} 
+\index{string\_ops@{string\_ops}!trim@{trim}}
+\index{trim@{trim}!string\_ops@{string\_ops}}
+\doxysubsubsection{\texorpdfstring{trim()}{trim()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static string string\+\_\+ops\+::trim (\begin{DoxyParamCaption}\item[{string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Config\+Parser.\+hpp\end{DoxyCompactItemize}

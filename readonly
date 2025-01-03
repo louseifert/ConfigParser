@@ -1,0 +1,14 @@
+"someint"="3"
+th!$=Restricted
+this=Re$tr!cte&
+
+[Main]
+setting1=variable1 
+setting2=variable2
+flag1
+[secondary]
+setting1=variable3
+#This is a comment
+
+   #that was a blank line
+;comment
