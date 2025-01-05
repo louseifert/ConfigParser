@@ -1,16 +1,13 @@
 compiler=g++
 cflags=-O3  -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra
 builddir=build
-includes=/usr/include/mysql/
-objectdir=/usr/lib/mysql/
-objects=mariadbcpp
 C_version=c++23
 file=main
 
 
 make:
 	echo "Making example file in ${builddir}/${file} the test files"
-	${compiler} ${cflags} ${file}.cpp -std=${C_version} -I ./include/ -I ${includes} -L ${objectdir}  -l ${objects} -o ${builddir}/${file}
+	${compiler} ${cflags} ${file}.cpp -std=${C_version} -I ./include/ -o ${builddir}/${file}
 
 
 lint:
