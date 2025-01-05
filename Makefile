@@ -6,7 +6,7 @@ file=main
 
 
 make:
-	echo "Making example file in ${builddir}/${file} the test files"
+	echo "Making example file in ${builddir}/${file} the test files, please review"
 	${compiler} ${cflags} ${file}.cpp -std=${C_version} -I ./include/ -o ${builddir}/${file}
 
 
