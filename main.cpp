@@ -16,7 +16,7 @@
 #include <exception>
 #include <iostream>
 #include "include/ConfigParser.hpp"
-// using namespace std;
+using namespace std;
 
 /**
  * ! mainpage Main CPP and examples
@@ -34,7 +34,7 @@ int main(int c, char **arg) {
   /**
    * Create a config object and parse the command line options passed in main
    */
-  ConfigParser *config = new ConfigParser(c, arg);
+	std::ConfigParser *config = new std::ConfigParser(c, arg);
   /**
    * If the config file parameter was passed to the application via CLP open it
    */
@@ -45,17 +45,17 @@ int main(int c, char **arg) {
       config->load_ini(config->get_string("config_file"));
     } catch (file_access_exception &e) {
       std::cout << e.what() << std::endl;
-    } catch (exception &e) {
+    } catch (std::exception &e) {
       std::cerr << e.what() << std::endl;
     }
 
-  } else {
+  } else{
     try {
       /**
        * Just load the file directly
        */
       config->load_ini("config_file.ini");
-    } catch (exception &e) {
+    } catch (std::exception &e) {
       std::cout << e.what() << std::endl;
     }
   }
@@ -70,9 +70,9 @@ int main(int c, char **arg) {
    * keep in mind if you are resusing values it is better if you
    * grab it once
    */
-  vector<string> olist = config->get_keys();
+  std::vector<string> olist = config->get_keys();
   for (uint32_t i=0; i < olist.size(); i++) {
-    cout << "key:" << olist[i] << " value:" << config->get_string(olist[i])
+	  std::cout << "key:" << olist[i] << " value:" << config->get_string(olist[i])
          << std::endl;
   }
   std::cout << "flag_count:" << config->get_flags_count() << std::endl;

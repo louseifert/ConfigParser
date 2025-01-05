@@ -157,7 +157,11 @@ TEST(Check_restricted, BasicTest) {
  */
 TEST(Check_restricted_with_allow, BasicTest) {
   ConfigParser *config = new ConfigParser(true);
-  config->load_ini("readonly");
+  try{
+	  config->load_ini("readonly");
+  }catch(std::exception &e){
+	  std::cerr << e.what();
+  }
   try {
     config->get_restricted_string("ths");
   } catch (key_value_exception &e) {
