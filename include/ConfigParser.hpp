@@ -1,38 +1,41 @@
 /* *
- * This software has a Copyright 2024 to Louis C Seifert III all rights reserved 
- * it is freely distributable under the MIT license. If you use this api: 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the “Software”), to deal in the Software without restriction, including without 
- * limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or 
- * sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
- * subject to the following conditions:
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
- * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT 
- * SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
- * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * This software has a Copyright 2024 to Louis C Seifert III all rights reserved
+ * it is freely distributable under the MIT license. If you use this api:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the “Software”), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions: THE SOFTWARE IS
+ * PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+ * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef _CONFIG_PARSER_HPP  //NOLINT
-#define _CONFIG_PARSER_HPP  //NOLINT
-#include <exception>
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <vector>
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
-#include <regex> //NOLINT
-#include <cctype>
-#include <set>
-#include <string>
-#include <ParserExceptions.hpp>
-#define NOKEY "The key does not exist."
-#define STROPVARS "^[A-Z=a-z0-9\"\\-_.~]*$"
-#define STROPFLAGS "^[A-Za-z0-9-_.]*"
-#define NAN "NaN: Not a number"
-namespace std {
+#ifndef _CONFIG_PARSER_HPP                             // NOLINT
+#define _CONFIG_PARSER_HPP                             // NOLINT
+#include <exception>                                   // NOLINT
+#include <filesystem>                                  // NOLINT
+#include <fstream>                                     // NOLINT
+#include <iostream>                                    // NOLINT
+#include <map>                                         // NOLINT
+#include <vector>                                      // NOLINT
+#pragma GCC diagnostic push                            // NOLINT
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized" // NOLINT
+#include <ParserExceptions.hpp>                        // NOLINT
+#include <cctype>                                      // NOLINT
+//TODO replace regex create sanitizerclass and propriatary implementation to sub // NOLINT
+#include <regex>                                       // NOLINT
+#include <set>                                         // NOLINT
+#include <string>                                      // NOLINT
+#define NOKEY "The key does not exist."                // NOLINT
+#define STROPVARS "^[A-Z=a-z0-9\"\\-_.~]*$"            // NOLINT
+#define STROPFLAGS "^[A-Za-z0-9-_.]*"                  // NOLINT
+#define NAN "NaN: Not a number"                        // NOLINT
+namespace std {                                        // NOLINT
 
 /**
  * @class string_ops
@@ -42,13 +45,13 @@ namespace std {
  * written for use with this library.
  */
 class string_ops {
- private:
+private:
   regex re;
   regex flag;
 
- public:
+public:
   /**
-   * @brief sets the default regex for the class 
+   * @brief sets the default regex for the class
    * this will supercede regex it is created with.
    * TODO(lou):remove this?
    */
@@ -58,7 +61,7 @@ class string_ops {
     this->re = re;
   }
 
- public:
+public:
   /**
    * @brief Default constructor that sets the default pattern to match against
    */
@@ -67,7 +70,7 @@ class string_ops {
   /**
    * @brief Constructor that accepts a string pattern to match against
    * @param option_pattern regex string for options
-   * @param flag_pattern regex string for flags 
+   * @param flag_pattern regex string for flags
    */
   string_ops(string option_pattern, string flag_pattern)
       : re(option_pattern), flag(flag_pattern) {}
@@ -76,7 +79,7 @@ class string_ops {
    * @brief Regex match function accepts a string pointer and a regex pattern
    * and returns true if the pattern matches standard alphanumeric
    * or what ever is specified when the string_ops object is created.
-   * @param *s pointer to a string 
+   * @param *s pointer to a string
    * @return bool
    */
   bool strip_check(string *s) {
@@ -88,7 +91,7 @@ class string_ops {
   /**
    * @brief Regex match function accepts a string and a regex pattern
    * and returns true if the pattern matches the string.
-   * @param s string 
+   * @param s string
    * @return bool
    */
   bool default_match(const string &s) { return regex_match(s, re); }
@@ -107,7 +110,7 @@ class string_ops {
    *
    * @brief Right trim function accepts a string and returns a trimmed string
    * consider using the pointer version for performance reasons.
-   * @param s string 
+   * @param s string
    * @return string
    */
   static string rtrim(string s) {
@@ -116,7 +119,8 @@ class string_ops {
   }
 
   /**
-   * @brief Left trim function accepts a string pointer operated on the string in place
+   * @brief Left trim function accepts a string pointer operated on the string
+   * in place
    * @param *s pointer to a string
    */
   static void ltrim(string *s) {
@@ -131,7 +135,7 @@ class string_ops {
    * @brief Left trim function accepts a string and returns a trimmed string
    * consider using the pointer version of this function for performance
    * reasons.
-   * @param s string 
+   * @param s string
    * @return string
    */
   static string ltrime(string s) {
@@ -152,7 +156,7 @@ class string_ops {
    * @brief Trim function accepts a string and returns a trimmed string
    * consider using the pointer version of this function for performance
    * reasons.
-   * @param s string 
+   * @param s string
    * @returns string
    */
   static string trim(string s) {
@@ -183,15 +187,14 @@ class string_ops {
   }
 };
 
-
-
 /*******************************************************************
- * @class ConfigParser 
+ * @class ConfigParser
  * @brief class is built for parsing a standard INI,
  * planned support for other file formats
  */
 class ConfigParser {
- private:
+private:
+  // TODO(louIII):change map to multi map or add multimap //NOLINT
   /** @brief map of options internal */
   map<std::string, std::string> options;
   /** @brief flags set*/
@@ -202,7 +205,7 @@ class ConfigParser {
   map<std::string, std::string> restricted;
   /** @brief allows override of restricted lock */
   bool allow_override = false;
-  /** @brief allows the parser to read 
+  /** @brief allows the parser to read
    * writeable files comes with security risks */
   bool allow_writeable = false;
   /** @brief allows access to restricted list */
@@ -218,7 +221,7 @@ class ConfigParser {
   /** @brief track restricted count */
   int restricted_count = 0;
 
- public:
+public:
   enum FILETYPE { INI, JSON, XML, TEST };
   /**
    * @brief plain constructor
@@ -230,7 +233,7 @@ class ConfigParser {
    * constructors that allow override of default behavior
    * takes argc **argv
    * @param c (int argc,
-   * @param *v[]  **argv) 
+   * @param *v[]  **argv)
    * */
   ConfigParser(int c, char *v[]) { parse(c, v); }
 
@@ -274,8 +277,8 @@ class ConfigParser {
     this->allow_restricted = _allow_restricted;
   }
   /**
-   * @brief parses both settings and clp options have precidence over ini on identical
-   * identifiers takes filename type argc argv
+   * @brief parses both settings and clp options have precidence over ini on
+   * identical identifiers takes filename type argc argv
    * TODO(lou): needs to be completed or removed.
    * @param filename that will be loaded
    * @param type of file for switching parsers
@@ -293,14 +296,13 @@ class ConfigParser {
   }
 
   /**
-   * @brief Parses a config file with basic INI structure lines starting with ; and #
-   * are comments, category or sections are bracketed [section]
-   * when accessing them by the get_string or get int function
-   * variables under section heads [title] are accessed by title.variablename
-   * See test cases for basic usage
-   * This function will throw an exception if the file doesn't exist,
-   * or the file is writeable by the executor
-   * This enforced /etc/ security best practice.
+   * @brief Parses a config file with basic INI structure lines starting with ;
+   * and # are comments, category or sections are bracketed [section] when
+   * accessing them by the get_string or get int function variables under
+   * section heads [title] are accessed by title.variablename See test cases for
+   * basic usage This function will throw an exception if the file doesn't
+   * exist, or the file is writeable by the executor This enforced /etc/
+   * security best practice.
    * @param filename of file to be loaded for parameters
    */
   void load_ini(string filename) {
@@ -333,7 +335,7 @@ class ConfigParser {
      * if the file is not open abort
      * */
     std::ifstream file(filename, std::ios::in);
-    /*not sure this condition could happen? 
+    /*not sure this condition could happen?
      * if (!file.is_open()) {
       throw file_access_exception(
           "File System Error: cannot open, potentially permission");
@@ -388,21 +390,22 @@ class ConfigParser {
   }
 
   /**
-   * @brief returns the number of flags that have been parsed from the command line
-   * @returns uint32_t 
+   * @brief returns the number of flags that have been parsed from the command
+   * line
+   * @returns uint32_t
    */
   uint32_t get_flags_count() { return flags.size(); }
 
   /**
-   * @brief returns the number of keys that have been parsed from the ini file and clp
-   * arguments
+   * @brief returns the number of keys that have been parsed from the ini file
+   * and clp arguments
    * @returns uint32_t count
    */
   uint32_t get_parm_count() { return ini_parm_count + clp_parm_count; }
 
   /**
-   * @brief returns a vector of keys, if there is alot of variables parsed this might
-   * In most cases you aren't going to be dynamically finding keys.
+   * @brief returns a vector of keys, if there is alot of variables parsed this
+   * might In most cases you aren't going to be dynamically finding keys.
    * @returns vector<string> list of keys
    */
   vector<string> get_keys() {
@@ -414,12 +417,13 @@ class ConfigParser {
   }
 
   /**
-   * @brief This parses main(c,arg) command line argument arrays. it will grab -f=as
-   * and put it in the options as f -f without an equals are treated as flags,
-   * same as -flag, these are easy to check for and have an O(log(n)) lookup.
-   * Where as getting specific keys will have the same lookup but are stored in
-   * a map Typically called explicitly but can be called after construction
-   * @param c int argc 
+   * @brief This parses main(c,arg) command line argument arrays. it will grab
+   * -f=as and put it in the options as f -f without an equals are treated as
+   * flags, same as -flag, these are easy to check for and have an O(log(n))
+   * lookup. Where as getting specific keys will have the same lookup but are
+   * stored in a map Typically called explicitly but can be called after
+   * construction
+   * @param c int argc
    * @param *v[] **argv
    */
   void parse(int c, char *v[]) {
@@ -439,9 +443,21 @@ class ConfigParser {
         while (str[0] == '-') {
           str.erase(0, 1);
         }
-        prev = str;
-        flags.insert(str);
-        continue;
+        if ( (i+1 < c && v[i+1][0] == '-') || i+1 >= c ) {
+          flags.insert(str);
+          continue;
+        } else if( i + 1 < c){
+          std::string key(str);
+          std::string value(v[i + 1]);
+          int t = i;
+          while (t + 1 < c && v[t+1][0] != '-') {
+            value.append(" ");
+            value.append(v[t]);
+            t++;
+          }
+          i = t;
+          options.emplace(key, value);
+        }
       } else if (flag == 0 && assigner != string::npos) {
         // Case where input is a -something=something
         key = str.substr(1, assigner - 1);
@@ -493,10 +509,10 @@ class ConfigParser {
   }
 
   /**
-   * @brief Restricted options are set when during parsing the variable or variable
-   * name doesn't meet the regex this returns a restricted variable only if
-   * allow restricted is enabled. considering allowing for some authorization
-   * check
+   * @brief Restricted options are set when during parsing the variable or
+   * variable name doesn't meet the regex this returns a restricted variable
+   * only if allow restricted is enabled. considering allowing for some
+   * authorization check
    * @param key (string)
    * @return string of the restricted value
    */
@@ -513,9 +529,9 @@ class ConfigParser {
   }
 
   /**
-   * @brief Gets an option or variable by key but attempts to return it as an int type.
-   * throws key_value_exception if the key does not exist or invalid argument
-   * NaN
+   * @brief Gets an option or variable by key but attempts to return it as an
+   * int type. throws key_value_exception if the key does not exist or invalid
+   * argument NaN
    * @param key key of the int
    * @returns int64_t longlong
    */
@@ -550,7 +566,7 @@ class ConfigParser {
     }
   }
   /**
-   * @brief gets an int 
+   * @brief gets an int
    * @param key string
    * return int32_t return value
    */
@@ -570,7 +586,7 @@ class ConfigParser {
 
   /**
    * @brief gets double option if NaN or key does not exist throws and exception
-   * @param key string 
+   * @param key string
    * @returns double value
    */
   double get_double(string key) {
@@ -588,7 +604,7 @@ class ConfigParser {
 
   /**
    * @brief gets float option if NaN or key does not exist throws and exception
-   * @param key string 
+   * @param key string
    * @return float value
    */
   float get_float(string key) {
@@ -604,6 +620,6 @@ class ConfigParser {
     }
   }
 };
-}  //end standard namespace //NOLINT
+} // namespace std
 #pragma GCC diagnostic pop
-#endif  //_CONFIG_PARSER_HPP //NOLINT
+#endif //_CONFIG_PARSER_HPP //NOLINT

@@ -1,22 +1,24 @@
 /* *
- * This software has a Copyright 2024 to Louis C Seifert III all rights reserved 
- * it is freely distributable under the MIT license. If you use this api: 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the “Software”), to deal in the Software without restriction, including without 
- * limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or 
- * sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
- * subject to the following conditions:
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
- * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT 
- * SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
- * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * This software has a Copyright 2024 to Louis C Seifert III all rights reserved
+ * it is freely distributable under the MIT license. If you use this api:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the “Software”), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions: THE SOFTWARE IS
+ * PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+ * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * */
 
-#include <exception>
-#include <iostream>
-#include "include/ConfigParser.hpp"
-using namespace std;
+#include "include/ConfigParser.hpp" //NOLINT
+#include <exception>                //NOLINT
+#include <iostream>                 //NOLINT
+using namespace std;                // NOLINT
 
 /**
  * ! mainpage Main CPP and examples
@@ -34,7 +36,7 @@ int main(int c, char **arg) {
   /**
    * Create a config object and parse the command line options passed in main
    */
-	std::ConfigParser *config = new std::ConfigParser(c, arg);
+  std::ConfigParser *config = new std::ConfigParser(c, arg);
   /**
    * If the config file parameter was passed to the application via CLP open it
    */
@@ -49,7 +51,7 @@ int main(int c, char **arg) {
       std::cerr << e.what() << std::endl;
     }
 
-  } else{
+  } else {
     try {
       /**
        * Just load the file directly
@@ -71,9 +73,9 @@ int main(int c, char **arg) {
    * grab it once
    */
   std::vector<string> olist = config->get_keys();
-  for (uint32_t i=0; i < olist.size(); i++) {
-	  std::cout << "key:" << olist[i] << " value:" << config->get_string(olist[i])
-         << std::endl;
+  for (uint32_t i = 0; i < olist.size(); i++) {
+    std::cout << "key:" << olist[i] << " value:" << config->get_string(olist[i])
+              << std::endl;
   }
   std::cout << "flag_count:" << config->get_flags_count() << std::endl;
   std::cout << "parm_count:" << config->get_parm_count() << std::endl;

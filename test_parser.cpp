@@ -23,16 +23,16 @@
  * override the command line This is so default options can be specified by an
  * administrator or other access and not overridden
  */
+// NOLINT
+#include <ConfigParser.hpp>     //NOLINT
+#include <ParserExceptions.hpp> //NOLINT
+#include <cstdlib>              //NOLINT
+#include <exception>            //NOLINT
+#include <gtest/gtest.h>        //NOLINT
+#include <iostream>             //NOLINT
+#include <string>               //NOLINT
 
-#include <ConfigParser.hpp>
-#include <ParserExceptions.hpp>
-#include <cstdlib>
-#include <exception>
-#include <gtest/gtest.h>
-#include <iostream>
-#include <string>
-
-namespace std{
+namespace std { // NOLINT
 
 /**
  * Tests standard readonly open
@@ -47,7 +47,6 @@ TEST(OpenReadOnly, BasicTest) {
   }
   delete (config);
 }
-
 
 /**
  * Tests opening a file that is owned and writable by the executor
@@ -65,10 +64,9 @@ TEST(OpenWritable, BasicTest) {
   delete (config);
 }
 
-
 /**
  * Tries to load a file that does not exist, to test the exception
-*/ 
+ */
 TEST(Load_bad_file, BasicTest) {
   ConfigParser config;
   try {
@@ -79,6 +77,37 @@ TEST(Load_bad_file, BasicTest) {
   }
 }
 
+TEST(TestSpacesInArgs, BasicTest) {
+  char **arr = new char *[(int)3];
+  arr[0] = new char[strlen("-setting1=value1 is a string with spaces") + 1];
+  arr[1] = new char[strlen("-flag") + 1];
+  arr[2] = new char[strlen("-setting2 without assigner") + 1];
+  strcpy(arr[0], "-setting1=value1 is a string with spaces"); // NOLINT
+  strcpy(arr[1], "-flag");                                    // NOLINT
+  strcpy(arr[2], "-setting2 without assigner");               // NOLINT
+  ConfigParser config(3, arr);
+  try {
+    EXPECT_EQ(config.has_flag("flag"), true);
+  } catch (exception &e) {
+    EXPECT_STREQ(e.what(), "myflag check");
+  }
+  try {
+    std::string ret = config.get_string("setting2");
+    EXPECT_EQ(ret, "without assigner");
+  } catch (exception &e) {
+    EXPECT_STREQ(e.what(), "The key does not exist.");
+  }
+  try {
+    string ret = config.get_string("setting1");
+    EXPECT_EQ("value1 is a string with spaces", ret);
+  } catch (exception &e) {
+    EXPECT_STREQ(e.what(), "setting1 check shouldn't throw");
+  }
+  delete[] arr[2];
+  delete[] arr[1];
+  delete[] arr[0];
+  delete[] arr;
+}
 
 /**
  * Creates a basic object with a mockclp
@@ -87,8 +116,8 @@ TEST(Create_with_CLP_ARGS, BasicTest) {
   char **arr = new char *[2];
   arr[0] = new char[strlen("-myflag") + 1];
   arr[1] = new char[strlen("-setting1=value1") + 1];
-  strcpy(arr[0], "-myflag"); //NOLINT
-  strcpy(arr[1], "-setting1=value1"); //NOLINT
+  strcpy(arr[0], "-myflag");          // NOLINT
+  strcpy(arr[1], "-setting1=value1"); // NOLINT
 
   ConfigParser config(2, arr);
   try {
@@ -157,10 +186,10 @@ TEST(Check_restricted, BasicTest) {
  */
 TEST(Check_restricted_with_allow, BasicTest) {
   ConfigParser *config = new ConfigParser(true);
-  try{
-	  config->load_ini("readonly");
-  }catch(std::exception &e){
-	  std::cerr << e.what();
+  try {
+    config->load_ini("readonly");
+  } catch (std::exception &e) {
+    std::cerr << e.what();
   }
   try {
     config->get_restricted_string("ths");
@@ -190,7 +219,7 @@ TEST(Check_counts, BasicTest) {
   }
   vector<string> temp = config.get_keys();
   EXPECT_EQ(temp.size(), (uint32_t)4);
-  EXPECT_EQ(config.get_parm_count(), (uint32_t)4 );
+  EXPECT_EQ(config.get_parm_count(), (uint32_t)4);
   EXPECT_EQ(config.get_flags_count(), (uint32_t)1);
 }
 TEST(Open_more_than_one_ini, BasicTest) {
@@ -202,7 +231,6 @@ TEST(Open_more_than_one_ini, BasicTest) {
     EXPECT_STREQ(e.what(), "you can only load an ini file once");
   }
 }
-
 
 /**
  * Tests numeric type conversions
@@ -220,10 +248,10 @@ TEST(Test_numeric_types, BasicTest) {
   arr[2] = new char[NaN.size() + 1];
   arr[3] = new char[fl.size() + 1];
 
-  strcpy(arr[0], ssfloat.c_str()); //NOLINT
-  strcpy(arr[1], sslong.c_str()); //NOLINT
-  strcpy(arr[2], NaN.c_str()); //NOLINT
-  strcpy(arr[3], fl.c_str()); //NOLINT
+  strcpy(arr[0], ssfloat.c_str()); // NOLINT
+  strcpy(arr[1], sslong.c_str());  // NOLINT
+  strcpy(arr[2], NaN.c_str());     // NOLINT
+  strcpy(arr[3], fl.c_str());      // NOLINT
 
   ConfigParser cp(4, arr);
 
@@ -279,7 +307,7 @@ TEST(Test_numeric_types, BasicTest) {
   delete[] arr;
 }
 
-} // namespace asd
+} // namespace std
 int main(int c, char **arg) {
   ::testing::InitGoogleTest(&c, arg);
   return RUN_ALL_TESTS();
