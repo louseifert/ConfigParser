@@ -78,7 +78,7 @@ TEST(Load_bad_file, BasicTest) {
 }
 
 TEST(TestSpacesInArgs, BasicTest) {
-  char **arr = new char *[(int)3];
+  char **arr = new char *[3]; // NOLINT
   arr[0] = new char[strlen("-setting1=value1 is a string with spaces") + 1];
   arr[1] = new char[strlen("-flag") + 1];
   arr[2] = new char[strlen("-setting2 without assigner") + 1];

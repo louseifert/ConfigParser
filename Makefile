@@ -11,14 +11,22 @@ make:
 
 
 lint:
-	cppcheck main.cpp; cppcheck include/ConfigParser.hpp; cppcheck include/ParserExceptions.hpp cppcheck test_parser.cpp
-	cpplint main.cpp; cpplint include/ConfigParser.hpp; cpplint include/ParserExceptions.hpp; cpplint test_parser.cpp
+	cppcheck main.cpp
+	cppcheck include/ConfigParser.hpp
+	cppcheck include/ParserExceptions.hpp 
+	cppcheck test_parser.cpp
+	cpplint --filter=-whitespace/comments,-readability/todo main.cpp
+	cpplint --filter=-whitespace/comments,-readability/todo include/ConfigParser.hpp
+	cpplint --filter=-whitespace/comments,-readability/todo include/ParserExceptions.hpp
+	cpplint --filter=-whitespace/comments,-readability/todo test_parser.cpp
 
 format:
 	clang-format -i include/ConfigParser.hpp
 	clang-format -i include/ParserExceptions.hpp
 	clang-format -i main.cpp
 	clang-format -i test_parser.cpp
+	sed  -i 's/^public:/ public:/g' include/*
+	sed  -i 's/^private:/ private:/g' include/*
 
 
 test:

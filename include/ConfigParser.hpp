@@ -27,15 +27,16 @@
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized" // NOLINT
 #include <ParserExceptions.hpp>                        // NOLINT
 #include <cctype>                                      // NOLINT
-//TODO replace regex create sanitizerclass and propriatary implementation to sub // NOLINT
-#include <regex>                                       // NOLINT
-#include <set>                                         // NOLINT
-#include <string>                                      // NOLINT
-#define NOKEY "The key does not exist."                // NOLINT
-#define STROPVARS "^[A-Z=a-z0-9\"\\-_.~]*$"            // NOLINT
-#define STROPFLAGS "^[A-Za-z0-9-_.]*"                  // NOLINT
-#define NAN "NaN: Not a number"                        // NOLINT
-namespace std {                                        // NOLINT
+// TODO replace regex create sanitizerclass and propriatary implementation to
+// sub // NOLINT
+#include <regex>                            // NOLINT
+#include <set>                              // NOLINT
+#include <string>                           // NOLINT
+#define NOKEY "The key does not exist."     // NOLINT
+#define STROPVARS "^[A-Z=a-z0-9\"\\-_.~]*$" // NOLINT
+#define STROPFLAGS "^[A-Za-z0-9-_.]*"       // NOLINT
+#define NAN "NaN: Not a number"             // NOLINT
+namespace std {                             // NOLINT
 
 /**
  * @class string_ops
@@ -45,11 +46,11 @@ namespace std {                                        // NOLINT
  * written for use with this library.
  */
 class string_ops {
-private:
+ private:
   regex re;
   regex flag;
 
-public:
+ public:
   /**
    * @brief sets the default regex for the class
    * this will supercede regex it is created with.
@@ -61,7 +62,7 @@ public:
     this->re = re;
   }
 
-public:
+ public:
   /**
    * @brief Default constructor that sets the default pattern to match against
    */
@@ -193,7 +194,7 @@ public:
  * planned support for other file formats
  */
 class ConfigParser {
-private:
+ private:
   // TODO(louIII):change map to multi map or add multimap //NOLINT
   /** @brief map of options internal */
   map<std::string, std::string> options;
@@ -221,7 +222,7 @@ private:
   /** @brief track restricted count */
   int restricted_count = 0;
 
-public:
+ public:
   enum FILETYPE { INI, JSON, XML, TEST };
   /**
    * @brief plain constructor
@@ -443,14 +444,14 @@ public:
         while (str[0] == '-') {
           str.erase(0, 1);
         }
-        if ( (i+1 < c && v[i+1][0] == '-') || i+1 >= c ) {
+        if ((i + 1 < c && v[i + 1][0] == '-') || i + 1 >= c) {
           flags.insert(str);
           continue;
-        } else if( i + 1 < c){
+        } else if (i + 1 < c) {
           std::string key(str);
           std::string value(v[i + 1]);
           int t = i;
-          while (t + 1 < c && v[t+1][0] != '-') {
+          while (t + 1 < c && v[t + 1][0] != '-') {
             value.append(" ");
             value.append(v[t]);
             t++;

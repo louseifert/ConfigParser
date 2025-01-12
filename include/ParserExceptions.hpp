@@ -33,7 +33,7 @@
  * @brief Thrown if it cannot find the config.
  */
 class file_access_exception : public std::exception {
-public:
+ public:
   /**
    * @brief standard constructor
    * @param message
@@ -46,7 +46,7 @@ public:
    */
   virtual const char *what() const noexcept { return _message.c_str(); }
 
-private:
+ private:
   std::string _message;
 };
 
@@ -56,7 +56,7 @@ private:
  * permissions, or a setting not in the excepted format
  */
 class security_exception : public std::exception {
-public:
+ public:
   /**
    * @brief thrown when there is an attempt to performa protected function
    */
@@ -67,7 +67,7 @@ public:
    */
   virtual const char *what() const noexcept { return _message.c_str(); }
 
-private:
+ private:
   std::string _message;
 };
 
@@ -76,7 +76,7 @@ private:
  * @brief exception when there is a problem with a key value pair
  */
 class key_value_exception : public std::exception {
-public:
+ public:
   /**
    * @brief standard constructor
    * @param message
@@ -89,7 +89,7 @@ public:
    */
   virtual const char *what() const noexcept { return _message.c_str(); }
 
-private:
+ private:
   std::string _message;
 };
 
