@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Install cppcheck
-      run: sudo apt-get update && sudo apt-get install -y cppcheck clang-format cpplint googletest
+      run: sudo apt-get update && sudo apt-get install -y cppcheck clang-format cpplint googletest libgtest-dev 
     - uses: actions/checkout@v4
     - name: make
       run: make
