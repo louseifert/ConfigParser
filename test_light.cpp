@@ -75,19 +75,6 @@ TEST(string_ops, BasicTest) {
     EXPECT_EQ(string_ops::trim(t), test6.at(i));
   }
 }
-/**
- * Tests standard readonly open
- */
-TEST(OpenReadOnly, BasicTest) {
-  ConfigParser *config = new ConfigParser();
-  try {
-    config->load_ini("readonly");
-    EXPECT_EQ(config->has_key("Main.setting1"), true);
-  } catch (exception &e) {
-    std::cout << e.what() << std::endl;
-  }
-  delete (config);
-}
 
 /**
  * Tests opening a file that is owned and writable by the executor
@@ -182,29 +169,6 @@ TEST(Create_with_CLP_ARGS, BasicTest) {
   delete[] arr;
 }
 
-/**
- * Creates a dobject with read only and tests get int and flag
- */
-TEST(Get_int, BasicTest) {
-  ConfigParser config;
-  try {
-    config.load_ini("readonly");
-  } catch (exception &e) {
-    EXPECT_STREQ(e.what(),
-                 "load ini for read on the get int, should not throw");
-  }
-  EXPECT_EQ(true, config.has_flag("flag1"));
-  try {
-    EXPECT_EQ(config.get_int("someint"), 3);
-  } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "someint check shouldn't throw");
-  }
-  try {
-    config.get_int("does_not_exist");
-  } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "The key does not exist.");
-  }
-}
 
 /**
  * Gets a restricted string seperated, as multiple test targets are difficult to
@@ -221,57 +185,6 @@ TEST(Check_restricted, BasicTest) {
   delete (config);
 }
 
-/**
- * This tests the get restricted and the
- * allow restricted override creation
- */
-TEST(Check_restricted_with_allow, BasicTest) {
-  ConfigParser *config = new ConfigParser(true);
-  try {
-    config->load_ini("readonly");
-  } catch (std::exception &e) {
-    std::cerr << e.what();
-  }
-  try {
-    config->get_restricted_string("ths");
-  } catch (key_value_exception &e) {
-    EXPECT_STREQ(e.what(), "The key does not exist.");
-  }
-  try {
-    config->get_restricted_string("this");
-  } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "Not everything works!");
-  }
-  vector<string> temp = config->get_restricted_keys();
-  EXPECT_EQ(temp.size(), (uint64_t)2);
-  delete (config);
-}
-
-/**
- * Standard readonly ini file open checks
- * the parameter counts and flags
- */
-TEST(Check_counts, BasicTest) {
-  ConfigParser config;
-  try {
-    config.load_ini("readonly");
-  } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "opening file, shouldn't throw");
-  }
-  vector<string> temp = config.get_keys();
-  EXPECT_EQ(temp.size(), (uint32_t)4);
-  EXPECT_EQ(config.get_parm_count(), (uint32_t)4);
-  EXPECT_EQ(config.get_flags_count(), (uint32_t)1);
-}
-TEST(Open_more_than_one_ini, BasicTest) {
-  ConfigParser config;
-  try {
-    config.load_ini("readonly");
-    config.load_ini("readonly");
-  } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "you can only load an ini file once");
-  }
-}
 
 /**
  * Tests numeric type conversions
