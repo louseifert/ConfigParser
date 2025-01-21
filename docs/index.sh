@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ConfigParser: Namespace Members</title>
+<title>ConfigParser: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,10 +69,11 @@ $(function() {
 </div>
 </div>
 
+<div class="header">
+  <div class="headertitle"><div class="title">ConfigParser Documentation</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented namespace members with links to the namespaces they belong to:</div><ul>
-<li>TEST()&#160;:&#160;<a class="el" href="d8/dcc/namespacestd.html#a284582fb60ec5caaebc5e741f1799b5e">std</a></li>
-</ul>
+
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

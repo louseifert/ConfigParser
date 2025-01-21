@@ -70,7 +70,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>std</b></li><li class="navelem"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html">string_ops</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../d8/dcc/namespacestd.html">std</a></li><li class="navelem"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html">string_ops</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -84,7 +84,7 @@ $(function() {
 <p>string operations String Helper and processing class, <a class="el" href="../../d2/de3/classstd_1_1string__ops.html" title="string operations String Helper and processing class, string_ops contains functions that are in plent...">string_ops</a> contains functions that are in plenty of other libraries specifically written for use with this library.  
  <a href="../../d2/de3/classstd_1_1string__ops.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/d70/ConfigParser_8hpp_source.html">ConfigParser.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d5/da6/string__ops_8hpp_source.html">string_ops.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -98,12 +98,53 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3a13f15f20576735c1ce7853481efff7" id="r_a3a13f15f20576735c1ce7853481efff7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a3a13f15f20576735c1ce7853481efff7">string_ops</a> (string option_pattern, string flag_pattern)</td></tr>
 <tr class="memdesc:a3a13f15f20576735c1ce7853481efff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that accepts a string pattern to match against.  <br /></td></tr>
 <tr class="separator:a3a13f15f20576735c1ce7853481efff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb276a96fe4b8c5a1603cc5ee9e72417" id="r_afb276a96fe4b8c5a1603cc5ee9e72417"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#afb276a96fe4b8c5a1603cc5ee9e72417">string_ops</a> (std::string principle)</td></tr>
+<tr class="memdesc:afb276a96fe4b8c5a1603cc5ee9e72417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that accepts a string for string ops to operate on.  <br /></td></tr>
+<tr class="separator:afb276a96fe4b8c5a1603cc5ee9e72417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1b922639fffd587777b059ea06ed681" id="r_aa1b922639fffd587777b059ea06ed681"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#aa1b922639fffd587777b059ea06ed681">strip_check</a> (string *s)</td></tr>
 <tr class="memdesc:aa1b922639fffd587777b059ea06ed681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regex match function accepts a string pointer and a regex pattern and returns true if the pattern matches standard alphanumeric or what ever is specified when the <a class="el" href="../../d2/de3/classstd_1_1string__ops.html" title="string operations String Helper and processing class, string_ops contains functions that are in plent...">string_ops</a> object is created.  <br /></td></tr>
 <tr class="separator:aa1b922639fffd587777b059ea06ed681"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c25e43ce09f54445a4cfd78e6fcb773" id="r_a3c25e43ce09f54445a4cfd78e6fcb773"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a3c25e43ce09f54445a4cfd78e6fcb773">default_match</a> (const string &amp;s)</td></tr>
 <tr class="memdesc:a3c25e43ce09f54445a4cfd78e6fcb773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regex match function accepts a string and a regex pattern and returns true if the pattern matches the string.  <br /></td></tr>
 <tr class="separator:a3c25e43ce09f54445a4cfd78e6fcb773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc3a8c0d8252f9123751cd0fbbb16aad" id="r_acc3a8c0d8252f9123751cd0fbbb16aad"><td class="memItemLeft" align="right" valign="top"><a id="acc3a8c0d8252f9123751cd0fbbb16aad" name="acc3a8c0d8252f9123751cd0fbbb16aad"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>rtrim</b> ()</td></tr>
+<tr class="memdesc:acc3a8c0d8252f9123751cd0fbbb16aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Right Trim Function accepts a pointer to a string;. <br /></td></tr>
+<tr class="separator:acc3a8c0d8252f9123751cd0fbbb16aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2023658ee97300f6b65f0d04d1717534" id="r_a2023658ee97300f6b65f0d04d1717534"><td class="memItemLeft" align="right" valign="top"><a id="a2023658ee97300f6b65f0d04d1717534" name="a2023658ee97300f6b65f0d04d1717534"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ltrim</b> ()</td></tr>
+<tr class="memdesc:a2023658ee97300f6b65f0d04d1717534"><td class="mdescLeft">&#160;</td><td class="mdescRight">Left trim function accepts a string pointer operated on the string in place operates on the internal value. <br /></td></tr>
+<tr class="separator:a2023658ee97300f6b65f0d04d1717534"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a208f4258eb6b39e850ef89912be4a42e" id="r_a208f4258eb6b39e850ef89912be4a42e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a208f4258eb6b39e850ef89912be4a42e">trim</a> ()</td></tr>
+<tr class="memdesc:a208f4258eb6b39e850ef89912be4a42e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trim function accepts a string pointer and trims the string in place.  <br /></td></tr>
+<tr class="separator:a208f4258eb6b39e850ef89912be4a42e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd37c14c028f842368a7ddf7204cb9f" id="r_a0dd37c14c028f842368a7ddf7204cb9f"><td class="memItemLeft" align="right" valign="top"><a id="a0dd37c14c028f842368a7ddf7204cb9f" name="a0dd37c14c028f842368a7ddf7204cb9f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>strip_qoutes</b> ()</td></tr>
+<tr class="memdesc:a0dd37c14c028f842368a7ddf7204cb9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">strips qoutes internal value <br /></td></tr>
+<tr class="separator:a0dd37c14c028f842368a7ddf7204cb9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace48c6c56b2859a3c21232b7397ef2a6" id="r_ace48c6c56b2859a3c21232b7397ef2a6"><td class="memItemLeft" align="right" valign="top"><a id="ace48c6c56b2859a3c21232b7397ef2a6" name="ace48c6c56b2859a3c21232b7397ef2a6"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>between_first_of</b> (std::string a, std::string b)</td></tr>
+<tr class="separator:ace48c6c56b2859a3c21232b7397ef2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a860d7ac34504395eecf1832b0d3f3626" id="r_a860d7ac34504395eecf1832b0d3f3626"><td class="memItemLeft" align="right" valign="top">vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a860d7ac34504395eecf1832b0d3f3626">split</a> (std::string *delimiter)</td></tr>
+<tr class="memdesc:a860d7ac34504395eecf1832b0d3f3626"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a vector of strings split member value from a delimiter of size 1-size_t  <br /></td></tr>
+<tr class="separator:a860d7ac34504395eecf1832b0d3f3626"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4ef8f8c3a562b9de5ab09d9059ea635" id="r_ae4ef8f8c3a562b9de5ab09d9059ea635"><td class="memItemLeft" align="right" valign="top">vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#ae4ef8f8c3a562b9de5ab09d9059ea635">split</a> (std::string delimiter)</td></tr>
+<tr class="memdesc:ae4ef8f8c3a562b9de5ab09d9059ea635"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a vector of strings from a split member by delimiter  <br /></td></tr>
+<tr class="separator:ae4ef8f8c3a562b9de5ab09d9059ea635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd72e17c9e86d9c279f0f1739833a0c9" id="r_abd72e17c9e86d9c279f0f1739833a0c9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#abd72e17c9e86d9c279f0f1739833a0c9">string_between</a> (std::string *start, std::string *end)</td></tr>
+<tr class="memdesc:abd72e17c9e86d9c279f0f1739833a0c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the string between two similar or dissimilar strings from the first of start to the last of end so in a  <br /></td></tr>
+<tr class="separator:abd72e17c9e86d9c279f0f1739833a0c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4025b4498f476db44238c3e7ab912691" id="r_a4025b4498f476db44238c3e7ab912691"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a4025b4498f476db44238c3e7ab912691">string_between</a> (std::string start, std::string end)</td></tr>
+<tr class="memdesc:a4025b4498f476db44238c3e7ab912691"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the string between two similar or dissimilar strings from the first of start to the last of end so in a  <br /></td></tr>
+<tr class="separator:a4025b4498f476db44238c3e7ab912691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a513adfec997c6ddf93af1ad289426635" id="r_a513adfec997c6ddf93af1ad289426635"><td class="memItemLeft" align="right" valign="top"><a id="a513adfec997c6ddf93af1ad289426635" name="a513adfec997c6ddf93af1ad289426635"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>tupper</b> ()</td></tr>
+<tr class="memdesc:a513adfec997c6ddf93af1ad289426635"><td class="mdescLeft">&#160;</td><td class="mdescRight">peforms to_upper on the internal value <br /></td></tr>
+<tr class="separator:a513adfec997c6ddf93af1ad289426635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b815d0c1b7a1dc2d6c50e4653734417" id="r_a5b815d0c1b7a1dc2d6c50e4653734417"><td class="memItemLeft" align="right" valign="top"><a id="a5b815d0c1b7a1dc2d6c50e4653734417" name="a5b815d0c1b7a1dc2d6c50e4653734417"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>tlower</b> ()</td></tr>
+<tr class="memdesc:a5b815d0c1b7a1dc2d6c50e4653734417"><td class="mdescLeft">&#160;</td><td class="mdescRight">performs to_lower on the internal value <br /></td></tr>
+<tr class="separator:a5b815d0c1b7a1dc2d6c50e4653734417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -116,9 +157,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5566ef2719d4ededb38110882862365b" id="r_a5566ef2719d4ededb38110882862365b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a5566ef2719d4ededb38110882862365b">ltrim</a> (string *s)</td></tr>
 <tr class="memdesc:a5566ef2719d4ededb38110882862365b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Left trim function accepts a string pointer operated on the string in place.  <br /></td></tr>
 <tr class="separator:a5566ef2719d4ededb38110882862365b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bffe0f8e5b430ec2f27e2c4d1463dc9" id="r_a8bffe0f8e5b430ec2f27e2c4d1463dc9"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a8bffe0f8e5b430ec2f27e2c4d1463dc9">ltrime</a> (string s)</td></tr>
-<tr class="memdesc:a8bffe0f8e5b430ec2f27e2c4d1463dc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Left trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons.  <br /></td></tr>
-<tr class="separator:a8bffe0f8e5b430ec2f27e2c4d1463dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a312dbec92948c87894f30b0e01251019" id="r_a312dbec92948c87894f30b0e01251019"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a312dbec92948c87894f30b0e01251019">ltrim</a> (string s)</td></tr>
+<tr class="memdesc:a312dbec92948c87894f30b0e01251019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Left trim function accepts a string and returns a trimmed string consider using the pointer version of this function for performance reasons.  <br /></td></tr>
+<tr class="separator:a312dbec92948c87894f30b0e01251019"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f35ca8015eeaeb892c333401d2dbad9" id="r_a2f35ca8015eeaeb892c333401d2dbad9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a2f35ca8015eeaeb892c333401d2dbad9">trim</a> (string *s)</td></tr>
 <tr class="memdesc:a2f35ca8015eeaeb892c333401d2dbad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trim function accepts a string pointer and trims the string in place.  <br /></td></tr>
 <tr class="separator:a2f35ca8015eeaeb892c333401d2dbad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +169,28 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5d6ebe845c3114a5071eae8bd6990882" id="r_a5d6ebe845c3114a5071eae8bd6990882"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a5d6ebe845c3114a5071eae8bd6990882">strip_qoutes</a> (string *s)</td></tr>
 <tr class="memdesc:a5d6ebe845c3114a5071eae8bd6990882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strips one set of qoutes on both ends of the variable.  <br /></td></tr>
 <tr class="separator:a5d6ebe845c3114a5071eae8bd6990882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0e9d36254fdfdeaa78f4c5afe0123e6" id="r_ab0e9d36254fdfdeaa78f4c5afe0123e6"><td class="memItemLeft" align="right" valign="top">static vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#ab0e9d36254fdfdeaa78f4c5afe0123e6">split</a> (std::string principle, char delimiter)</td></tr>
+<tr class="memdesc:ab0e9d36254fdfdeaa78f4c5afe0123e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits a string based on the delimiter given.  <br /></td></tr>
+<tr class="separator:ab0e9d36254fdfdeaa78f4c5afe0123e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3941aa0ed856400354ed9f39aa2e0fd7" id="r_a3941aa0ed856400354ed9f39aa2e0fd7"><td class="memItemLeft" align="right" valign="top"><a id="a3941aa0ed856400354ed9f39aa2e0fd7" name="a3941aa0ed856400354ed9f39aa2e0fd7"></a>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>between_first_of</b> (std::string p, std::string st, std::string en)</td></tr>
+<tr class="separator:a3941aa0ed856400354ed9f39aa2e0fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9aa5d192236a2e07060b00840085250" id="r_ae9aa5d192236a2e07060b00840085250"><td class="memItemLeft" align="right" valign="top"><a id="ae9aa5d192236a2e07060b00840085250" name="ae9aa5d192236a2e07060b00840085250"></a>
+static vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>split</b> (std::string *p, std::string *d)</td></tr>
+<tr class="separator:ae9aa5d192236a2e07060b00840085250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ef84b96b66669aa73f715c34d6ee936" id="r_a9ef84b96b66669aa73f715c34d6ee936"><td class="memItemLeft" align="right" valign="top">static vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a9ef84b96b66669aa73f715c34d6ee936">split</a> (std::string principle, string delimiter)</td></tr>
+<tr class="memdesc:a9ef84b96b66669aa73f715c34d6ee936"><td class="mdescLeft">&#160;</td><td class="mdescRight">for immutable form, pointer ops operat on the principle  <br /></td></tr>
+<tr class="separator:a9ef84b96b66669aa73f715c34d6ee936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07cb6cf19089c7173c205f9cd3e16434" id="r_a07cb6cf19089c7173c205f9cd3e16434"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a07cb6cf19089c7173c205f9cd3e16434">string_between</a> (std::string *principle, std::string *start, std::string *end)</td></tr>
+<tr class="memdesc:a07cb6cf19089c7173c205f9cd3e16434"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the string between two similar or dissimilar strings from the first of start to the last of end so in a  <br /></td></tr>
+<tr class="separator:a07cb6cf19089c7173c205f9cd3e16434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5df19974f2b8bbc0adc42fbe0725a525" id="r_a5df19974f2b8bbc0adc42fbe0725a525"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#a5df19974f2b8bbc0adc42fbe0725a525">tupper</a> (std::string *str)</td></tr>
+<tr class="memdesc:a5df19974f2b8bbc0adc42fbe0725a525"><td class="mdescLeft">&#160;</td><td class="mdescRight">performs to upper on the string provided  <br /></td></tr>
+<tr class="separator:a5df19974f2b8bbc0adc42fbe0725a525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fdd11a4ccffd9c21720f3e706f70bdd" id="r_a9fdd11a4ccffd9c21720f3e706f70bdd"><td class="memItemLeft" align="right" valign="top"><a id="a9fdd11a4ccffd9c21720f3e706f70bdd" name="a9fdd11a4ccffd9c21720f3e706f70bdd"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>tlower</b> (std::string *str)</td></tr>
+<tr class="memdesc:a9fdd11a4ccffd9c21720f3e706f70bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">performs to_lower on the string provided <br /></td></tr>
+<tr class="separator:a9fdd11a4ccffd9c21720f3e706f70bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee06ed3cfbfc74bcad4022d1c665e221" id="r_aee06ed3cfbfc74bcad4022d1c665e221"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de3/classstd_1_1string__ops.html#aee06ed3cfbfc74bcad4022d1c665e221">strip_qoutes</a> (string s)</td></tr>
 <tr class="memdesc:aee06ed3cfbfc74bcad4022d1c665e221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strips one set of qoutes on both ends of the string.  <br /></td></tr>
 <tr class="separator:aee06ed3cfbfc74bcad4022d1c665e221"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +199,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="textblock"><p>string operations String Helper and processing class, <a class="el" href="../../d2/de3/classstd_1_1string__ops.html" title="string operations String Helper and processing class, string_ops contains functions that are in plent...">string_ops</a> contains functions that are in plenty of other libraries specifically written for use with this library. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3a13f15f20576735c1ce7853481efff7" name="a3a13f15f20576735c1ce7853481efff7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a13f15f20576735c1ce7853481efff7">&#9670;&#160;</a></span>string_ops()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a13f15f20576735c1ce7853481efff7">&#9670;&#160;</a></span>string_ops() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,6 +243,40 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="afb276a96fe4b8c5a1603cc5ee9e72417" name="afb276a96fe4b8c5a1603cc5ee9e72417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb276a96fe4b8c5a1603cc5ee9e72417">&#9670;&#160;</a></span>string_ops() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_ops::string_ops </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>principle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor that accepts a string for string ops to operate on. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>the principle string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a3c25e43ce09f54445a4cfd78e6fcb773" name="a3c25e43ce09f54445a4cfd78e6fcb773"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c25e43ce09f54445a4cfd78e6fcb773">&#9670;&#160;</a></span>default_match()</h2>
@@ -217,7 +314,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5566ef2719d4ededb38110882862365b" name="a5566ef2719d4ededb38110882862365b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5566ef2719d4ededb38110882862365b">&#9670;&#160;</a></span>ltrim()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5566ef2719d4ededb38110882862365b">&#9670;&#160;</a></span>ltrim() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,8 +347,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8bffe0f8e5b430ec2f27e2c4d1463dc9" name="a8bffe0f8e5b430ec2f27e2c4d1463dc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bffe0f8e5b430ec2f27e2c4d1463dc9">&#9670;&#160;</a></span>ltrime()</h2>
+<a id="a312dbec92948c87894f30b0e01251019" name="a312dbec92948c87894f30b0e01251019"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a312dbec92948c87894f30b0e01251019">&#9670;&#160;</a></span>ltrim() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -260,7 +357,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static string std::string_ops::ltrime </td>
+          <td class="memname">static string std::string_ops::ltrim </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
@@ -382,6 +479,308 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a860d7ac34504395eecf1832b0d3f3626" name="a860d7ac34504395eecf1832b0d3f3626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a860d7ac34504395eecf1832b0d3f3626">&#9670;&#160;</a></span>split() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; std::string &gt; std::string_ops::split </td>
+          <td>(</td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>delimiter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns a vector of strings split member value from a delimiter of size 1-size_t </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string*</td><td>delimiter, a pointer to a delimiter </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae4ef8f8c3a562b9de5ab09d9059ea635" name="ae4ef8f8c3a562b9de5ab09d9059ea635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4ef8f8c3a562b9de5ab09d9059ea635">&#9670;&#160;</a></span>split() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; std::string &gt; std::string_ops::split </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>delimiter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns a vector of strings from a split member by delimiter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">delimiter</td><td>to split </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab0e9d36254fdfdeaa78f4c5afe0123e6" name="ab0e9d36254fdfdeaa78f4c5afe0123e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0e9d36254fdfdeaa78f4c5afe0123e6">&#9670;&#160;</a></span>split() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static vector&lt; std::string &gt; std::string_ops::split </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>principle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>delimiter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Splits a string based on the delimiter given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>delimiter the character or string to split on it is removed </td></tr>
+    <tr><td class="paramname">string</td><td>principle is the string being operated on </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9ef84b96b66669aa73f715c34d6ee936" name="a9ef84b96b66669aa73f715c34d6ee936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ef84b96b66669aa73f715c34d6ee936">&#9670;&#160;</a></span>split() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static vector&lt; std::string &gt; std::string_ops::split </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>principle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>delimiter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>for immutable form, pointer ops operat on the principle </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">give</td><td>a copy to make sure the form is not mutable </td></tr>
+    <tr><td class="paramname">delimiter</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a07cb6cf19089c7173c205f9cd3e16434" name="a07cb6cf19089c7173c205f9cd3e16434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07cb6cf19089c7173c205f9cd3e16434">&#9670;&#160;</a></span>string_between() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::string std::string_ops::string_between </td>
+          <td>(</td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>principle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns the string between two similar or dissimilar strings from the first of start to the last of end so in a </p>
+<div><div></div></div><p> if you provided a start of </p><div> and and end of </div><p> you would get the middle </p><div></div><p> It does not parse xml fully, it would also grab the part of a SQL statment if you had it grab between BEGIN and END; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">std::string*</td><td>principle, the string to search and find the tags in </td></tr>
+    <tr><td class="paramname">std::string*</td><td>start the value that it finds the first of </td></tr>
+    <tr><td class="paramname">std::string*</td><td>value it find the last of </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abd72e17c9e86d9c279f0f1739833a0c9" name="abd72e17c9e86d9c279f0f1739833a0c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd72e17c9e86d9c279f0f1739833a0c9">&#9670;&#160;</a></span>string_between() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string std::string_ops::string_between </td>
+          <td>(</td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns the string between two similar or dissimilar strings from the first of start to the last of end so in a </p>
+<div><div></div></div><p> if you provided a start of </p><div> and and end of </div><p> you would get the middle </p><div></div><p> It does not parse xml fully, it would also grab the part of a SQL statment if you had it grab between BEGIN and END; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">std::string*</td><td>principle, the string to search and find the tags in </td></tr>
+    <tr><td class="paramname">std::string*</td><td>start the value that it finds the first of </td></tr>
+    <tr><td class="paramname">std::string*</td><td>value it find the last of </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4025b4498f476db44238c3e7ab912691" name="a4025b4498f476db44238c3e7ab912691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4025b4498f476db44238c3e7ab912691">&#9670;&#160;</a></span>string_between() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string std::string_ops::string_between </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns the string between two similar or dissimilar strings from the first of start to the last of end so in a </p>
+<div><div></div></div><p> if you provided a start of </p><div> and and end of </div><p> you would get the middle </p><div></div><p> It does not parse xml fully, it would also grab the part of a SQL statment if you had it grab between BEGIN and END; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">std::string*</td><td>principle, the string to search and find the tags in </td></tr>
+    <tr><td class="paramname">std::string*</td><td>start the value that it finds the first of </td></tr>
+    <tr><td class="paramname">std::string*</td><td>value it find the last of </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aa1b922639fffd587777b059ea06ed681" name="aa1b922639fffd587777b059ea06ed681"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1b922639fffd587777b059ea06ed681">&#9670;&#160;</a></span>strip_check()</h2>
 
@@ -486,8 +885,41 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a208f4258eb6b39e850ef89912be4a42e" name="a208f4258eb6b39e850ef89912be4a42e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a208f4258eb6b39e850ef89912be4a42e">&#9670;&#160;</a></span>trim() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void std::string_ops::trim </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Trim function accepts a string pointer and trims the string in place. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*s</td><td>pointer to a string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a2f35ca8015eeaeb892c333401d2dbad9" name="a2f35ca8015eeaeb892c333401d2dbad9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f35ca8015eeaeb892c333401d2dbad9">&#9670;&#160;</a></span>trim() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f35ca8015eeaeb892c333401d2dbad9">&#9670;&#160;</a></span>trim() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -521,7 +953,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="aed37243831d6148e65b6d9c7d92203f8" name="aed37243831d6148e65b6d9c7d92203f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed37243831d6148e65b6d9c7d92203f8">&#9670;&#160;</a></span>trim() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aed37243831d6148e65b6d9c7d92203f8">&#9670;&#160;</a></span>trim() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,8 +987,42 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a5df19974f2b8bbc0adc42fbe0725a525" name="a5df19974f2b8bbc0adc42fbe0725a525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5df19974f2b8bbc0adc42fbe0725a525">&#9670;&#160;</a></span>tupper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void std::string_ops::tupper </td>
+          <td>(</td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>performs to upper on the string provided </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*stirng</td><td>pointer to the string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/<a class="el" href="../../d4/d70/ConfigParser_8hpp_source.html">ConfigParser.hpp</a></li>
+<li>include/<a class="el" href="../../d5/da6/string__ops_8hpp_source.html">string_ops.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -3,7 +3,7 @@ cflags=-O3  -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -We
 builddir=build
 C_version=c++23
 file=main
-googleinclude=/usr/include/
+googleinclude=/usr/src/
 
 make:
 	echo "Making example file in ${builddir}/${file} the test files, please review"

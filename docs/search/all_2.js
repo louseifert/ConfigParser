@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['default_5fmatch_0',['default_match',['../d2/de3/classstd_1_1string__ops.html#a3c25e43ce09f54445a4cfd78e6fcb773',1,'std::string_ops']]]
+  ['file_5faccess_5fexception_0',['file_access_exception',['../d3/d8c/classfile__access__exception.html',1,'file_access_exception'],['../d3/d8c/classfile__access__exception.html#afe38bea11e64889c0c5df2ad554e2f94',1,'file_access_exception::file_access_exception()']]]
 ];
