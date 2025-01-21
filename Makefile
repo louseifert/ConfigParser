@@ -3,7 +3,7 @@ cflags=-O3  -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -We
 builddir=build
 C_version=c++23
 file=main
-
+googleinclude=/usr/src/gtest/include/
 
 make:
 	echo "Making example file in ${builddir}/${file} the test files, please review"
@@ -37,11 +37,11 @@ format:
 
 fulltest:
 	echo "------>warning<------ You must change the ownership and redability to 755 and root:executor_user for the tests to work, if you do not they will fail, this is works and intended."
-	g++ -O3 -fsanitize-address-use-after-scope -fprofile-arcs -ftest-coverage -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra -std=c++23 -I ./include/ -I /usr/src/googletest/googletest/include/ test_parser.cpp -o build/test_parser -lgtest -lgtest_main 
+	g++ -O3 -fsanitize-address-use-after-scope -fprofile-arcs -ftest-coverage -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra -std=c++23 -I ./include/ -I ${googleinclude} test_parser.cpp -o build/test_parser -lgtest -lgtest_main 
 	build/test_parser -myflag -setting1="value1"
 
 test:
-	g++ -O3 -fsanitize-address-use-after-scope -fprofile-arcs -ftest-coverage -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra -std=c++23 -I ./include/ -I /usr/src/googletest/googletest/include/ test_light.cpp -o build/test_light -lgtest -lgtest_main
+	g++ -O3 -fsanitize-address-use-after-scope -fprofile-arcs -ftest-coverage -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra -std=c++23 -I ./include/ -I ${googleinclude} test_light.cpp -o build/test_light -lgtest -lgtest_main
 	build/test_light -myflag -setting1="value1"
 
 coverage:
