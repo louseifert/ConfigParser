@@ -12,6 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Install cppcheck
+      run: sudo apt-get update && sudo apt-get install -y cppcheck clang-format cpplint googletest
     - uses: actions/checkout@v4
     - name: make
       run: make
+    - name: format
+      run: make format
+    - name: lint
+      run: make lint
+    - name: maketest
+      run: make test
+    
+    
