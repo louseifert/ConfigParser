@@ -171,14 +171,9 @@ class ConfigParser {
       throw file_access_exception(
           (const string) "file either does not exist or is not a regular file");
     }
-
-    /**
-     * We don't want the user executing the executable to be able to write to
-     * the ini by default
-     */
-    std::ofstream ofile(filename, std::ios::out);
-    if (!allow_writeable && ofile.is_open()) {
-      ofile.close();
+   auto perm=std::filesystem::status(filename).permissions();
+   if ( perm == std::filesystem::perms::others_write || 
+		   perm==std::filesystem::perms::group_write){
       throw security_exception((
           const string) "Config files should not be writeable by the executor");
     }
