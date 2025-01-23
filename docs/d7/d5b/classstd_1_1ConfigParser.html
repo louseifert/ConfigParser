@@ -107,6 +107,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a233565f2477e68ef901bd61a4aecbafe" id="r_a233565f2477e68ef901bd61a4aecbafe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a233565f2477e68ef901bd61a4aecbafe">ConfigParser</a> (bool _allow_restricted)</td></tr>
 <tr class="memdesc:a233565f2477e68ef901bd61a4aecbafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">By default the regex allows a limited superset of alpha num Anything that has characters that fall outside of standard path and alphanum is placed in restricted and not accessible except by specifying that it is allowed in the constructor, this is so if the object is passed to other parts in the code it can't access them except through the interface.  <br /></td></tr>
 <tr class="separator:a233565f2477e68ef901bd61a4aecbafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4402b25db6a1d0fff8f2f9161c3d0b08" id="r_a4402b25db6a1d0fff8f2f9161c3d0b08"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a4402b25db6a1d0fff8f2f9161c3d0b08">ConfigParser</a> (bool _allow_restricted, bool _inisec_override)</td></tr>
+<tr class="memdesc:a4402b25db6a1d0fff8f2f9161c3d0b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">ini sec override constructor  <br /></td></tr>
+<tr class="separator:a4402b25db6a1d0fff8f2f9161c3d0b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40a8313a19fc9b242e28839b9897a5dc" id="r_a40a8313a19fc9b242e28839b9897a5dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a40a8313a19fc9b242e28839b9897a5dc">ConfigParser</a> (int c, char *v[], bool _allow_restricted)</td></tr>
 <tr class="memdesc:a40a8313a19fc9b242e28839b9897a5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">this allows processing of the command line and allowing access to the restricted/filtered ini or clp settings.  <br /></td></tr>
 <tr class="separator:a40a8313a19fc9b242e28839b9897a5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,7 +169,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>class is built for parsing a standard INI, planned support for other file formats </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af35682af0357a0088f4c2af33b4d4749" name="af35682af0357a0088f4c2af33b4d4749"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af35682af0357a0088f4c2af33b4d4749">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af35682af0357a0088f4c2af33b4d4749">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +214,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a233565f2477e68ef901bd61a4aecbafe" name="a233565f2477e68ef901bd61a4aecbafe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a233565f2477e68ef901bd61a4aecbafe">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a233565f2477e68ef901bd61a4aecbafe">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,8 +247,53 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4402b25db6a1d0fff8f2f9161c3d0b08" name="a4402b25db6a1d0fff8f2f9161c3d0b08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4402b25db6a1d0fff8f2f9161c3d0b08">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ConfigParser::ConfigParser </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_allow_restricted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_inisec_override</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ini sec override constructor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bool</td><td>allow restricted variable use </td></tr>
+    <tr><td class="paramname">bool</td><td>override INI security checks less secure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a40a8313a19fc9b242e28839b9897a5dc" name="a40a8313a19fc9b242e28839b9897a5dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40a8313a19fc9b242e28839b9897a5dc">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a8313a19fc9b242e28839b9897a5dc">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,7 +345,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa0308aedb901eaf2d831f30b90da78f9" name="aa0308aedb901eaf2d831f30b90da78f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0308aedb901eaf2d831f30b90da78f9">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0308aedb901eaf2d831f30b90da78f9">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -363,7 +411,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a63b61e111c42a74ffe43f65c8f59798b" name="a63b61e111c42a74ffe43f65c8f59798b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63b61e111c42a74ffe43f65c8f59798b">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b61e111c42a74ffe43f65c8f59798b">&#9670;&#160;</a></span>ConfigParser() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -880,7 +928,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <p>Don't try and open the file, and throw an exception, if the file does not exist or is not a regular file.</p>
-<p>We don't want the user executing the executable to be able to write to the ini by default</p>
 <p>if the file is not open abort</p>
 
 </div>

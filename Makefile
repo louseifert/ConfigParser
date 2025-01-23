@@ -36,7 +36,7 @@ format:
 
 
 fulltest:
-	echo "------>warning<------ You must change the ownership and redability to 755 and root:executor_user for the tests to work, if you do not they will fail, this is works and intended."
+	echo "------>warning<------ the ini file must be changed to permission to 440 for the tests to work"
 	g++ -O3 -fsanitize-address-use-after-scope -fprofile-arcs -ftest-coverage -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra -std=c++23 -I ./include/ -I ${googleinclude} test_parser.cpp -o build/test_parser -lgtest -lgtest_main 
 	build/test_parser -myflag -setting1="value1"
 
@@ -55,7 +55,7 @@ cleantest:
 	#rm *.gcov
 
 documentation:
-	doxygen ConfigParser_doxygen.cfg
+	./mkdocs.sh
 
 clean:
 	rm build/*

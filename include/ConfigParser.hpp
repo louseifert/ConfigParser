@@ -47,6 +47,7 @@ namespace std {                             // NOLINT
  */
 class ConfigParser {
  private:
+  bool inisec_override=false;
   // TODO(louIII):change map to multi map or add multimap //NOLINT
   /** @brief map of options internal */
   map<std::string, std::string> options;
@@ -102,7 +103,15 @@ class ConfigParser {
   explicit ConfigParser(bool _allow_restricted) {
     this->allow_restricted = _allow_restricted;
   }
-
+  /**
+   * @brief ini sec override constructor
+   * @param bool allow restricted variable use
+   * @param bool override INI security checks less secure
+   */
+  ConfigParser(bool _allow_restricted, bool _inisec_override){
+   allow_restricted=_allow_restricted;
+   inisec_override=_inisec_override;
+  }
   /**
    * @brief this allows processing of the command line and allowing access to
    * the restricted/filtered ini or clp settings. takes argc and **argv
@@ -171,11 +180,18 @@ class ConfigParser {
       throw file_access_exception(
           (const string) "file either does not exist or is not a regular file");
     }
+   
+   //Throw a security exception if the file is writable
    auto perm=std::filesystem::status(filename).permissions();
-   if ( perm == std::filesystem::perms::others_write || 
-		   perm==std::filesystem::perms::group_write){
+   if ( (perm == std::filesystem::perms::others_write || 
+		   perm==std::filesystem::perms::group_write||
+		   perm==std::filesystem::perms::owner_write||
+		   perm==std::filesystem::perms::group_exec||
+		   perm==std::filesystem::perms::owner_exec||
+		   perm==std::filesystem::perms::others_exec||
+		   perm==std::filesystem::perms::others_read) && !inisec_override){
       throw security_exception((
-          const string) "Config files should not be writeable by the executor");
+          const string) "Setting config files to read only is more secure, or use override constructor");
     }
     std::string line;
 
