@@ -46,7 +46,7 @@ namespace std {                             // NOLINT
  * planned support for other file formats
  */
 class ConfigParser {
-private:
+ private:
   /**
    * Allow multiple entries of the same flag type to be implemented future
    * feature
@@ -85,7 +85,7 @@ private:
   /** @brief track restricted count */
   int restricted_count = 0;
 
-public:
+ public:
   enum FILETYPE { INI, JSON, XML, TEST };
   /**
    * @brief plain constructor
@@ -318,12 +318,12 @@ public:
    * @param *v[] **argv
    */
   void parse(int c, char *v[]) {
-    
     string prev = "";
     string_ops sops;
-    int x=0;
-    while ( x < c ) {
-      //std::cout << "-------------------->x=" << x << " c=" << c << "-------------------------" << std::endl;
+    int x = 0;
+    while (x < c) {
+      // std::cout << "-------------------->x=" << x << " c=" << c <<
+      // "-------------------------" << std::endl;
       string str(sops.trim(v[x]));
       string key;
       string value;
@@ -333,60 +333,66 @@ public:
       if ((flag == 0 && (space != str.npos || assigner != str.npos)) ||
           (flag == 0 && x + 1 < c && v[x + 1][0] != '-')) {
         int t = x;
-	//std::cout << "f-"<<flag<<" a-"<<assigner << " s-" << space << std::endl;
-        // if there is an equal sign in the string split it and copy the values
+        // std::cout << "f-"<<flag<<" a-"<<assigner << " s-" << space <<
+        // std::endl;
+        //  if there is an equal sign in the string split it and copy the values
         if (assigner != str.npos) {
-          key = str.substr(1, assigner-1);
-	  x++;
+          key = str.substr(1, assigner - 1);
+          x++;
           std::string val = str.substr(assigner + 1, str.size());
-	  string_ops::trim(&val);
-	  string_ops::strip_qoutes(&val);
+          string_ops::trim(&val);
+          string_ops::strip_qoutes(&val);
           value.append(val);
-	  
-        }else if (space != str.npos) {
-          key = str.substr(1, space-1); 
-	  x++;
+
+        } else if (space != str.npos) {
+          key = str.substr(1, space - 1);
+          x++;
           std::string val = str.substr(space, str.size());
-	  string_ops::trim(&val);
-	  string_ops::strip_qoutes(&val);
+          string_ops::trim(&val);
+          string_ops::strip_qoutes(&val);
           value.append(val);
         }
         sops.trim(&key);
         while (key[0] == '-') {
           key.erase(0, 1);
         }
-	//std::cout << "---->" << key << "<--->" << value << "<----While" << std::endl;
+        // std::cout << "---->" << key << "<--->" << value << "<----While" <<
+        // std::endl;
         while (t + 1 < c && v[t + 1][0] != '-') {
           value.append(" ");
           value.append(sops.strip_qoutes(sops.trim(v[t + 1])));
-	  t++;
+          t++;
         }
-	
-	//std::cout << "---->" << key << "<--->" << value << "<----if" << std::endl;
+
+        // std::cout << "---->" << key << "<--->" << value << "<----if" <<
+        // std::endl;
         /*if (t + 1 == c - 1 && v[t + 1][0] != '-') {
           value.append(" ");
           value.append(sops.strip_qoutes(sops.trim(v[t + 1])));
-	  t++;
+          t++;
         }*/
-	
-	x=t;
-	if (!options.contains(key)){
-	  options.emplace(string_ops::trim(key), string_ops::trim(value));
+
+        x = t;
+        if (!options.contains(key)) {
+          options.emplace(string_ops::trim(key), string_ops::trim(value));
           options_count.emplace(key, 1);
-	  //std::cout << "---->" << key << "<--->" << value << "<----does!contain" << std::endl;
-	  x++;
-	  continue;
-	}
-        if ( allow_multi && options.contains(key) ) {
+          // std::cout << "---->" << key << "<--->" << value <<
+          // "<----does!contain" << std::endl;
+          x++;
+          continue;
+        }
+        if (allow_multi && options.contains(key)) {
           options.emplace(string_ops::trim(key), string_ops::trim(value));
           options_count[key] = options_count[key] + 1;
           options.emplace(string_ops::trim(key), string_ops::trim(value));
-	  //std::cout << "---->" << key << "<--->" << value << "<----contains" << std::endl;
-	  x++;
-	  continue;
-        }else{
-		throw security_exception("allow identicle keys _allow_multi is set to false duplicate key");
-	}
+          // std::cout << "---->" << key << "<--->" << value << "<----contains"
+          // << std::endl;
+          x++;
+          continue;
+        } else {
+          throw security_exception("allow identicle keys _allow_multi is set "
+                                   "to false duplicate key");
+        }
 
       } else {
         if (flag != str.npos) {
@@ -394,7 +400,7 @@ public:
             str.erase(0, 1);
           }
           flags.insert(str);
-	  x++;
+          x++;
         }
       }
     }
@@ -405,9 +411,7 @@ public:
    * @param key to check
    * @returns bool
    * */
-  bool has_key(string key) { 
-	  return options.find(key) != options.end();
-  }
+  bool has_key(string key) { return options.find(key) != options.end(); }
   /**
    * @brief returns true if the flag exists
    * @param flag to check

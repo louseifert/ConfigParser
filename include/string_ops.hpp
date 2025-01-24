@@ -25,9 +25,9 @@
 #pragma GCC diagnostic push                            // NOLINT
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized" // NOLINT
 #include <ParserExceptions.hpp>                        // NOLINT
+#include <algorithm>                                   // NOLINT
 #include <cctype>                                      // NOLINT
-#include <algorithm>				       // NOLINT
-#include <splitstring.hpp>			       // NOLINT
+#include <splitstring.hpp>                             // NOLINT
 // TODO replace regex create sanitizerclass and propriatary implementation to
 // sub // NOLINT
 #include <regex>                            // NOLINT
