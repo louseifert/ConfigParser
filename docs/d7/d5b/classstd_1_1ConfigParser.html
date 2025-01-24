@@ -113,6 +113,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a40a8313a19fc9b242e28839b9897a5dc" id="r_a40a8313a19fc9b242e28839b9897a5dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a40a8313a19fc9b242e28839b9897a5dc">ConfigParser</a> (int c, char *v[], bool _allow_restricted)</td></tr>
 <tr class="memdesc:a40a8313a19fc9b242e28839b9897a5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">this allows processing of the command line and allowing access to the restricted/filtered ini or clp settings.  <br /></td></tr>
 <tr class="separator:a40a8313a19fc9b242e28839b9897a5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e6e693cef5ba7f01e6b50ae77a3a93b" id="r_a3e6e693cef5ba7f01e6b50ae77a3a93b"><td class="memItemLeft" align="right" valign="top"><a id="a3e6e693cef5ba7f01e6b50ae77a3a93b" name="a3e6e693cef5ba7f01e6b50ae77a3a93b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ConfigParser</b> (int c, char *v[], bool _allow_restricted, bool _inisec_override, bool _allow_multi)</td></tr>
+<tr class="separator:a3e6e693cef5ba7f01e6b50ae77a3a93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0308aedb901eaf2d831f30b90da78f9" id="r_aa0308aedb901eaf2d831f30b90da78f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#aa0308aedb901eaf2d831f30b90da78f9">ConfigParser</a> (int c, char *v[], bool _allow_restricted, string string_ops_values, string string_ops_flags)</td></tr>
 <tr class="memdesc:aa0308aedb901eaf2d831f30b90da78f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">this allows processing of the command line and allowing access to the restricted/filtered ini or clp settings.  <br /></td></tr>
 <tr class="separator:aa0308aedb901eaf2d831f30b90da78f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,6 +149,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a957f45a800ada68ff28d2a051e35dd41" id="r_a957f45a800ada68ff28d2a051e35dd41"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a957f45a800ada68ff28d2a051e35dd41">get_restricted_keys</a> ()</td></tr>
 <tr class="memdesc:a957f45a800ada68ff28d2a051e35dd41"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the keys of the restricted list this can be done with allow_restrictions but accessing them requires the flag  <br /></td></tr>
 <tr class="separator:a957f45a800ada68ff28d2a051e35dd41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab0601b3e48569add0e9f01cba1c3c12" id="r_aab0601b3e48569add0e9f01cba1c3c12"><td class="memItemLeft" align="right" valign="top"><a id="aab0601b3e48569add0e9f01cba1c3c12" name="aab0601b3e48569add0e9f01cba1c3c12"></a>
+vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_strings</b> (std::string key)</td></tr>
+<tr class="separator:aab0601b3e48569add0e9f01cba1c3c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd0399a23fabf8fa8560a1cc44ebe756" id="r_acd0399a23fabf8fa8560a1cc44ebe756"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#acd0399a23fabf8fa8560a1cc44ebe756">get_restricted_string</a> (string key)</td></tr>
 <tr class="memdesc:acd0399a23fabf8fa8560a1cc44ebe756"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restricted options are set when during parsing the variable or variable name doesn't meet the regex this returns a restricted variable only if allow restricted is enabled.  <br /></td></tr>
 <tr class="separator:acd0399a23fabf8fa8560a1cc44ebe756"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,6 +164,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f0ead8f990cd0d754a32a8bf645f918" id="r_a4f0ead8f990cd0d754a32a8bf645f918"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a4f0ead8f990cd0d754a32a8bf645f918">get_int</a> (string key)</td></tr>
 <tr class="memdesc:a4f0ead8f990cd0d754a32a8bf645f918"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets an int  <br /></td></tr>
 <tr class="separator:a4f0ead8f990cd0d754a32a8bf645f918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cbbcc3c5691943225015bb73302ba77" id="r_a1cbbcc3c5691943225015bb73302ba77"><td class="memItemLeft" align="right" valign="top"><a id="a1cbbcc3c5691943225015bb73302ba77" name="a1cbbcc3c5691943225015bb73302ba77"></a>
+int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>key_count</b> (std::string(key))</td></tr>
+<tr class="separator:a1cbbcc3c5691943225015bb73302ba77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bba84c8398977934cf9ccebcf723574" id="r_a7bba84c8398977934cf9ccebcf723574"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a7bba84c8398977934cf9ccebcf723574">get_double</a> (string key)</td></tr>
 <tr class="memdesc:a7bba84c8398977934cf9ccebcf723574"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets double option if NaN or key does not exist throws and exception  <br /></td></tr>
 <tr class="separator:a7bba84c8398977934cf9ccebcf723574"><td class="memSeparator" colspan="2">&#160;</td></tr>

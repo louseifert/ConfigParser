@@ -46,17 +46,27 @@ namespace std {                             // NOLINT
  * planned support for other file formats
  */
 class ConfigParser {
- private:
-  bool inisec_override=false;
+private:
+  /**
+   * Allow multiple entries of the same flag type to be implemented future
+   * feature
+   */
+  bool allow_multi = false;
+  /**
+   * allow the override of ini security checks
+   */
+  bool inisec_override = false;
   // TODO(louIII):change map to multi map or add multimap //NOLINT
   /** @brief map of options internal */
-  map<std::string, std::string> options;
+  multimap<std::string, std::string> options;
   /** @brief flags set*/
+  /** #brief contains count for options for future function*/
+  map<std::string, int16_t> options_count;
   set<string> flags;
   /** @brief default config file */
   string configFile = "";
   /** @brief map of restricted internal */
-  map<std::string, std::string> restricted;
+  multimap<std::string, std::string> restricted;
   /** @brief allows override of restricted lock */
   bool allow_override = false;
   /** @brief allows the parser to read
@@ -75,7 +85,7 @@ class ConfigParser {
   /** @brief track restricted count */
   int restricted_count = 0;
 
- public:
+public:
   enum FILETYPE { INI, JSON, XML, TEST };
   /**
    * @brief plain constructor
@@ -108,9 +118,9 @@ class ConfigParser {
    * @param bool allow restricted variable use
    * @param bool override INI security checks less secure
    */
-  ConfigParser(bool _allow_restricted, bool _inisec_override){
-   allow_restricted=_allow_restricted;
-   inisec_override=_inisec_override;
+  ConfigParser(bool _allow_restricted, bool _inisec_override) {
+    allow_restricted = _allow_restricted;
+    inisec_override = _inisec_override;
   }
   /**
    * @brief this allows processing of the command line and allowing access to
@@ -121,6 +131,13 @@ class ConfigParser {
    */
   ConfigParser(int c, char *v[], bool _allow_restricted) {
     this->allow_restricted = _allow_restricted;
+    parse(c, v);
+  }
+  ConfigParser(int c, char *v[], bool _allow_restricted, bool _inisec_override,
+               bool _allow_multi) {
+    this->allow_restricted = _allow_restricted;
+    this->inisec_override = _inisec_override;
+    this->allow_multi = _allow_multi;
     parse(c, v);
   }
   /**
@@ -138,6 +155,7 @@ class ConfigParser {
     parse(c, v);
     this->allow_restricted = _allow_restricted;
   }
+
   /**
    * @brief parses both settings and clp options have precidence over ini on
    * identical identifiers takes filename type argc argv
@@ -180,18 +198,20 @@ class ConfigParser {
       throw file_access_exception(
           (const string) "file either does not exist or is not a regular file");
     }
-   
-   //Throw a security exception if the file is writable
-   auto perm=std::filesystem::status(filename).permissions();
-   if ( (perm == std::filesystem::perms::others_write || 
-		   perm==std::filesystem::perms::group_write||
-		   perm==std::filesystem::perms::owner_write||
-		   perm==std::filesystem::perms::group_exec||
-		   perm==std::filesystem::perms::owner_exec||
-		   perm==std::filesystem::perms::others_exec||
-		   perm==std::filesystem::perms::others_read) && !inisec_override){
-      throw security_exception((
-          const string) "Setting config files to read only is more secure, or use override constructor");
+
+    // Throw a security exception if the file is writable
+    auto perm = std::filesystem::status(filename).permissions();
+    if ((perm == std::filesystem::perms::others_write ||
+         perm == std::filesystem::perms::group_write ||
+         perm == std::filesystem::perms::owner_write ||
+         perm == std::filesystem::perms::group_exec ||
+         perm == std::filesystem::perms::owner_exec ||
+         perm == std::filesystem::perms::others_exec ||
+         perm == std::filesystem::perms::others_read) &&
+        !inisec_override) {
+      throw security_exception(
+          (const string) "Setting config files to read only is more secure, or "
+                         "use override constructor");
     }
     std::string line;
 
@@ -243,7 +263,14 @@ class ConfigParser {
         restricted_count++;
       } else {
         if (options.contains(key)) {
-          options[key] = value;
+          if (allow_multi) {
+            options_count[key] = options_count[key] + 1;
+            options.emplace(key, value);
+          } else {
+            throw security_exception(
+                "Duplicate key is being added and allow multi is not set: " +
+                key);
+          }
         } else {
           options.emplace(key, value);
           ini_parm_count++;
@@ -291,45 +318,84 @@ class ConfigParser {
    * @param *v[] **argv
    */
   void parse(int c, char *v[]) {
+    
     string prev = "";
-    for (int i = 0; i < c; i++) {
-      string str(v[i]);
+    string_ops sops;
+    int x=0;
+    while ( x < c ) {
+      //std::cout << "-------------------->x=" << x << " c=" << c << "-------------------------" << std::endl;
+      string str(sops.trim(v[x]));
       string key;
       string value;
-
       size_t flag = str.find_first_of('-', 0);
       size_t assigner = str.find_first_of('=', 0);
-      // if (flag == assigner) {
-      //   continue;
-      // }
+      size_t space = str.find_first_of(' ', 1);
+      if ((flag == 0 && (space != str.npos || assigner != str.npos)) ||
+          (flag == 0 && x + 1 < c && v[x + 1][0] != '-')) {
+        int t = x;
+	//std::cout << "f-"<<flag<<" a-"<<assigner << " s-" << space << std::endl;
+        // if there is an equal sign in the string split it and copy the values
+        if (assigner != str.npos) {
+          key = str.substr(1, assigner-1);
+	  x++;
+          std::string val = str.substr(assigner + 1, str.size());
+	  string_ops::trim(&val);
+	  string_ops::strip_qoutes(&val);
+          value.append(val);
+	  
+        }else if (space != str.npos) {
+          key = str.substr(1, space-1); 
+	  x++;
+          std::string val = str.substr(space, str.size());
+	  string_ops::trim(&val);
+	  string_ops::strip_qoutes(&val);
+          value.append(val);
+        }
+        sops.trim(&key);
+        while (key[0] == '-') {
+          key.erase(0, 1);
+        }
+	//std::cout << "---->" << key << "<--->" << value << "<----While" << std::endl;
+        while (t + 1 < c && v[t + 1][0] != '-') {
+          value.append(" ");
+          value.append(sops.strip_qoutes(sops.trim(v[t + 1])));
+	  t++;
+        }
+	
+	//std::cout << "---->" << key << "<--->" << value << "<----if" << std::endl;
+        /*if (t + 1 == c - 1 && v[t + 1][0] != '-') {
+          value.append(" ");
+          value.append(sops.strip_qoutes(sops.trim(v[t + 1])));
+	  t++;
+        }*/
+	
+	x=t;
+	if (!options.contains(key)){
+	  options.emplace(string_ops::trim(key), string_ops::trim(value));
+          options_count.emplace(key, 1);
+	  //std::cout << "---->" << key << "<--->" << value << "<----does!contain" << std::endl;
+	  x++;
+	  continue;
+	}
+        if ( allow_multi && options.contains(key) ) {
+          options.emplace(string_ops::trim(key), string_ops::trim(value));
+          options_count[key] = options_count[key] + 1;
+          options.emplace(string_ops::trim(key), string_ops::trim(value));
+	  //std::cout << "---->" << key << "<--->" << value << "<----contains" << std::endl;
+	  x++;
+	  continue;
+        }else{
+		throw security_exception("allow identicle keys _allow_multi is set to false duplicate key");
+	}
 
-      if (flag == 0 && assigner >= str.npos) {
-        while (str[0] == '-') {
-          str.erase(0, 1);
-        }
-        if ((i + 1 < c && v[i + 1][0] == '-') || i + 1 >= c) {
-          flags.insert(str);
-          continue;
-        } else if (i + 1 < c) {
-          std::string key(str);
-          std::string value(v[i + 1]);
-          int t = i;
-          while (t + 1 < c && v[t + 1][0] != '-') {
-            value.append(" ");
-            value.append(v[t]);
-            t++;
+      } else {
+        if (flag != str.npos) {
+          while (str[0] == '-') {
+            str.erase(0, 1);
           }
-          i = t;
-          options.emplace(key, value);
+          flags.insert(str);
+	  x++;
         }
-      } else if (flag == 0 && assigner != string::npos) {
-        // Case where input is a -something=something
-        key = str.substr(1, assigner - 1);
-        value = str.substr(assigner + 1, str.length() - assigner - 1);
-        if (!options.contains(key)) {
-          options.emplace(key, value);
-        }
-        continue;
       }
     }
   }
@@ -339,21 +405,23 @@ class ConfigParser {
    * @param key to check
    * @returns bool
    * */
-  bool has_key(string key) { return options.contains(key); }
+  bool has_key(string key) { 
+	  return options.find(key) != options.end();
+  }
   /**
    * @brief returns true if the flag exists
    * @param flag to check
    * @returns bool
    */
-  bool has_flag(string flag) { return flags.find(flag) != flags.end(); }
+  bool has_flag(string flag) { return flags.contains(flag); }
   /**
    * @brief Returns the value of the key pair in string form
    * @param key to return the value of
    * @returns string value of the key pair
    */
   string get_string(string key) {
-    if (options.contains(key)) {
-      return this->options[key];
+    if (auto v = options.find(key); v != options.end()) {
+      return v->second;
     } else {
       throw key_value_exception((const string)NOKEY);
     }
@@ -371,7 +439,16 @@ class ConfigParser {
     }
     return r;
   }
-
+  vector<std::string> get_strings(std::string key) {
+    vector<std::string> retvec;
+    auto range = options.equal_range(key);
+    for (auto &i = range.first; i != range.second; i++) {
+      if (i->first == key) {
+        retvec.push_back(i->second);
+      }
+    }
+    return retvec;
+  }
   /**
    * @brief Restricted options are set when during parsing the variable or
    * variable name doesn't meet the regex this returns a restricted variable
@@ -382,8 +459,8 @@ class ConfigParser {
    */
   string get_restricted_string(string key) {
     if (allow_restricted) {
-      if (restricted.contains(key)) {
-        return this->restricted[key];
+      if (auto v = restricted.find(key); v != restricted.end()) {
+        return v->second;
       }
     } else {
       throw security_exception("Allow_restricted is set to false by default, "
@@ -400,9 +477,9 @@ class ConfigParser {
    * @returns int64_t longlong
    */
   int64_t get_longlong(string key) {
-    if (options.contains(key)) {
+    if (auto v = options.find(key); v != options.end()) {
       try {
-        int64_t r = stoll(options[key]);
+        int64_t r = stoll(v->second);
         return r;
       } catch (exception &e) {
         throw key_value_exception(NAN);
@@ -418,9 +495,9 @@ class ConfigParser {
    * @return int32 resulting number
    */
   int32_t get_long(string key) {
-    if (options.contains(key)) {
+    if (auto v = options.find(key); v != options.end()) {
       try {
-        int32_t r = stol(options[key]);
+        int32_t r = stol(v->second);
         return r;
       } catch (exception &e) {
         throw key_value_exception(NAN);
@@ -435,9 +512,9 @@ class ConfigParser {
    * return int32_t return value
    */
   int32_t get_int(string key) {
-    if (options.contains(key)) {
+    if (auto v = options.find(key); v != options.end()) {
       try {
-        int r = stoi(options[key]);
+        int r = stoi(v->second);
 
         return r;
       } catch (exception &e) {
@@ -447,16 +524,22 @@ class ConfigParser {
       throw key_value_exception((const string)NOKEY);
     }
   }
-
+  int16_t key_count(std::string(key)) {
+    if (options_count.contains(key)) {
+      return options_count[key];
+    } else {
+      return 0;
+    }
+  }
   /**
    * @brief gets double option if NaN or key does not exist throws and exception
    * @param key string
    * @returns double value
    */
   double get_double(string key) {
-    if (options.contains(key)) {
+    if (auto v = options.find(key); v != options.end()) {
       try {
-        double r = stod(options[key]);
+        double r = stod(v->second);
         return r;
       } catch (exception &e) {
         throw key_value_exception(NAN);
@@ -472,9 +555,9 @@ class ConfigParser {
    * @return float value
    */
   float get_float(string key) {
-    if (options.contains(key)) {
+    if (auto v = options.find(key); v != options.end()) {
       try {
-        float r = stof(options[key]);
+        float r = stof(v->second);
         return r;
       } catch (exception &e) {
         throw key_value_exception(NAN);

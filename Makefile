@@ -1,5 +1,5 @@
 compiler=g++
-cflags=-O3  -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra
+cflags=-O3  -std=c++23 -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra
 builddir=build
 C_version=c++23
 file=main
@@ -7,7 +7,7 @@ googleinclude=/usr/src/
 
 make:
 	echo "Making example file in ${builddir}/${file} the test files, please review"
-	${compiler} ${cflags} ${file}.cpp -std=${C_version} -I ./include/ -o ${builddir}/${file}
+	${compiler} ${cflags} ${file}.cpp -std=${C_version}  -I ./include/ -o ${builddir}/${file}
 
 
 lint:

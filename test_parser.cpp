@@ -33,6 +33,150 @@
 #include <string>               //NOLINT
 
 namespace std { // NOLINT
+
+TEST(Override_path, BasicTest){
+ 
+  std::string_ops sops;
+  char **arr = new char *[1]; // NOLINT
+  arr[0] = new char[strlen("-config path/to/some/loc") + 1];
+  strcpy(arr[0], "-config path/to/some/loc");               // NOLINT
+  ConfigParser config(1,arr,false,true,true);
+  config.load_ini("writeable");
+  EXPECT_EQ(config.has_key("config"),true);
+  delete[] arr[0];
+  delete[] (arr);
+  if (config.has_key("config"),true){
+	  EXPECT_EQ(config.get_string("config"),"path/to/some/loc");
+  }
+}
+TEST(Override_no_ini, BasicTest){
+  std::string_ops sops;
+  char **arr = new char *[1]; // NOLINT
+  arr[0] = new char[strlen("-config ./path/to/some/loc") + 1];
+  strcpy(arr[0], "-config ./path/to/some/loc");               // NOLINT
+  ConfigParser config(1,arr,false,true,true);
+  delete[] arr[0];
+  delete[] arr;
+
+  EXPECT_EQ(config.has_key("config"),true);
+  if (config.has_key("config"),true){
+          EXPECT_EQ(config.get_string("config"),"./path/to/some/loc");
+  }
+}
+TEST(Override_no_ini_c, BasicTest){
+  std::string_ops sops;
+  char **arr = new char *[1]; // NOLINT
+  arr[0] = new char[strlen("-c ./path/to/some/loc") + 1];
+  strcpy(arr[0], "-c ./path/to/some/loc");               // NOLINT
+  ConfigParser config(1,arr,false,true,true);
+  EXPECT_EQ(config.has_key("c"),true);
+  delete[] arr[0];
+  delete[] arr;
+
+  if (config.has_key("c"),true){
+          EXPECT_EQ(config.get_string("c"),"./path/to/some/loc");
+  }
+}
+TEST(MultiValueTest, BasicTest){
+  std::string_ops sops;
+  std::string ans0="./path/to/some/loc ";
+  std::string arg0="-path "+ans0;
+  char **arr = new char *[2]; // NOLINT
+			      //
+  
+  //create array of size of both strings
+  arr[0] = new char[arg0.size()+1];
+  strcpy(arr[0], arg0.c_str());  // NOLINT
+  std::string ans1="./path2/another/loc ";
+  std::string arg1="-path "+ans1;
+  
+  //create an array of size of both strings
+  arr[1] = new char[arg1.size()+1];
+  strcpy(arr[1], arg1.c_str());
+  ConfigParser config(2,arr,false,true,true);
+  std::vector<std::string> res = config.get_strings("path");
+  int c=0;
+  for (size_t i=0; i<res.size(); i++){
+	  std::cout << res[i] << std::endl;
+  	if (res[i]==ans0||res[i]==ans1){c++;};
+  }
+  EXPECT_EQ(2,config.key_count("path"));
+  delete[] arr[1];
+  delete[] arr[0];
+  delete[] arr;
+
+ }
+
+TEST(MultiValueException, BasicTest){
+  std::string_ops sops;
+  std::string ans0="./path/to/some/loc ";
+  std::string arg0="-path "+ans0;
+  char **arr = new char *[2]; // NOLINT
+                              //
+
+  //create array of size of both strings
+  arr[0] = new char[arg0.size()+1];
+  strcpy(arr[0], arg0.c_str());  // NOLINT
+  std::string ans1="./path2/another/loc ";
+  std::string arg1="-path "+ans1;
+
+  //create an array of size of both strings
+  arr[1] = new char[arg1.size()+1];
+  strcpy(arr[1], arg1.c_str());
+
+  try{
+  	ConfigParser config(2,arr,false,false,false);
+  }catch(exception &e){
+	//std::cerr << e.what() << std::endl;
+	  delete[] arr[1];
+	  delete[] arr[0];
+	  delete[] arr;
+	  std::string ans="allow identicle keys _allow_multi is set to false duplicate key";
+	  EXPECT_EQ(e.what(),ans); 
+  }
+}
+TEST(MultiValueMulti_V_I_Test, BasicTest){
+	std::string arg0a="-path ";
+	std::string arg0b="./path/to/loc ";
+	std::string arg0c="./other/path1 ";
+	char **arr = new char *[4]; // NOLINT
+ 	arr[0] = new char[arg0a.size()+1];// NOLINT
+ 	arr[1] = new char[arg0b.size()+1];// NOLINT
+ 	arr[2] = new char[arg0a.size()+1];// NOLINT
+	arr[3] = new char[arg0c.size()+1];// NOLINT
+  	strcpy(arr[0], arg0a.c_str());
+ 	strcpy(arr[1], arg0b.c_str());
+       	strcpy(arr[2], arg0a.c_str());
+	strcpy(arr[3], arg0c.c_str());
+	ConfigParser *config=NULL;
+  	try{
+		config=new ConfigParser(4,arr,false,true,true);
+	std::vector<std::string> res = config->get_strings("path");
+	
+  	int c=0;
+  	for (size_t i=0; i<res.size(); i++){
+        	if (res[i]==arg0c||res[i]==arg0b){c++;};
+  	}
+  		//If this fails it means that multiple values with the same tag failed.
+	int m=0;
+	m=config->key_count("path");
+	EXPECT_EQ(2,m);
+        EXPECT_EQ(c,2);
+
+	}catch(exception &e){
+		if (config!=NULL){
+			delete config;
+		}
+                std::cerr << e.what() << std::endl;
+        }
+	delete[] arr[3];
+	delete[] arr[2];
+	delete[] arr[1];
+  	delete[] arr[0];
+  	delete[] arr;
+}
+
+	
 TEST(Single_char_delimiter, BasicTest) { //NOLINT
   std::string_ops sops;
   std::string result("extracted_value");
