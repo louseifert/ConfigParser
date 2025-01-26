@@ -352,6 +352,9 @@ class ConfigParser {
           string_ops::strip_qoutes(&val);
           value.append(val);
         }
+        if (space == str.npos && assigner == str.npos && str[0] == '-') {
+          key = str;
+        }
         sops.trim(&key);
         while (key[0] == '-') {
           key.erase(0, 1);
@@ -371,28 +374,29 @@ class ConfigParser {
           value.append(sops.strip_qoutes(sops.trim(v[t + 1])));
           t++;
         }*/
-
         x = t;
         if (!options.contains(key)) {
           options.emplace(string_ops::trim(key), string_ops::trim(value));
           options_count.emplace(key, 1);
-          // std::cout << "---->" << key << "<--->" << value <<
-          // "<----does!contain" << std::endl;
+          // std::cout << "opcount: " << options.size() <<  " size: " <<
+          // options.size() << "---->" << key << "<--->" << value <<
+          //"<----does!contain" << std::endl;
           x++;
           continue;
         }
         if (allow_multi && options.contains(key)) {
           options.emplace(string_ops::trim(key), string_ops::trim(value));
           options_count[key] = options_count[key] + 1;
-          options.emplace(string_ops::trim(key), string_ops::trim(value));
-          // std::cout << "---->" << key << "<--->" << value << "<----contains"
-          // << std::endl;
+          // std::cout << "opcount: " << options.size() <<  " size: " <<
+          // options.size() << "---->" << key << "<--->" << value <<
+          //  "<----does!contain" << std::endl;
           x++;
           continue;
         } else {
           throw security_exception("allow identicle keys _allow_multi is set "
                                    "to false duplicate key");
         }
+        // std::cout << "--->" << options.size() << "<---" << std::endl;
 
       } else {
         if (flag != str.npos) {
@@ -400,9 +404,9 @@ class ConfigParser {
             str.erase(0, 1);
           }
           flags.insert(str);
-          x++;
         }
       }
+      x++;
     }
   }
 
@@ -528,13 +532,7 @@ class ConfigParser {
       throw key_value_exception((const string)NOKEY);
     }
   }
-  int16_t key_count(std::string(key)) {
-    if (options_count.contains(key)) {
-      return options_count[key];
-    } else {
-      return 0;
-    }
-  }
+  int16_t key_count(std::string key) { return get_strings(key).size(); }
   /**
    * @brief gets double option if NaN or key does not exist throws and exception
    * @param key string

@@ -212,6 +212,9 @@ class string_ops {
    * @param *s pointer to a string
    */
   static void strip_qoutes(string *s) {
+    if (s->empty()) {
+      return;
+    }
     if ((s->at(0) == '"' && s->at(s->length() - 1) == '"') ||
         (s->at(0) == '\'' && s->at(s->length() - 1) == '\'')) {
       s->erase(0, 1);

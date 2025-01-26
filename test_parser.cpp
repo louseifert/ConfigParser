@@ -96,7 +96,7 @@ TEST(MultiValueTest, BasicTest) {
   std::vector<std::string> res = config.get_strings("path");
   int c = 0;
   for (size_t i = 0; i < res.size(); i++) {
-    std::cout << res[i] << std::endl;
+    // std::cout << "->" << res[i] << std::endl;
     if (res[i] == ans0 || res[i] == ans1) {
       c++;
     }
@@ -106,7 +106,28 @@ TEST(MultiValueTest, BasicTest) {
   delete[] arr[0];
   delete[] arr;
 }
+TEST(MultiValueTest_hang, BasicTest) {
+  std::string_ops sops;
+  std::string ans0 = "./path/to/some/loc ";
+  std::string arg0 = "-path " + ans0;
+  char **arr = new char *[1]; // NOLINT
+                              //
+  arr[0] = new char[arg0.size() + 1];
+  strcpy(arr[0], arg0.c_str()); // NOLINT
 
+  ConfigParser *config = NULL;
+  try {
+    config = new ConfigParser(1, arr);
+  } catch (exception &e) {
+    if (config != NULL) {
+      delete (config);
+    }
+    EXPECT_STREQ("sdlkjsd", e.what());
+  }
+  delete (config);
+  delete[] arr[0];
+  delete[] arr;
+}
 TEST(MultiValueException, BasicTest) {
   std::string_ops sops;
   std::string ans0 = "./path/to/some/loc ";
@@ -136,10 +157,12 @@ TEST(MultiValueException, BasicTest) {
     EXPECT_EQ(e.what(), ans);
   }
 }
+
 TEST(MultiValueMulti_V_I_Test, BasicTest) {
-  std::string arg0a = "-path ";
-  std::string arg0b = "./path/to/loc ";
-  std::string arg0c = "./other/path1 ";
+  std::string arg0a = "-path";
+  std::string arg0b = " ./path/to/loc ";
+  std::string arg0c = " ./other/path1 ";
+  string_ops so;
   char **arr = new char *[4];          // NOLINT
   arr[0] = new char[arg0a.size() + 1]; // NOLINT
   arr[1] = new char[arg0b.size() + 1]; // NOLINT
@@ -149,28 +172,22 @@ TEST(MultiValueMulti_V_I_Test, BasicTest) {
   strcpy(arr[1], arg0b.c_str());       // NOLINT
   strcpy(arr[2], arg0a.c_str());       // NOLINT
   strcpy(arr[3], arg0c.c_str());       // NOLINT
-  ConfigParser *config = NULL;
-  try {
-    config = new ConfigParser(4, arr, false, true, true);
-    std::vector<std::string> res = config->get_strings("path");
-
-    int c = 0;
-    for (size_t i = 0; i < res.size(); i++) {
-      if (res[i] == arg0c || res[i] == arg0b) {
-        c++;
-      }
+  ConfigParser config(4, arr, false, true, true);
+  std::vector<std::string> res = config.get_strings("path");
+  int c = 0;
+  for (size_t i = 0; i < res.size(); i++) {
+    // std::cout << "ele:" << res[i] << std::endl;
+    // std::cout << res[i] << " " << arg0c << " " << arg0b << std::endl;
+    if (res[i] == so.trim(arg0c) || res[i] == so.trim(arg0b)) {
+      c++;
     }
-    // If this fails it means that multiple values with the same tag failed.
-    int m = 0;
-    m = config->key_count("path");
-    EXPECT_EQ(2, m);
-    EXPECT_EQ(c, 2);
-  } catch (exception &e) {
-    if (config != NULL) {
-      delete config;
-    }
-    std::cerr << e.what() << std::endl;
+    // if (res[i]==so.trim(arg0b)){std::cout << "res[i] matches argb" ;}
+    // if (res[i]==so.trim(arg0c)){std::cout << "res[i] matches argc" ;}
   }
+  int m = 0;
+  m = config.key_count("path");
+  EXPECT_EQ(2, m);
+  EXPECT_EQ(c, 2);
   delete[] arr[3];
   delete[] arr[2];
   delete[] arr[1];
@@ -229,7 +246,6 @@ TEST(OpenReadOnly, BasicTest) {
     config->load_ini("readonly");
     EXPECT_EQ(config->has_key("Main.setting1"), true);
   } catch (exception &e) {
-    std::cout << e.what() << std::endl;
   }
   delete (config);
 }
