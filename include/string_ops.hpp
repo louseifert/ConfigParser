@@ -367,4 +367,4 @@ class string_ops {
   }
 };
 } // namespace std
-#endif // INCLUDE_STRING_OPS_HPP_
+#endif // INCLUDE_STRING_OPS_HPP_ //NOLINT

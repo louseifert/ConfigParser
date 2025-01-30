@@ -431,7 +431,7 @@ class ConfigParser {
     if (auto v = options.find(key); v != options.end()) {
       return v->second;
     } else {
-      throw key_value_exception((const string)NOKEY);
+      throw key_value_exception((const string)NOKEY + ": " + key);
     }
   }
   /**
@@ -474,7 +474,9 @@ class ConfigParser {
       throw security_exception("Allow_restricted is set to false by default, "
                                "enable it to use restricted");
     }
-    throw key_value_exception(NOKEY);
+    std::string msg = NOKEY;
+    msg.append(": " + key);
+    throw key_value_exception(msg);
   }
 
   /**
@@ -493,7 +495,10 @@ class ConfigParser {
         throw key_value_exception(NAN);
       }
     } else {
-      throw key_value_exception((const string)NOKEY);
+      std::string msg = NOKEY;
+      msg.append(": " + key);
+
+      throw key_value_exception(msg);
     }
   }
 
