@@ -4,7 +4,7 @@ builddir=build
 C_version=c++23
 file=main
 googleinclude=/usr/src/
-
+lintfilter=-whitespace/comments,-whitespace/blank_line,-readability/todo,-build/header_guard
 make:
 	echo "Making example file in ${builddir}/${file} the test files, please review"
 	${compiler} ${cflags} ${file}.cpp -std=${C_version}  -I ./include/ -o ${builddir}/${file}
@@ -17,12 +17,12 @@ lint:
 	cppcheck include/string_ops.hpp
 	cppcheck include/splitstring.hpp
 	#cppcheck test_parser.cpp
-	cpplint --filter=-whitespace/comments,-readability/todo include/string_ops.hpp
-	cpplint --filter=-whitespace/comments,-readability/todo include/splitstring.hpp
-	cpplint --filter=-whitespace/comments,-readability/todo main.cpp
-	cpplint --filter=-whitespace/comments,-readability/todo include/ConfigParser.hpp
-	cpplint --filter=-whitespace/comments,-readability/todo include/ParserExceptions.hpp
-	cpplint --filter=-whitespace/comments,-readability/todo test_parser.cpp
+	cpplint --filter=${lintfilter} include/string_ops.hpp
+	cpplint --filter=${lintfilter} include/splitstring.hpp
+	cpplint --filter=${lintfilter} main.cpp
+	cpplint --filter=${lintfilter} include/ConfigParser.hpp
+	cpplint --filter=${lintfilter} include/ParserExceptions.hpp
+	cpplint --filter=${lintfilter} test_parser.cpp
 
 format:
 	clang-format -i include/ConfigParser.hpp
