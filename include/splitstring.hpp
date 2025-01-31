@@ -70,4 +70,4 @@ std::string str_between(std::string *p, std::string *start, std::string *end) {
   size_t e = p->find(*end);
   return p->substr(s + start->size(), e - s - start->size());
 }
-#endif // INCLUDE_SPLITSTRING_HPP_ //NOLINT
+#endif // INCLUDE_SPLITSTRING_HPP_

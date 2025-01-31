@@ -338,24 +338,7 @@ class string_ops {
   static void tlower(std::string *str) {
     std::transform(str->begin(), str->end(), str->begin(), ::tolower);
   }
-  /**
-   * @brief returns a copy of the string in lower
-   * @param string
-   * @return string
-   */
-  static std::string tlower(std::string str) {
-    tlower(&str);
-    return str;
-  }
-  /**
-   * @brief returns a copy of the string in upper
-   * @param string input
-   * @return string in upper
-   */
-  static std::string tupper(std::string str) {
-    tupper(&str);
-    return str;
-  }
+
   /**
    * @brief Strips one set of qoutes on both ends of the string
    * @param s string
@@ -367,4 +350,4 @@ class string_ops {
   }
 };
 } // namespace std
-#endif // INCLUDE_STRING_OPS_HPP_ //NOLINT
+#endif // INCLUDE_STRING_OPS_HPP_

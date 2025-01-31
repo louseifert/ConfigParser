@@ -174,7 +174,22 @@ class ConfigParser {
       cout << "Parser FILETYPE is TEST TYPE that prints this line" << endl;
     }
   }
-
+  /**
+   * @brief check permission of the file before opening it to make sure it is read only
+   */
+  bool check_permission(std::string filename){
+    if(!std::filesystem::exists(filename)){return false;}
+    if(std::filesystem::is_regular_file(filename)){return false;}
+    auto perm = std::filesystem::status(filename).permissions();
+    if(perm == std::filesystem::perms::others_write){return false;}
+    if(!inisec_override && perm == std::filesystem::perms::group_write){return false;}
+    if(!inisec_override && perm == std::filesystem::perms::owner_write){return false;}
+    if(!inisec_override && perm == std::filesystem::perms::group_exec){return false;}
+    if(!inisec_override && perm == std::filesystem::perms::owner_exec){return false;}
+    if(!inisec_override && perm == std::filesystem::perms::others_exec){return false;}
+    if(!inisec_override && perm == std::filesystem::perms::others_read){return false;}
+    return true;
+  }
   /**
    * @brief Parses a config file with basic INI structure lines starting with ;
    * and # are comments, category or sections are bracketed [section] when
@@ -198,21 +213,10 @@ class ConfigParser {
       throw file_access_exception(
           (const string) "file either does not exist or is not a regular file");
     }
-
-    // Throw a security exception if the file is writable
-    auto perm = std::filesystem::status(filename).permissions();
-    if ((perm == std::filesystem::perms::others_write ||
-         perm == std::filesystem::perms::group_write ||
-         perm == std::filesystem::perms::owner_write ||
-         perm == std::filesystem::perms::group_exec ||
-         perm == std::filesystem::perms::owner_exec ||
-         perm == std::filesystem::perms::others_exec ||
-         perm == std::filesystem::perms::others_read) &&
-        !inisec_override) {
-      throw security_exception(
-          (const string) "Setting config files to read only is more secure, or "
-                         "use override constructor");
+    if (this->check_permission(filename)){
+	    throw security_exception("ini files should be read only");
     }
+    // Throw a security exception if the file is writable
     std::string line;
 
     /**
@@ -431,7 +435,7 @@ class ConfigParser {
     if (auto v = options.find(key); v != options.end()) {
       return v->second;
     } else {
-      throw key_value_exception((const string)NOKEY + ": " + key);
+      throw key_value_exception((const string)NOKEY);
     }
   }
   /**
@@ -474,9 +478,7 @@ class ConfigParser {
       throw security_exception("Allow_restricted is set to false by default, "
                                "enable it to use restricted");
     }
-    std::string msg = NOKEY;
-    msg.append(": " + key);
-    throw key_value_exception(msg);
+    throw key_value_exception(NOKEY);
   }
 
   /**
@@ -495,10 +497,7 @@ class ConfigParser {
         throw key_value_exception(NAN);
       }
     } else {
-      std::string msg = NOKEY;
-      msg.append(": " + key);
-
-      throw key_value_exception(msg);
+      throw key_value_exception((const string)NOKEY);
     }
   }
 
