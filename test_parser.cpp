@@ -26,11 +26,17 @@
 // NOLINT
 #include <ConfigParser.hpp>     //NOLINT
 #include <ParserExceptions.hpp> //NOLINT
+#include <cassert>              //NOLINT
 #include <cstdlib>              //NOLINT
 #include <exception>            //NOLINT
 #include <gtest/gtest.h>        //NOLINT
 #include <iostream>             //NOLINT
 #include <string>               //NOLINT
+#include <test_expect_equals.h> //NOLINT
+std::string ret;
+std::string field = "nonexistant";
+std::string noexist = "The key does not exist.: ";
+std::string noexistans = noexist + field;
 
 namespace std { // NOLINT
 
@@ -41,11 +47,12 @@ TEST(Override_path, BasicTest) {
   strcpy(arr[0], "-config path/to/some/loc"); // NOLINT
   ConfigParser config(1, arr, false, true, true);
   config.load_ini("writeable");
-  EXPECT_EQ(config.has_key("config"), true);
+  EXPECTEQUAL(config.has_key("config"), true);
   delete[] arr[0];
   delete[] (arr);
+  EXPECTEQUAL(config.has_key("config"), true);
   if (config.has_key("config"), true) {
-    EXPECT_EQ(config.get_string("config"), "path/to/some/loc");
+    EXPECTEQUAL(config.get_string("config"), "path/to/some/loc");
   }
 }
 TEST(Override_no_ini, BasicTest) {
@@ -57,9 +64,9 @@ TEST(Override_no_ini, BasicTest) {
   delete[] arr[0];
   delete[] arr;
 
-  EXPECT_EQ(config.has_key("config"), true);
+  EXPECTEQUAL(config.has_key("config"), true);
   if (config.has_key("config"), true) {
-    EXPECT_EQ(config.get_string("config"), "./path/to/some/loc");
+    EXPECTEQUAL(config.get_string("config"), "./path/to/some/loc");
   }
 }
 TEST(Override_no_ini_c, BasicTest) {
@@ -68,12 +75,12 @@ TEST(Override_no_ini_c, BasicTest) {
   arr[0] = new char[strlen("-c ./path/to/some/loc") + 1]; // NOLINT
   strcpy(arr[0], "-c ./path/to/some/loc");                // NOLINT
   ConfigParser config(1, arr, false, true, true);
-  EXPECT_EQ(config.has_key("c"), true);
+  EXPECTEQUAL(config.has_key("c"), true);
   delete[] arr[0];
   delete[] arr;
 
   if (config.has_key("c"), true) {
-    EXPECT_EQ(config.get_string("c"), "./path/to/some/loc");
+    EXPECTEQUAL(config.get_string("c"), "./path/to/some/loc");
   }
 }
 TEST(MultiValueTest, BasicTest) {
@@ -101,7 +108,7 @@ TEST(MultiValueTest, BasicTest) {
       c++;
     }
   }
-  EXPECT_EQ(2, config.key_count("path"));
+  EXPECTEQUAL(2, config.key_count("path"));
   delete[] arr[1];
   delete[] arr[0];
   delete[] arr;
@@ -114,7 +121,7 @@ TEST(MultiValueTest_hang, BasicTest) {
                               //
   arr[0] = new char[arg0.size() + 1];
   strcpy(arr[0], arg0.c_str()); // NOLINT
-
+  std::string ret;
   ConfigParser *config = NULL;
   try {
     config = new ConfigParser(1, arr);
@@ -122,11 +129,13 @@ TEST(MultiValueTest_hang, BasicTest) {
     if (config != NULL) {
       delete (config);
     }
-    EXPECT_STREQ("sdlkjsd", e.what());
+    ret = e.what();
   }
+
   delete (config);
   delete[] arr[0];
   delete[] arr;
+  EXPECTEQUAL("", ret);
 }
 TEST(MultiValueException, BasicTest) {
   std::string_ops sops;
@@ -144,7 +153,7 @@ TEST(MultiValueException, BasicTest) {
   // create an array of size of both strings
   arr[1] = new char[arg1.size() + 1];
   strcpy(arr[1], arg1.c_str()); // NOLINT
-
+  std::string ret;
   try {
     ConfigParser config(2, arr, false, false, false);
   } catch (exception &e) {
@@ -152,10 +161,11 @@ TEST(MultiValueException, BasicTest) {
     delete[] arr[1];
     delete[] arr[0];
     delete[] arr;
-    std::string ans =
-        "allow identicle keys _allow_multi is set to false duplicate key";
-    EXPECT_EQ(e.what(), ans);
+    std::string ans = ret = e.what();
   }
+  std::string ans =
+      "allow identicle keys _allow_multi is set to false duplicate key";
+  EXPECTEQUAL(ans, ret);
 }
 
 TEST(MultiValueMulti_V_I_Test, BasicTest) {
@@ -186,8 +196,8 @@ TEST(MultiValueMulti_V_I_Test, BasicTest) {
   }
   int m = 0;
   m = config.key_count("path");
-  EXPECT_EQ(2, m);
-  EXPECT_EQ(c, 2);
+  EXPECTEQUAL(2, m);
+  EXPECTEQUAL(c, 2);
   delete[] arr[3];
   delete[] arr[2];
   delete[] arr[1];
@@ -204,8 +214,8 @@ TEST(Single_char_delimiter, BasicTest) { // NOLINT
   std::string test2("string<del>extracted_value<del>has<del>custom_delimiters");
   vector<std::string> res = sops.split(&test1, &singleqoute);
   vector<std::string> res2 = sops.split(&test2, &delv);
-  EXPECT_EQ(res[1], result);
-  EXPECT_EQ(res2[1], result);
+  EXPECTEQUAL(res[1], result);
+  EXPECTEQUAL(res2[1], result);
 }
 TEST(string_delimiter, BasicTest) { // NOLINT
   std::string_ops sops;
@@ -214,9 +224,9 @@ TEST(string_delimiter, BasicTest) { // NOLINT
   std::string res("extracted_value");
   std::string test1("<body>extracted_value</body>");
   std::string_ops sop1(test1);
-  EXPECT_EQ(sops.string_between(&test1, &start, &end), res);
-  EXPECT_EQ(sop1.string_between(&start, &end), res);
-  EXPECT_EQ(sop1.string_between(start, end), res);
+  EXPECTEQUAL(sops.string_between(&test1, &start, &end), res);
+  EXPECTEQUAL(sop1.string_between(&start, &end), res);
+  EXPECTEQUAL(sop1.string_between(start, end), res);
 }
 
 TEST(string_ops, BasicTest) {
@@ -226,27 +236,30 @@ TEST(string_ops, BasicTest) {
   std::string test3("thisisatest");
   std::string test4("this ,is,a, test");
   sop.tupper(&test1);
-  EXPECT_EQ(test1, test2);
+  EXPECTEQUAL(test1, test2);
   sop.tlower(&test1);
-  EXPECT_EQ(test1, test3);
+  EXPECTEQUAL(test1, test3);
   vector<std::string> test5 = std::string_ops::split(test4, ',');
   vector<std::string> test6({"this", "is", "a", "test"});
   for (size_t i = 0; i < test5.size(); i++) {
     std::string t = test5[i];
     string_ops::trim(&t);
-    EXPECT_EQ(string_ops::trim(t), test6.at(i));
+    EXPECTEQUAL(string_ops::trim(t), test6.at(i));
   }
 }
 /**
  * Tests standard readonly open
  */
 TEST(OpenReadOnly, BasicTest) {
+  std::string ret = "";
   ConfigParser *config = new ConfigParser();
   try {
     config->load_ini("readonly");
-    EXPECT_EQ(config->has_key("Main.setting1"), true);
+    EXPECTEQUAL(config->has_key("Main.setting1"), true);
   } catch (exception &e) {
+    ret = e.what();
   }
+  EXPECTEQUAL(ret, "");
   delete (config);
 }
 
@@ -257,13 +270,11 @@ TEST(OpenWritable, BasicTest) {
   ConfigParser *config = new ConfigParser();
   try {
     config->load_ini("writeable");
-  } catch (security_exception &e) {
-    EXPECT_STREQ(e.what(),
-                 "Config files should not be writeable by the executor");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "The world falls apart here");
+    ret = e.what();
   }
   delete (config);
+  EXPECTEQUAL(ret, "");
 }
 
 /**
@@ -274,9 +285,9 @@ TEST(Load_bad_file, BasicTest) {
   try {
     config.load_ini("read_only");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(),
-                 "file either does not exist or is not a regular file");
+    ret = e.what();
   }
+  EXPECTEQUAL(ret, "file either does not exist or is not a regular file");
 }
 
 TEST(TestSpacesInArgs, BasicTest) {
@@ -289,21 +300,22 @@ TEST(TestSpacesInArgs, BasicTest) {
   strcpy(arr[2], "-setting2 without assigner");               // NOLINT
   ConfigParser config(3, arr);
   try {
-    EXPECT_EQ(config.has_flag("flag"), true);
+    EXPECTEQUAL(config.has_flag("flag"), true);
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "myflag check");
+    EXPECTEQUAL(e.what(), "myflag check");
   }
+
   try {
     std::string ret = config.get_string("setting2");
-    EXPECT_EQ(ret, "without assigner");
+    EXPECTEQUAL(ret, "without assigner");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "The key does not exist.");
+    EXPECTEQUAL(e.what(), "The key does not exist.");
   }
   try {
     string ret = config.get_string("setting1");
-    EXPECT_EQ("value1 is a string with spaces", ret);
+    EXPECTEQUAL("value1 is a string with spaces", ret);
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "setting1 check shouldn't throw");
+    EXPECTEQUAL(e.what(), "setting1 check shouldn't throw");
   }
   delete[] arr[2];
   delete[] arr[1];
@@ -323,20 +335,20 @@ TEST(Create_with_CLP_ARGS, BasicTest) {
 
   ConfigParser config(2, arr);
   try {
-    EXPECT_EQ(config.has_flag("myflag"), true);
+    EXPECTEQUAL(config.has_flag("myflag"), true);
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "myflag check");
+    EXPECTEQUAL(e.what(), "myflag check");
   }
   try {
-    string ret = config.get_string("asdf");
+    string ret = config.get_string(field);
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "The key does not exist.");
+    EXPECTEQUAL(e.what(), noexistans);
   }
   try {
     string ret = config.get_string("setting1");
-    EXPECT_EQ("value1", ret);
+    EXPECTEQUAL("value1", ret);
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "setting1 check shouldn't throw");
+    EXPECTEQUAL(e.what(), "setting1 check shouldn't throw");
   }
   delete[] arr[1];
   delete[] arr[0];
@@ -351,19 +363,18 @@ TEST(Get_int, BasicTest) {
   try {
     config.load_ini("readonly");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(),
-                 "load ini for read on the get int, should not throw");
+    EXPECTEQUAL(e.what(), "load ini for read on the get int, should not throw");
   }
-  EXPECT_EQ(true, config.has_flag("flag1"));
+  EXPECTEQUAL(true, config.has_flag("flag1"));
   try {
-    EXPECT_EQ(config.get_int("someint"), 3);
+    EXPECTEQUAL(config.get_int("someint"), 3);
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "someint check shouldn't throw");
+    EXPECTEQUAL(e.what(), "someint check shouldn't throw");
   }
   try {
-    config.get_int("does_not_exist");
+    config.get_int(field);
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "The key does not exist.");
+    EXPECTEQUAL(e.what(), noexistans);
   }
 }
 
@@ -376,8 +387,8 @@ TEST(Check_restricted, BasicTest) {
   try {
     config->get_restricted_string("");
   } catch (security_exception &e) {
-    EXPECT_STREQ(e.what(), "Allow_restricted is set to false by default, "
-                           "enable it to use restricted");
+    EXPECTEQUAL(e.what(), "Allow_restricted is set to false by default, "
+                          "enable it to use restricted");
   }
   delete (config);
 }
@@ -394,17 +405,17 @@ TEST(Check_restricted_with_allow, BasicTest) {
     std::cerr << e.what();
   }
   try {
-    config->get_restricted_string("ths");
+    config->get_restricted_string(field);
   } catch (key_value_exception &e) {
-    EXPECT_STREQ(e.what(), "The key does not exist.");
+    EXPECTEQUAL(e.what(), noexistans);
   }
   try {
     config->get_restricted_string("this");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "Not everything works!");
+    EXPECTEQUAL(e.what(), "Not everything works!");
   }
   vector<string> temp = config->get_restricted_keys();
-  EXPECT_EQ(temp.size(), (uint64_t)2);
+  EXPECTEQUAL(temp.size(), (uint64_t)2);
   delete (config);
 }
 
@@ -417,12 +428,12 @@ TEST(Check_counts, BasicTest) {
   try {
     config.load_ini("readonly");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "opening file, shouldn't throw");
+    EXPECTEQUAL(e.what(), "opening file, shouldn't throw");
   }
   vector<string> temp = config.get_keys();
-  EXPECT_EQ(temp.size(), (uint32_t)4);
-  EXPECT_EQ(config.get_parm_count(), (uint32_t)4);
-  EXPECT_EQ(config.get_flags_count(), (uint32_t)1);
+  EXPECTEQUAL((size_t)temp.size(), (size_t)4);
+  EXPECTEQUAL((size_t)config.get_parm_count(), (size_t)4);
+  EXPECTEQUAL((size_t)config.get_flags_count(), (size_t)1);
 }
 TEST(Open_more_than_one_ini, BasicTest) {
   ConfigParser config;
@@ -430,8 +441,9 @@ TEST(Open_more_than_one_ini, BasicTest) {
     config.load_ini("readonly");
     config.load_ini("readonly");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "you can only load an ini file once");
+    ret = e.what();
   }
+  EXPECTEQUAL(ret, "you can only load an ini file once");
 }
 
 /**
@@ -456,51 +468,49 @@ TEST(Test_numeric_types, BasicTest) {
   strcpy(arr[3], fl.c_str());      // NOLINT
 
   ConfigParser cp(4, arr);
-
-  string noexist = "The key does not exist.";
   try {
-    EXPECT_EQ(cp.has_flag("flag1"), true);
-    EXPECT_EQ(cp.get_float("float"), stof(sfloat));
-    EXPECT_EQ(cp.get_double("float"), stod(sfloat));
-    EXPECT_EQ(cp.get_longlong("long"), stoll(slong));
+    EXPECTEQUAL(cp.has_flag("flag1"), true);
+    EXPECTEQUAL(cp.get_float("float"), stof(sfloat));
+    EXPECTEQUAL(cp.get_double("float"), stod(sfloat));
+    EXPECTEQUAL(cp.get_longlong("long"), stoll(slong));
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), "Expect good result");
+    EXPECTEQUAL(e.what(), "Expect good result");
   }
   try {
-    cp.get_longlong("nonexistant");
+    cp.get_longlong(field);
   } catch (exception &e) {
-    EXPECT_EQ(e.what(), noexist);
+    EXPECTEQUAL(e.what(), noexistans);
   }
   try {
-    cp.get_double("nonexistant");
+    cp.get_double(field);
   } catch (exception &e) {
-    EXPECT_EQ(e.what(), noexist);
+    EXPECTEQUAL(e.what(), noexistans);
   }
   try {
-    cp.get_float("nonexistant");
+    cp.get_float(field);
   } catch (exception &e) {
-    EXPECT_EQ(e.what(), noexist);
+    EXPECTEQUAL(e.what(), noexistans);
   }
   try {
     cp.get_longlong("NaN");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), NAN);
+    EXPECTEQUAL(e.what(), NAN);
   }
 
   try {
     cp.get_double("NaN");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), NAN);
+    EXPECTEQUAL(e.what(), NAN);
   }
   try {
     cp.get_float("NaN");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), NAN);
+    EXPECTEQUAL(e.what(), NAN);
   }
   try {
     cp.get_int("NaN");
   } catch (exception &e) {
-    EXPECT_STREQ(e.what(), NAN);
+    EXPECTEQUAL(e.what(), NAN);
   }
   delete[] arr[3];
   delete[] arr[2];
@@ -508,7 +518,28 @@ TEST(Test_numeric_types, BasicTest) {
   delete[] arr[0];
   delete[] arr;
 }
-
+TEST(test_duplicate_add_ini, BasicTest) {
+  ConfigParser config;
+  std::string rval;
+  try {
+    config.load_ini("duplicate.ini");
+  } catch (exception &e) {
+    rval = e.what();
+  }
+  EXPECTEQUAL(rval,
+              "Duplicate key is being added and allow multi is not set: var");
+}
+TEST(test_duplicate_inis, BasicTest) {
+  ConfigParser config;
+  std::string rval;
+  try {
+    config.load_ini("readonly");
+    config.load_ini("readonly");
+  } catch (exception &e) {
+    rval = e.what();
+  }
+  EXPECTEQUAL(rval, "you can only load an ini file once");
+}
 } // namespace std
 int main(int c, char **arg) {
   ::testing::InitGoogleTest(&c, arg);

@@ -105,39 +105,39 @@ $(document).ready(function() { init_codefold(1); });
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d3/d8c/classfile__access__exception.html">   35</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d3/d8c/classfile__access__exception.html">file_access_exception</a> : <span class="keyword">public</span> std::exception {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">public</span>:</div>
 <div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../d3/d8c/classfile__access__exception.html#afe38bea11e64889c0c5df2ad554e2f94">   41</a></span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../d3/d8c/classfile__access__exception.html#afe38bea11e64889c0c5df2ad554e2f94">file_access_exception</a>(<span class="keyword">const</span> std::string &amp;message)</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      : _message(message) {}</div>
 </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../d3/d8c/classfile__access__exception.html#afe95de5bf8acbc3920ee9e52713ab362">   47</a></span>  <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_function" href="../../d3/d8c/classfile__access__exception.html#afe95de5bf8acbc3920ee9e52713ab362">what</a>() const noexcept { <span class="keywordflow">return</span> _message.c_str(); }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  std::string _message;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
 </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="foldopen" id="foldopen00058" data-start="{" data-end="};">
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="../../df/d03/classsecurity__exception.html">   58</a></span><span class="keyword">class </span><a class="code hl_class" href="../../df/d03/classsecurity__exception.html">security_exception</a> : <span class="keyword">public</span> std::exception {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="../../df/d03/classsecurity__exception.html#a51d72569e9611a70835011cc9d63f869">   63</a></span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../df/d03/classsecurity__exception.html#a51d72569e9611a70835011cc9d63f869">security_exception</a>(<span class="keyword">const</span> std::string &amp;message) : _message(message) {}</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="../../df/d03/classsecurity__exception.html#a8dd0fb3380fec80a7eeadbe8f693d57e">   68</a></span>  <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_function" href="../../df/d03/classsecurity__exception.html#a8dd0fb3380fec80a7eeadbe8f693d57e">what</a>() const noexcept { <span class="keywordflow">return</span> _message.c_str(); }</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  std::string _message;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
 </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="foldopen" id="foldopen00078" data-start="{" data-end="};">
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="../../de/d46/classkey__value__exception.html">   78</a></span><span class="keyword">class </span><a class="code hl_class" href="../../de/d46/classkey__value__exception.html">key_value_exception</a> : <span class="keyword">public</span> std::exception {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">public</span>:</div>
 <div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="../../de/d46/classkey__value__exception.html#af8d414f4ea608118742ce887686d927a">   84</a></span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../de/d46/classkey__value__exception.html#af8d414f4ea608118742ce887686d927a">key_value_exception</a>(<span class="keyword">const</span> std::string &amp;message)</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      : _message(message) {}</div>
 </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="../../de/d46/classkey__value__exception.html#aad1f3105879584c3a04bb298eaba80b8">   90</a></span>  <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_function" href="../../de/d46/classkey__value__exception.html#aad1f3105879584c3a04bb298eaba80b8">what</a>() const noexcept { <span class="keywordflow">return</span> _message.c_str(); }</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  std::string _message;</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>};</div>
 </div>

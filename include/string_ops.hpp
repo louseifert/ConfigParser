@@ -47,12 +47,12 @@ namespace std {                             // NOLINT
  * written for use with this library.
  */
 class string_ops {
- private:
+private:
   regex re;
   regex flag;
   std::string value;
 
- public:
+public:
   /**
    * @brief sets the default regex for the class
    * this will supercede regex it is created with.
@@ -64,7 +64,7 @@ class string_ops {
     this->re = re;
   }
 
- public:
+public:
   /**
    * @brief Default constructor that sets the default pattern to match against
    */

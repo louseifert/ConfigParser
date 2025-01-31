@@ -4,7 +4,9 @@ builddir=build
 C_version=c++23
 file=main
 googleinclude=/usr/src/
-lintfilter=-whitespace/comments,-whitespace/blank_line,-readability/todo,-build/header_guard
+lintfilter=-whitespace/comments,-whitespace/blank_line,-readability/todo,-build/header_guard,-whitespace/indent
+gcoverops=--exclude include/test_expect_equals.h --exclude test_parser.cpp --exclude-noncode-lines --exclude-unreachable-branches
+gcoverdir=--gcov-object-directory gcovrdir
 make:
 	echo "Making example file in ${builddir}/${file} the test files, please review"
 	${compiler} ${cflags} ${file}.cpp -std=${C_version}  -I ./include/ -o ${builddir}/${file}
@@ -16,13 +18,14 @@ lint:
 	cppcheck include/ParserExceptions.hpp 
 	cppcheck include/string_ops.hpp
 	cppcheck include/splitstring.hpp
+	cppcheck --language=c++ include/test_expect_equals.h
 	#cppcheck test_parser.cpp
 	cpplint --filter=${lintfilter} include/string_ops.hpp
 	cpplint --filter=${lintfilter} include/splitstring.hpp
 	cpplint --filter=${lintfilter} main.cpp
 	cpplint --filter=${lintfilter} include/ConfigParser.hpp
 	cpplint --filter=${lintfilter} include/ParserExceptions.hpp
-	cpplint --filter=${lintfilter} test_parser.cpp
+	cpplint --filter=${lintfilter},-runtime/string test_parser.cpp
 
 format:
 	clang-format -i include/ConfigParser.hpp
@@ -30,24 +33,25 @@ format:
 	clang-format -i include/splitstring.hpp
 	clang-format -i include/string_ops.hpp
 	clang-format -i main.cpp
+	clang-format -i include/test_expect_equals.h
 	clang-format -i test_parser.cpp
-	sed  -i 's/^public:/ public:/g' include/*
-	sed  -i 's/^private:/ private:/g' include/*
+	#sed  -i 's/^public:/ public:/g' include/*
+	#sed  -i 's/^private:/ private:/g' include/*
 
 
-fulltest:
+test:
 	echo "------>warning<------ the ini file must be changed to permission to 440 for the tests to work"
 	g++ -O3 -fsanitize-address-use-after-scope -fprofile-arcs -ftest-coverage -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra -std=c++23 -I ./include/ -I ${googleinclude} test_parser.cpp -o build/test_parser -lgtest -lgtest_main 
 	build/test_parser -myflag -setting1="value1"
 
-test:
-	g++ -O3 -fsanitize-address-use-after-scope -fprofile-arcs -ftest-coverage -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra -std=c++23 -I ./include/ -I ${googleinclude} test_light.cpp -o build/test_light -lgtest -lgtest_main
-	build/test_light -myflag -setting1="value1"
+#test:
+#	g++ -O3 -fsanitize-address-use-after-scope -fprofile-arcs -ftest-coverage -Wpedantic -fsanitize=address -g -fstack-protector -Wextra -Wall -Wextra -std=c++23 -I ./include/ -I ${googleinclude} test_light.cpp -o build/test_light -lgtest -lgtest_main
+#	build/test_light -myflag -setting1="value1"
 
 coverage:
 	#rm docs/html/coverage.html
-	gcovr --html docs/coverage.html
-	gcovr
+	gcovr ${gcoverops}  --html docs/coverage.html ${gcoverdir}
+	gcovr ${gcoverops} ${gcoverdir}
 
 cleantest:
 	rm build/*parser.gcno

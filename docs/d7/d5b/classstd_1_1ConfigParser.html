@@ -70,7 +70,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="../../d8/dcc/namespacestd.html">std</a></li><li class="navelem"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html">ConfigParser</a></li>  </ul>
+<li class="navelem"><b>std</b></li><li class="navelem"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html">ConfigParser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -122,6 +122,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a63b61e111c42a74ffe43f65c8f59798b" id="r_a63b61e111c42a74ffe43f65c8f59798b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a63b61e111c42a74ffe43f65c8f59798b">ConfigParser</a> (string filename, FILETYPE type, int c, char *v[])</td></tr>
 <tr class="memdesc:a63b61e111c42a74ffe43f65c8f59798b"><td class="mdescLeft">&#160;</td><td class="mdescRight">parses both settings and clp options have precidence over ini on identical identifiers takes filename type argc argv TODO(lou): needs to be completed or removed.  <br /></td></tr>
 <tr class="separator:a63b61e111c42a74ffe43f65c8f59798b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b83d4cad0eedf29f30dbf7509216e4f" id="r_a9b83d4cad0eedf29f30dbf7509216e4f"><td class="memItemLeft" align="right" valign="top"><a id="a9b83d4cad0eedf29f30dbf7509216e4f" name="a9b83d4cad0eedf29f30dbf7509216e4f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>check_permission</b> (std::string filename)</td></tr>
+<tr class="memdesc:a9b83d4cad0eedf29f30dbf7509216e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">check permission of the file before opening it to make sure it is read only <br /></td></tr>
+<tr class="separator:a9b83d4cad0eedf29f30dbf7509216e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a497acdf097e32cf64e89fd8cb07aad7e" id="r_a497acdf097e32cf64e89fd8cb07aad7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classstd_1_1ConfigParser.html#a497acdf097e32cf64e89fd8cb07aad7e">load_ini</a> (string filename)</td></tr>
 <tr class="memdesc:a497acdf097e32cf64e89fd8cb07aad7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a config file with basic INI structure lines starting with ; and # are comments, category or sections are bracketed [section] when accessing them by the get_string or get int function variables under section heads [title] are accessed by title.variablename See test cases for basic usage This function will throw an exception if the file doesn't exist, or the file is writeable by the executor This enforced /etc/ security best practice.  <br /></td></tr>
 <tr class="separator:a497acdf097e32cf64e89fd8cb07aad7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -937,7 +941,6 @@ int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>key_count</b> (std
   </dd>
 </dl>
 <p>Don't try and open the file, and throw an exception, if the file does not exist or is not a regular file.</p>
-<p>if the file is not open abort</p>
 
 </div>
 </div>

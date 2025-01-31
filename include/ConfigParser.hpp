@@ -46,7 +46,7 @@ namespace std {                             // NOLINT
  * planned support for other file formats
  */
 class ConfigParser {
- private:
+private:
   /**
    * Allow multiple entries of the same flag type to be implemented future
    * feature
@@ -85,7 +85,7 @@ class ConfigParser {
   /** @brief track restricted count */
   int restricted_count = 0;
 
- public:
+public:
   enum FILETYPE { INI, JSON, XML, TEST };
   /**
    * @brief plain constructor
@@ -174,22 +174,37 @@ class ConfigParser {
       cout << "Parser FILETYPE is TEST TYPE that prints this line" << endl;
     }
   }
+
   /**
-   * @brief check permission of the file before opening it to make sure it is read only
+   * @brief check permission of the file before opening it to make sure it is
+   * read only
    */
-  bool check_permission(std::string filename){
-    if(!std::filesystem::exists(filename)){return false;}
-    if(std::filesystem::is_regular_file(filename)){return false;}
+  bool check_permission(std::string filename) {
     auto perm = std::filesystem::status(filename).permissions();
-    if(perm == std::filesystem::perms::others_write){return false;}
-    if(!inisec_override && perm == std::filesystem::perms::group_write){return false;}
-    if(!inisec_override && perm == std::filesystem::perms::owner_write){return false;}
-    if(!inisec_override && perm == std::filesystem::perms::group_exec){return false;}
-    if(!inisec_override && perm == std::filesystem::perms::owner_exec){return false;}
-    if(!inisec_override && perm == std::filesystem::perms::others_exec){return false;}
-    if(!inisec_override && perm == std::filesystem::perms::others_read){return false;}
+    if (!inisec_override && perm == std::filesystem::perms::others_write) {
+      return false;
+    }
+    if (!inisec_override && perm == std::filesystem::perms::group_write) {
+      return false;
+    }
+    if (!inisec_override && perm == std::filesystem::perms::owner_write) {
+      return false;
+    }
+    if (!inisec_override && perm == std::filesystem::perms::group_exec) {
+      return false;
+    }
+    if (!inisec_override && perm == std::filesystem::perms::owner_exec) {
+      return false;
+    }
+    if (!inisec_override && perm == std::filesystem::perms::others_exec) {
+      return false;
+    }
+    if (!inisec_override && perm == std::filesystem::perms::others_read) {
+      return false;
+    }
     return true;
   }
+
   /**
    * @brief Parses a config file with basic INI structure lines starting with ;
    * and # are comments, category or sections are bracketed [section] when
@@ -213,22 +228,16 @@ class ConfigParser {
       throw file_access_exception(
           (const string) "file either does not exist or is not a regular file");
     }
-    if (this->check_permission(filename)){
-	    throw security_exception("ini files should be read only");
-    }
+
     // Throw a security exception if the file is writable
+    if (!check_permission(filename)) {
+      throw security_exception(
+          (const string) "Setting config files to read only is more secure, or "
+                         "use override constructor");
+    }
     std::string line;
 
-    /**
-     * if the file is not open abort
-     * */
     std::ifstream file(filename, std::ios::in);
-    /*not sure this condition could happen?
-     * if (!file.is_open()) {
-      throw file_access_exception(
-          "File System Error: cannot open, potentially permission");
-    }*/
-
     string section_head = "";
     while (std::getline(file, line)) {
       if (line.empty()) {
@@ -435,7 +444,7 @@ class ConfigParser {
     if (auto v = options.find(key); v != options.end()) {
       return v->second;
     } else {
-      throw key_value_exception((const string)NOKEY);
+      throw key_value_exception((const string)NOKEY + ": " + key);
     }
   }
   /**
@@ -478,7 +487,9 @@ class ConfigParser {
       throw security_exception("Allow_restricted is set to false by default, "
                                "enable it to use restricted");
     }
-    throw key_value_exception(NOKEY);
+    std::string msg = NOKEY;
+    msg.append(": " + key);
+    throw key_value_exception(msg);
   }
 
   /**
@@ -497,7 +508,10 @@ class ConfigParser {
         throw key_value_exception(NAN);
       }
     } else {
-      throw key_value_exception((const string)NOKEY);
+      std::string msg = NOKEY;
+      msg.append(": " + key);
+
+      throw key_value_exception(msg);
     }
   }
 
@@ -515,7 +529,7 @@ class ConfigParser {
         throw key_value_exception(NAN);
       }
     } else {
-      throw key_value_exception((const string)NOKEY);
+      throw key_value_exception((const string)NOKEY + ": " + key);
     }
   }
   /**
@@ -533,7 +547,7 @@ class ConfigParser {
         throw key_value_exception(NAN);
       }
     } else {
-      throw key_value_exception((const string)NOKEY);
+      throw key_value_exception((const string)NOKEY + ": " + key);
     }
   }
   int16_t key_count(std::string key) { return get_strings(key).size(); }
@@ -551,7 +565,7 @@ class ConfigParser {
         throw key_value_exception(NAN);
       }
     } else {
-      throw key_value_exception((const string)NOKEY);
+      throw key_value_exception((const string)NOKEY + ": " + key);
     }
   }
 
@@ -569,7 +583,7 @@ class ConfigParser {
         throw key_value_exception(NAN);
       }
     } else {
-      throw key_value_exception((const string)NOKEY);
+      throw key_value_exception((const string)NOKEY + ": " + key);
     }
   }
 };

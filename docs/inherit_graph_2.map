@@ -1,3 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d2/de3/classstd_1_1string__ops.html" title="string operations String Helper and processing class, string_ops contains functions that are in plent..." alt="" coords="5,5,123,31"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,80,120,105"/>
+<area shape="rect" id="Node000001" href="$d3/d8c/classfile__access__exception.html" title="Thrown if it cannot find the config." alt="" coords="168,5,333,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="98,71,167,40,200,28,202,33,169,44,101,76"/>
+<area shape="rect" id="Node000002" href="$de/d46/classkey__value__exception.html" title="exception when there is a problem with a key value pair" alt="" coords="171,55,330,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="133,81,171,75,172,81,134,86"/>
+<area shape="rect" id="Node000003" href="$df/d03/classsecurity__exception.html" title="thrown when ever there is a problem with secuirty like file permissions, or a setting not in the exce..." alt="" coords="178,104,323,129"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="134,99,178,105,178,110,133,104"/>
+<area shape="rect" id="Node000004" href="$d2/d3a/classtestexception.html" title="creates an exception that is used in the test suite, replaces google functions which seem to cause is..." alt="" coords="195,153,306,179"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="102,109,169,138,206,151,204,156,167,143,100,114"/>
 </map>
