@@ -107,14 +107,13 @@ public:
   bool default_match(const string *s) {
     for (int i = 0; i < s->size(); i++) {
       char t = s->at(i);
-      if (!((int)t >= (int)'a' && (int)t <= (int)'z') &&
-          !((int)t >= (int)'A' && (int)t <= (int)'Z') &&
-          !((int)t >= (int)'0' && (int)t <= (int)'9') &&
-          !(t == '/' || t == '-' || t == '_' || t == '\\' || t == '.' ||
+      if (!((int)t >= (int)'a' && (int)t <= (int)'z') &&  //NOLINT
+          !((int)t >= (int)'A' && (int)t <= (int)'Z') &&  //NOLINT
+          !((int)t >= (int)'0' && (int)t <= (int)'9') &&  //NOLINT
+          !(t == '/' || t == '-' || t == '_' || t == '\\' || t == '.' ||  //NOLINT
             t == '~')) {
         return false;
       }
-      
     }
     return true;
   }
