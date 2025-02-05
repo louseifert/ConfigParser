@@ -240,6 +240,7 @@ public:
     std::ifstream file(filename, std::ios::in);
     string section_head = "";
     while (std::getline(file, line)) {
+      std::cout << "parsing:" << line << std::endl;
       if (line.empty()) {
         continue;
       }
