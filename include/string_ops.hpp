@@ -105,12 +105,13 @@ public:
    */
   // bool default_match(const string &s) { return regex_match(s, re); }
   bool default_match(const string *s) {
-    for (int i = 0; i < s->size(); i++) {
+    for (size_t i = 0; i < s->size(); i++) {
       char t = s->at(i);
-      if (!((int)t >= (int)'a' && (int)t <= (int)'z') &&  //NOLINT
-          !((int)t >= (int)'A' && (int)t <= (int)'Z') &&  //NOLINT
-          !((int)t >= (int)'0' && (int)t <= (int)'9') &&  //NOLINT
-          !(t == '/' || t == '-' || t == '_' || t == '\\' || t == '.' ||  //NOLINT
+      if (!((int)t >= (int)'a' && (int)t <= (int)'z') && // NOLINT
+          !((int)t >= (int)'A' && (int)t <= (int)'Z') && // NOLINT
+          !((int)t >= (int)'0' && (int)t <= (int)'9') && // NOLINT
+          !(t == '/' || t == '-' || t == '_' || t == '\\' ||
+            t == '.' || // NOLINT
             t == '~')) {
         return false;
       }
